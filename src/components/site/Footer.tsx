@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Instagram, Facebook, Twitter, Mail, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
 import { Newsletter } from "./Newsletter";
@@ -91,6 +92,24 @@ export function Footer() {
             © {new Date().getFullYear()} {org.name} · CAC-registered non-profit
           </p>
         </Container>
+      </div>
+
+      {/* Admin entry — discreet centered logo linking to the admin login. */}
+      <div className="flex justify-center pb-8 pt-2">
+        <Link
+          href="/admin"
+          aria-label="Admin sign in"
+          title="Admin"
+          className="opacity-40 transition-opacity duration-200 hover:opacity-100"
+        >
+          <Image
+            src="/brand/prelli-badge.png"
+            alt=""
+            width={36}
+            height={36}
+            className="h-9 w-9"
+          />
+        </Link>
       </div>
     </footer>
   );
