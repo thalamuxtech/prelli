@@ -159,30 +159,43 @@
   .glow-card:hover .border-beam { animation: none; }
 }
 
-/* Animated brand-gradient button: gradient shifts across on hover. */
+/* Brand-gradient buttons: green -> blue -> pink (the 3 website colours).
+   The gradient repeats so the scroll loops seamlessly. */
 @keyframes gradient-shift {
   0% { background-position: 0% 50%; }
   100% { background-position: 200% 50%; }
 }
-.btn-gradient {
+.btn-gradient,
+.btn-gradient-loop {
   background-image: linear-gradient(
     90deg,
     #7bba3c,
     #2d9cdb,
-    #f2a33c,
     #eb5286,
+    #2d9cdb,
     #7bba3c
   );
   background-size: 200% 100%;
   background-position: 0% 50%;
+  border: 0;
+  color: #fff;
   transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.2s ease;
 }
+/* .btn-gradient — animates on hover only (e.g. the hero "Make a difference") */
 .btn-gradient:hover {
   animation: gradient-shift 2.5s linear infinite;
   box-shadow: 0 8px 24px -6px rgba(123, 186, 60, 0.5);
 }
+/* .btn-gradient-loop — animates constantly (e.g. the nav Donate button) */
+.btn-gradient-loop {
+  animation: gradient-shift 4s linear infinite;
+}
+.btn-gradient-loop:hover {
+  box-shadow: 0 8px 24px -6px rgba(45, 156, 219, 0.55);
+}
 @media (prefers-reduced-motion: reduce) {
-  .btn-gradient:hover { animation: none; }
+  .btn-gradient:hover,
+  .btn-gradient-loop { animation: none; }
 }
 
 /* Respect users who prefer reduced motion — collapse animation to instant (§2.5) */

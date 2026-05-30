@@ -104,7 +104,7 @@ export function HeroSlider() {
 
         {/* Buttons — smaller, pinned to the bottom level with dots & arrows */}
         <div className="relative flex flex-wrap items-center gap-3">
-          <Button href="/donate" size="sm">
+          <Button href="/donate" size="sm" className="btn-gradient hover:text-white">
             <Heart className="h-4 w-4" /> Make a difference
           </Button>
           <Button
@@ -190,11 +190,14 @@ export function HeroSlider() {
         ))}
       </div>
 
-      {/* Auto-advance progress bar */}
+      {/* Auto-advance progress bar — green → blue → pink (brand colours) */}
       {!reduce && (
         <motion.div
           key={`bar-${index}`}
-          className="absolute bottom-0 left-0 z-20 h-1 bg-prelli-green"
+          className="absolute bottom-0 left-0 z-30 h-1"
+          style={{
+            background: "linear-gradient(to right, #7BBA3C, #2D9CDB, #EB5286)",
+          }}
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
           transition={{ duration: AUTO_MS / 1000, ease: "linear" }}

@@ -5,7 +5,6 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { ImpactStats } from "@/components/site/ImpactStats";
 import { EventCountdown } from "@/components/site/EventCountdown";
-import { UpcomingEvents } from "@/components/site/UpcomingEvents";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { FeaturedStories } from "@/components/site/FeaturedStories";
 import { PartnersSlider } from "@/components/site/PartnersSlider";
@@ -41,9 +40,6 @@ export default function Home() {
 
       {/* ── Event countdown (shows only when an event has it enabled) ── */}
       <EventCountdown />
-
-      {/* ── Upcoming events (premium horizontal cards) ────────── */}
-      <UpcomingEvents />
 
       {/* ── Impact counters (dark band) ───────────────────────── */}
       <section className="relative overflow-hidden bg-ink section-y">

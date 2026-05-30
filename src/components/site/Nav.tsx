@@ -96,7 +96,7 @@ export function Nav() {
             href="/donate"
             size="sm"
             className={cn(
-              "shadow-e1 transition-shadow",
+              "btn-gradient-loop shadow-e1",
               !solid && "ring-1 ring-white/30",
             )}
           >
@@ -177,7 +177,7 @@ export function Nav() {
               </ul>
 
               <div className="container-px mt-auto pb-8 pt-4">
-                <Button href="/donate" className="w-full" size="lg">
+                <Button href="/donate" className="btn-gradient-loop w-full" size="lg">
                   <Heart className="h-5 w-5" /> Donate
                 </Button>
               </div>
