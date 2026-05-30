@@ -35,8 +35,8 @@ const initiatives = [
 const now = Date.now();
 const inDays = (d) => new Date(now + d * 86400000).toISOString().slice(0, 16);
 const events = [
-  { id: "sample-ramadan-outreach", title: "Ramadan Food Outreach", slug: "ramadan-food-outreach", description: "Join us as we distribute food packages to orphanages and families across Abuja.", startAt: inDays(30), location: "Abuja, Nigeria", images: ["/stories/al-ansar-orphanage-home-ramadan-donation-2025.jpg"], countdownEnabled: true, status: "upcoming" },
-  { id: "sample-back-to-school", title: "Back-to-School Drive", slug: "back-to-school-drive", description: "Providing school supplies and learning materials to less privileged children.", startAt: inDays(60), location: "Abuja, Nigeria", images: ["/stories/mbora-community-visit-empowering-women-2019.jpg"], countdownEnabled: false, status: "upcoming" },
+  { id: "sample-ramadan-outreach", title: "Ramadan Food Outreach", slug: "ramadan-food-outreach", description: "Join us as we distribute food packages to orphanages and families across Abuja.", startAt: inDays(30), location: "Abuja, Nigeria", images: ["/stories/al-ansar-orphanage-home-ramadan-donation-2025.jpg", "/stories/christ-foundation-orphanage-home-widows-outreach-2021.jpg", "/stories/al-ansar-orphanage-home-visit-2020.jpg"], countdownEnabled: true, status: "upcoming" },
+  { id: "sample-back-to-school", title: "Back-to-School Drive", slug: "back-to-school-drive", description: "Providing school supplies and learning materials to less privileged children.", startAt: inDays(60), location: "Abuja, Nigeria", images: ["/stories/mbora-community-visit-empowering-women-2019.jpg", "/stories/prelli-fun-fair-for-orphans-and-widows-2019.jpg", "/stories/orphanage-home-outreach-kaduna-2018.jpg"], countdownEnabled: false, status: "upcoming" },
 ];
 
 const sponsors = [

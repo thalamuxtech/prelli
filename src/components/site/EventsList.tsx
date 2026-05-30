@@ -1,16 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Calendar, MapPin, ArrowRight, CalendarClock } from "lucide-react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import { EventImageSlider } from "@/components/site/EventImageSlider";
+import { useAllEvents } from "@/lib/usePublicContent";
 import { sortedPosts } from "@/content/posts";
 import type { AdminEvent } from "@/lib/types";
 
@@ -57,29 +55,7 @@ function FullEventCard({ ev }: { ev: AdminEvent }) {
 /** Public events: live admin events (upcoming + past) with image sliders,
  *  plus the historical outreach list as a fallback. */
 export function EventsList() {
-  const [events, setEvents] = useState<AdminEvent[]>([]);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const snap = await getDocs(collection(db, "events"));
-        setEvents(snap.docs.map((d) => ({ id: d.id, ...d.data() }) as AdminEvent));
-      } catch {
-        /* none */
-      } finally {
-        setLoaded(true);
-      }
-    })();
-  }, []);
-
-  const now = Date.now();
-  const upcoming = events
-    .filter((e) => new Date(e.startAt).getTime() > now)
-    .sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
-  const past = events
-    .filter((e) => new Date(e.startAt).getTime() <= now)
-    .sort((a, b) => new Date(b.startAt).getTime() - new Date(a.startAt).getTime());
+  const { upcoming, past, loaded } = useAllEvents();
 
   return (
     <>
@@ -96,13 +72,11 @@ export function EventsList() {
           </Reveal>
 
           {upcoming.length > 0 ? (
-            <Stagger className="mt-12 grid gap-6 md:grid-cols-2">
+            <div className="mt-12 grid gap-6 md:grid-cols-2">
               {upcoming.map((ev) => (
-                <StaggerItem key={ev.id}>
-                  <FullEventCard ev={ev} />
-                </StaggerItem>
+                <FullEventCard key={ev.id} ev={ev} />
               ))}
-            </Stagger>
+            </div>
           ) : (
             loaded && (
               <Reveal className="mt-10 text-center">
@@ -125,13 +99,11 @@ export function EventsList() {
         <section className="bg-cloud section-y">
           <Container>
             <SectionHeading eyebrow="Past events" title="Where we've been" align="left" />
-            <Stagger className="mt-10 grid gap-6 md:grid-cols-2">
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
               {past.map((ev) => (
-                <StaggerItem key={ev.id}>
-                  <FullEventCard ev={ev} />
-                </StaggerItem>
+                <FullEventCard key={ev.id} ev={ev} />
               ))}
-            </Stagger>
+            </div>
           </Container>
         </section>
       )}

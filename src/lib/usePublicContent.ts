@@ -65,6 +65,35 @@ export function useUpcomingEvents(max = 2) {
   return { events, loaded };
 }
 
+/** All events (admin-managed), split into upcoming + past. */
+export function useAllEvents() {
+  const [events, setEvents] = useState<AdminEvent[]>([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const snap = await getDocs(collection(db, "events"));
+        setEvents(snap.docs.map((d) => ({ id: d.id, ...d.data() }) as AdminEvent));
+      } catch {
+        /* none */
+      } finally {
+        setLoaded(true);
+      }
+    })();
+  }, []);
+
+  const now = Date.now();
+  const upcoming = events
+    .filter((e) => new Date(e.startAt).getTime() > now)
+    .sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime());
+  const past = events
+    .filter((e) => new Date(e.startAt).getTime() <= now)
+    .sort((a, b) => new Date(b.startAt).getTime() - new Date(a.startAt).getTime());
+
+  return { upcoming, past, loaded };
+}
+
 interface SponsorDoc {
   id: string;
   name: string;
