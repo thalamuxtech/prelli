@@ -33,7 +33,7 @@ export default function AboutPage() {
               Who we are
             </p>
             <h1 className="text-h1 mt-3 font-display font-bold text-ink">
-              A family united in supporting precious little lives
+              United in supporting precious little lives
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-slate">{intro}</p>
           </Reveal>
@@ -44,21 +44,33 @@ export default function AboutPage() {
       <section className="bg-cloud section-y">
         <Container className="grid gap-6 md:grid-cols-2">
           <Reveal>
-            <div className="h-full rounded-lg bg-white p-8 shadow-e1">
-              <div className="mb-4 inline-flex rounded-md bg-prelli-green-50 p-3">
-                <Heart className="h-6 w-6 text-prelli-green-600" />
+            <div className="group relative h-full overflow-hidden rounded-lg bg-white p-8 shadow-e1 transition-all duration-300 hover:-translate-y-1.5 hover:[box-shadow:0_0_0_1px_rgba(123,186,60,.6),0_0_30px_-4px_rgba(123,186,60,.55)]">
+              <span
+                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:animate-glow group-hover:opacity-100"
+                style={{ background: "radial-gradient(60% 60% at 50% 0%, rgba(123,186,60,.22), transparent 70%)" }}
+              />
+              <div className="relative">
+                <div className="mb-4 inline-flex rounded-md bg-prelli-green-50 p-3 transition-transform duration-300 group-hover:scale-110">
+                  <Heart className="h-6 w-6 text-prelli-green-600" />
+                </div>
+                <h2 className="font-display text-2xl font-bold text-ink">Our Mission</h2>
+                <p className="mt-3 leading-relaxed text-slate">{mission}</p>
               </div>
-              <h2 className="font-display text-2xl font-bold text-ink">Our Mission</h2>
-              <p className="mt-3 leading-relaxed text-slate">{mission}</p>
             </div>
           </Reveal>
           <Reveal delay={0.08}>
-            <div className="h-full rounded-lg bg-white p-8 shadow-e1">
-              <div className="mb-4 inline-flex rounded-md bg-prelli-blue/10 p-3">
-                <Eye className="h-6 w-6 text-prelli-blue-700" />
+            <div className="group relative h-full overflow-hidden rounded-lg bg-white p-8 shadow-e1 transition-all duration-300 hover:-translate-y-1.5 hover:[box-shadow:0_0_0_1px_rgba(45,156,219,.6),0_0_30px_-4px_rgba(45,156,219,.55)]">
+              <span
+                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:animate-glow group-hover:opacity-100"
+                style={{ background: "radial-gradient(60% 60% at 50% 0%, rgba(45,156,219,.2), transparent 70%)" }}
+              />
+              <div className="relative">
+                <div className="mb-4 inline-flex rounded-md bg-prelli-blue/10 p-3 transition-transform duration-300 group-hover:scale-110">
+                  <Eye className="h-6 w-6 text-prelli-blue-700" />
+                </div>
+                <h2 className="font-display text-2xl font-bold text-ink">Our Vision</h2>
+                <p className="mt-3 leading-relaxed text-slate">{vision}</p>
               </div>
-              <h2 className="font-display text-2xl font-bold text-ink">Our Vision</h2>
-              <p className="mt-3 leading-relaxed text-slate">{vision}</p>
             </div>
           </Reveal>
         </Container>
