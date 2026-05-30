@@ -68,7 +68,7 @@ export function HeroSlider() {
       }}
     >
       {/* Slides */}
-      <AnimatePresence initial={false} custom={dir} mode="popLayout">
+      <AnimatePresence initial={false} custom={dir}>
         <motion.div
           key={index}
           custom={dir}
@@ -184,21 +184,25 @@ export function HeroSlider() {
         </div>
       </Container>
 
-      {/* Arrows */}
-      <button
-        onClick={prev}
-        aria-label="Previous slide"
-        className="absolute left-3 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-pill border border-white/20 bg-white/10 text-white backdrop-blur transition-all hover:bg-white/25 sm:flex"
-      >
-        <ChevronLeft className="h-6 w-6" />
-      </button>
-      <button
-        onClick={next}
-        aria-label="Next slide"
-        className="absolute right-3 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-pill border border-white/20 bg-white/10 text-white backdrop-blur transition-all hover:bg-white/25 sm:flex"
-      >
-        <ChevronRight className="h-6 w-6" />
-      </button>
+      {/* Prev/next arrows — bottom-right of the content column, level with the CTAs */}
+      <Container className="pointer-events-none absolute inset-x-0 bottom-16 z-20 hidden sm:block">
+        <div className="pointer-events-auto flex justify-end gap-3">
+          <button
+            onClick={prev}
+            aria-label="Previous slide"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-pill border border-white/20 bg-white/10 text-white backdrop-blur transition-all hover:bg-white/25"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+          <button
+            onClick={next}
+            aria-label="Next slide"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-pill border border-white/20 bg-white/10 text-white backdrop-blur transition-all hover:bg-white/25"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+        </div>
+      </Container>
 
       {/* Dots */}
       <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2.5">
