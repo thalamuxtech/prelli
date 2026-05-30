@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { ImpactStats } from "@/components/site/ImpactStats";
+import { EventCountdown } from "@/components/site/EventCountdown";
 import { StoryCard } from "@/components/site/StoryCard";
 import { mission, supportPillars } from "@/content/site";
 import { sortedPosts } from "@/content/posts";
@@ -86,6 +87,9 @@ export default function Home() {
           </Reveal>
         </Container>
       </section>
+
+      {/* ── Event countdown (shows only when an event has it enabled) ── */}
+      <EventCountdown />
 
       {/* ── Impact counters ───────────────────────────────────── */}
       <section className="section-y">

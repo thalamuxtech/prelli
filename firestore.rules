@@ -53,7 +53,7 @@ service cloud.firestore {
     // ── Contact / volunteer submissions: public create, staff manage ────────
     match /submissions/{id} {
       allow read, update, delete: if isEditor();
-      allow create: if request.resource.data.type in ["contact", "volunteer"]
+      allow create: if request.resource.data.type in ["contact", "volunteer", "partner", "pledge"]
         && isEmail(request.resource.data.email)
         && request.resource.data.name is string
         && request.resource.data.name.size() > 1
@@ -63,10 +63,20 @@ service cloud.firestore {
         && request.resource.data.handled == false;
     }
 
+    // ── Internal: inventory & stock movements (staff only, never public) ─────
+    match /inventory/{id}      { allow read, write: if isEditor(); }
+    match /stockMovements/{id} { allow read, write: if isEditor(); }
+
     // ── Staff accounts ──────────────────────────────────────────────────────
     match /users/{uid} {
       allow read: if isSignedIn() && (request.auth.uid == uid || isEditor());
-      allow write: if isSuperadmin();
+      // Superadmins manage all staff; a user may clear their own first-login flag.
+      allow create, delete: if isSuperadmin();
+      allow update: if isSuperadmin()
+        || (request.auth.uid == uid
+            && request.resource.data.role == resource.data.role
+            && request.resource.data.diff(resource.data).affectedKeys()
+                 .hasOnly(["mustChangePassword"]));
     }
   }
 }

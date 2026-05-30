@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
+import { PledgeForm } from "@/components/site/PledgeForm";
 
 export const metadata: Metadata = {
   title: "Donate",
@@ -74,6 +75,26 @@ export default function DonatePage() {
               PreLLI is a CAC-registered non-profit. We believe in transparency —
               with reports showing exactly how donations are allocated.
             </p>
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* Pledge form */}
+      <section className="section-y">
+        <Container className="max-w-2xl">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Pledge your support"
+              title="Prefer to pledge?"
+              align="left"
+            />
+            <p className="mt-3 text-slate">
+              Let us know what you&apos;d like to give — funds or items — and
+              we&apos;ll follow up with how to deliver it.
+            </p>
+            <div className="mt-8 rounded-lg border border-line bg-white p-6 shadow-e1 sm:p-8">
+              <PledgeForm />
+            </div>
           </Reveal>
         </Container>
       </section>

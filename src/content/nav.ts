@@ -26,6 +26,7 @@ export const footerGroups = [
     links: [
       { label: "Donate", href: "/donate" },
       { label: "Volunteer", href: "/volunteer" },
+      { label: "Partner with us", href: "/partner" },
       { label: "Events", href: "/events" },
       { label: "Contact", href: "/contact" },
     ],

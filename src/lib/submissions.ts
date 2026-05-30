@@ -45,6 +45,46 @@ export async function submitVolunteer(data: {
   });
 }
 
+export async function submitPartner(data: {
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+  organisation?: string;
+}) {
+  await addDoc(collection(db, "submissions"), {
+    type: "partner",
+    name: data.name,
+    email: data.email,
+    phone: data.phone ?? "",
+    message: data.message,
+    extra: { organisation: data.organisation ?? "" },
+    handled: false,
+    archived: false,
+    createdAt: serverTimestamp(),
+  });
+}
+
+export async function submitPledge(data: {
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+  amount?: string;
+}) {
+  await addDoc(collection(db, "submissions"), {
+    type: "pledge",
+    name: data.name,
+    email: data.email,
+    phone: data.phone ?? "",
+    message: data.message,
+    extra: { amount: data.amount ?? "" },
+    handled: false,
+    archived: false,
+    createdAt: serverTimestamp(),
+  });
+}
+
 export async function subscribeNewsletter(email: string, source = "footer") {
   await addDoc(collection(db, "subscribers"), {
     email,
