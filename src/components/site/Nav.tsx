@@ -46,13 +46,17 @@ export function Nav() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-out-expo",
         solid
-          ? "border-b border-line bg-white/80 py-2 shadow-e1 backdrop-blur-lg"
-          : "border-b border-transparent bg-gradient-to-b from-ink/40 to-transparent py-4",
+          ? "border-b border-line bg-white/80 py-3 shadow-e1 backdrop-blur-lg"
+          : "border-b border-transparent bg-gradient-to-b from-ink/45 to-transparent py-5",
       )}
       style={{ paddingTop: "max(env(safe-area-inset-top), 0px)" }}
     >
-      <nav className="container-px mx-auto flex max-w-content items-center justify-between gap-4">
-        <Logo scrolled={solid} />
+      {/* Logo is allowed to overflow the bar (detached, oversized) without clipping. */}
+      <nav className="container-px mx-auto flex max-w-content items-center justify-between gap-4 overflow-visible">
+        {/* relative wrapper lets the oversized logo extend below the bar */}
+        <div className="relative z-10 flex items-center">
+          <Logo scrolled={solid} />
+        </div>
 
         {/* Desktop links (lg+) */}
         <ul className="hidden items-center gap-0.5 lg:flex xl:gap-1.5">

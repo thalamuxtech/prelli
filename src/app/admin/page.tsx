@@ -1,7 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { FileText, CalendarDays, Boxes, Inbox, Mail, ArrowRight } from "lucide-react";
+import { doc, getDoc } from "firebase/firestore";
+import { FileText, CalendarDays, Boxes, Inbox, Mail, ArrowRight, Eye } from "lucide-react";
+import { db } from "@/lib/firebase";
 import { useAuth } from "@/lib/auth";
 import { useCollection } from "@/lib/db";
 import { PageHeader, StatTile } from "@/components/admin/ui";
@@ -14,6 +17,13 @@ export default function AdminDashboard() {
   const inventory = useCollection<{ id: string }>("inventory");
   const submissions = useCollection<Submission>("submissions");
   const subscribers = useCollection<Subscriber>("subscribers");
+  const [visits, setVisits] = useState<number | null>(null);
+
+  useEffect(() => {
+    getDoc(doc(db, "siteStats", "global"))
+      .then((snap) => setVisits(snap.exists() ? (snap.data().totalVisits as number) ?? 0 : 0))
+      .catch(() => setVisits(null));
+  }, []);
 
   const newSubs = submissions.data.filter((s) => !s.handled).length;
 
@@ -25,6 +35,7 @@ export default function AdminDashboard() {
       />
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+        <StatTile label="Site visits" value={visits ?? "—"} icon={Eye} accent="green" />
         <StatTile label="Posts" value={posts.data.length} icon={FileText} accent="blue" />
         <StatTile label="Events" value={events.data.length} icon={CalendarDays} accent="orange" />
         <StatTile label="Inventory items" value={inventory.data.length} icon={Boxes} accent="green" />

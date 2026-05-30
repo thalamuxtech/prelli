@@ -4,18 +4,19 @@ import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { ScrollToTop } from "@/components/site/ScrollToTop";
 import { AppCheckInit } from "@/components/site/AppCheckInit";
+import { MainSpacer } from "@/components/site/MainSpacer";
+import { VisitTracker } from "@/components/site/VisitTracker";
 
 /** Public site shell — wraps every public page with nav, footer, and scroll behaviour. */
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <AppCheckInit />
+      <VisitTracker />
       <SmoothScroll />
       <ScrollProgress />
       <Nav />
-      {/* The home hero sits flush under the transparent nav; inner pages clear it
-          via their first section's top padding (see SitePage wrapper below). */}
-      <main>{children}</main>
+      <MainSpacer>{children}</MainSpacer>
       <Footer />
       <ScrollToTop />
     </>

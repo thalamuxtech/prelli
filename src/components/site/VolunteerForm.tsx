@@ -24,7 +24,12 @@ export function VolunteerForm() {
         email: String(fd.get("email") || ""),
         phone: String(fd.get("phone") || ""),
         message: String(fd.get("message") || ""),
-        extra: { interests: String(fd.get("interests") || "") },
+        extra: {
+          interests: String(fd.get("interests") || ""),
+          country: String(fd.get("country") || ""),
+          state: String(fd.get("state") || ""),
+          languages: String(fd.get("languages") || ""),
+        },
       });
       setStatus("done");
       form.reset();
@@ -69,6 +74,18 @@ export function VolunteerForm() {
         <div>
           <Label htmlFor="interests">Area of interest</Label>
           <Input id="interests" name="interests" placeholder="e.g. outreach, education, logistics" />
+        </div>
+        <div>
+          <Label htmlFor="country">Country</Label>
+          <Input id="country" name="country" placeholder="Nigeria" defaultValue="Nigeria" />
+        </div>
+        <div>
+          <Label htmlFor="state">State / Region</Label>
+          <Input id="state" name="state" placeholder="e.g. FCT, Kaduna" />
+        </div>
+        <div className="sm:col-span-2">
+          <Label htmlFor="languages">Languages spoken</Label>
+          <Input id="languages" name="languages" placeholder="e.g. English, Hausa, Yoruba" />
         </div>
       </div>
       <div>

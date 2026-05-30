@@ -5,10 +5,10 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { ImpactStats } from "@/components/site/ImpactStats";
 import { EventCountdown } from "@/components/site/EventCountdown";
+import { UpcomingEvents } from "@/components/site/UpcomingEvents";
 import { HeroSlider } from "@/components/site/HeroSlider";
-import { StoryCard } from "@/components/site/StoryCard";
+import { FeaturedStories } from "@/components/site/FeaturedStories";
 import { mission, supportPillars } from "@/content/site";
-import { sortedPosts } from "@/content/posts";
 
 const icons = [HeartHandshake, Users, HandHeart];
 const accents: Record<string, { color: string; iconBg: string; bar: string }> = {
@@ -17,7 +17,6 @@ const accents: Record<string, { color: string; iconBg: string; bar: string }> = 
   orange: { color: "text-prelli-orange", iconBg: "bg-prelli-orange-50", bar: "from-prelli-orange to-prelli-pink" },
 };
 const pillars = supportPillars.map((p, i) => ({ ...p, icon: icons[i], ...accents[p.accent] }));
-const featured = sortedPosts.slice(0, 3);
 
 export default function Home() {
   return (
@@ -42,13 +41,16 @@ export default function Home() {
       {/* ── Event countdown (shows only when an event has it enabled) ── */}
       <EventCountdown />
 
+      {/* ── Upcoming events (premium horizontal cards) ────────── */}
+      <UpcomingEvents />
+
       {/* ── Impact counters (dark band) ───────────────────────── */}
       <section className="relative overflow-hidden bg-ink section-y">
         <div
-          className="pointer-events-none absolute inset-0 opacity-50"
+          className="animate-glow pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(45% 60% at 80% 10%, rgba(123,186,60,.45), transparent 60%), radial-gradient(40% 60% at 12% 90%, rgba(45,156,219,.4), transparent 60%)",
+              "radial-gradient(45% 60% at 80% 10%, rgba(123,186,60,.5), transparent 60%), radial-gradient(40% 60% at 12% 90%, rgba(45,156,219,.45), transparent 60%)",
           }}
         />
         <Container className="relative">
@@ -99,13 +101,7 @@ export default function Home() {
             align="left"
             seeAll={{ label: "See all stories", href: "/stories" }}
           />
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {featured.map((post, i) => (
-              <Reveal key={post.id} delay={i * 0.08}>
-                <StoryCard post={post} />
-              </Reveal>
-            ))}
-          </div>
+          <FeaturedStories />
         </Container>
       </section>
 
@@ -113,12 +109,12 @@ export default function Home() {
       <section className="section-y">
         <Container>
           <Reveal>
-            <div className="relative overflow-hidden rounded-lg bg-ink px-8 py-14 text-center sm:px-16">
+            <div className="neon-ring relative overflow-hidden rounded-lg bg-ink px-8 py-14 text-center sm:px-16">
               <div
-                className="pointer-events-none absolute inset-0 opacity-40"
+                className="animate-glow pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(60% 120% at 80% 0%, rgba(123,186,60,.5), transparent 55%), radial-gradient(50% 120% at 10% 100%, rgba(45,156,219,.4), transparent 55%)",
+                    "radial-gradient(60% 120% at 80% 0%, rgba(123,186,60,.55), transparent 55%), radial-gradient(50% 120% at 10% 100%, rgba(45,156,219,.45), transparent 55%)",
                 }}
               />
               <div className="relative">

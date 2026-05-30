@@ -7,6 +7,7 @@ import {
   Mail,
   Users2,
   Image,
+  Images,
   Handshake,
   Settings,
   UserCog,
@@ -23,6 +24,7 @@ export interface AdminNavItem {
 
 export const adminNav: AdminNavItem[] = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { label: "Hero Slides", href: "/admin/slides", icon: Images },
   { label: "Posts", href: "/admin/posts", icon: FileText },
   { label: "Events", href: "/admin/events", icon: CalendarDays },
   { label: "Inventory", href: "/admin/inventory", icon: Boxes },

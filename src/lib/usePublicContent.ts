@@ -1,0 +1,95 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { sortedPosts } from "@/content/posts";
+import type { Post, AdminEvent } from "@/lib/types";
+
+/**
+ * Public content reads from Firestore (admin-managed) and falls back to the
+ * bundled seed content when Firestore is empty or unreachable. This lets the
+ * site render instantly with seed data, then hydrate with live admin content.
+ */
+export function usePublishedPosts(max = 100) {
+  const [posts, setPosts] = useState<Post[]>(sortedPosts);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const snap = await getDocs(
+          query(
+            collection(db, "posts"),
+            where("status", "==", "published"),
+            orderBy("date", "desc"),
+            limit(max),
+          ),
+        );
+        if (!snap.empty) {
+          setPosts(snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Post));
+        }
+      } catch {
+        // keep seed fallback
+      }
+    })();
+  }, [max]);
+
+  return posts;
+}
+
+/** Upcoming events (admin-managed), soonest first. Empty array if none. */
+export function useUpcomingEvents(max = 2) {
+  const [events, setEvents] = useState<AdminEvent[]>([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const snap = await getDocs(collection(db, "events"));
+        const now = Date.now();
+        const up = snap.docs
+          .map((d) => ({ id: d.id, ...d.data() }) as AdminEvent)
+          .filter((e) => new Date(e.startAt).getTime() > now)
+          .sort((a, b) => new Date(a.startAt).getTime() - new Date(b.startAt).getTime())
+          .slice(0, max);
+        setEvents(up);
+      } catch {
+        /* none */
+      } finally {
+        setLoaded(true);
+      }
+    })();
+  }, [max]);
+
+  return { events, loaded };
+}
+
+interface SlideDoc {
+  id: string;
+  image: string;
+  eyebrow?: string;
+  title: string;
+  highlight?: string;
+  body?: string;
+  order?: number;
+}
+
+/** Hero slides (admin-managed); empty array means use the component's defaults. */
+export function useHeroSlides() {
+  const [slides, setSlides] = useState<SlideDoc[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const snap = await getDocs(query(collection(db, "heroSlides"), orderBy("order", "asc")));
+        if (!snap.empty) {
+          setSlides(snap.docs.map((d) => ({ id: d.id, ...d.data() }) as SlideDoc));
+        }
+      } catch {
+        /* defaults */
+      }
+    })();
+  }, []);
+
+  return slides;
+}

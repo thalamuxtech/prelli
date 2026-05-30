@@ -12,10 +12,11 @@ export function Logo({
   size?: number;
   scrolled?: boolean;
 }) {
-  // Animated mode: render at the larger size and scale down with a transition.
+  // Animated mode: render large over the hero, shrink to a still-prominent
+  // size on scroll / inner pages (kept bigger than the old 42px).
   const animated = scrolled !== undefined;
-  const big = 60;
-  const small = 42;
+  const big = 84;
+  const small = 56;
   const height = animated ? (scrolled ? small : big) : size;
 
   return (

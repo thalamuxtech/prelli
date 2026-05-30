@@ -37,6 +37,13 @@ service cloud.firestore {
     match /initiatives/{id}  { allow read: if true; allow write: if isEditor(); }
     match /impactStats/{id}  { allow read: if true; allow write: if isEditor(); }
     match /campaigns/{id}    { allow read: if true; allow write: if isEditor(); }
+    match /heroSlides/{id}   { allow read: if true; allow write: if isEditor(); }
+
+    // Site visit stats: public increment (single counter doc), staff read.
+    match /siteStats/{id} {
+      allow read: if true;
+      allow create, update: if true;
+    }
     match /settings/{doc} {
       allow read: if true;
       allow write: if isEditor();

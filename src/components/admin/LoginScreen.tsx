@@ -28,7 +28,7 @@ export function LoginScreen() {
     <div className="flex min-h-screen items-center justify-center bg-cloud px-4">
       <div className="w-full max-w-sm">
         <div className="mb-6 flex justify-center">
-          <Logo size={56} />
+          <Logo size={40} />
         </div>
         <div className="rounded-lg border border-line bg-white p-8 shadow-e2">
           <h1 className="font-display text-2xl font-bold text-ink">Admin sign in</h1>

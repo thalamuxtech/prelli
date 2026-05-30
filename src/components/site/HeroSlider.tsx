@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Heart, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { useHeroSlides } from "@/lib/usePublicContent";
 
 interface Slide {
   image: string;
@@ -15,7 +16,7 @@ interface Slide {
   body: string;
 }
 
-const slides: Slide[] = [
+const defaultSlides: Slide[] = [
   {
     image: "/stories/al-ansar-orphanage-home-ramadan-donation-2025.jpg",
     eyebrow: "Precious Little Lives Initiative · since 2018",
@@ -50,6 +51,16 @@ const AUTO_MS = 6000;
 
 export function HeroSlider() {
   const reduce = useReducedMotion();
+  const adminSlides = useHeroSlides();
+  const slides: Slide[] = adminSlides.length
+    ? adminSlides.map((s) => ({
+        image: s.image,
+        eyebrow: s.eyebrow || "Precious Little Lives Initiative",
+        title: s.title,
+        highlight: s.highlight || "",
+        body: s.body || "",
+      }))
+    : defaultSlides;
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(1);
   const touchX = useRef<number | null>(null);
@@ -64,12 +75,13 @@ export function HeroSlider() {
 
   // Auto-advance (paused when reduced-motion is preferred).
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || slides.length <= 1) return;
     const id = setInterval(() => setIndex((i) => (i + 1) % slides.length), AUTO_MS);
     return () => clearInterval(id);
-  }, [reduce, index]);
+  }, [reduce, index, slides.length]);
 
-  const slide = slides[index];
+  const slide = slides[Math.min(index, slides.length - 1)];
+  if (!slide) return null;
 
   return (
     <section
