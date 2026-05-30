@@ -25,11 +25,15 @@ const initiatives = [
   ["Quality Education", "Educational resources and support for both gifted and less-privileged children and youth.", "1,000+ children in school"],
   ["Skill Acquisition Programs", "Practical skills training that builds self-sufficiency and livelihoods.", "300+ trained"],
   ["Humanitarian Projects", "Relief that meets real needs: food, sanitation, and shelter for those facing hardship.", "4,000+ lives touched"],
-  ["Peace Ambassadors", "Promoting peace, tolerance, and social cohesion within communities.", ""],
   ["Progressive Planning for Society", "Long-term initiatives that build resilient, self-reliant communities.", ""],
-  ["Youth Career Training & Engagement", "Mentorship and career development to prepare young people for the future.", ""],
-  ["STEM Camp for Teen Girls", "Science, Technology, Engineering & Mathematics camps designed to empower teenage girls.", ""],
-  ["Computer Training Programs", "Digital-literacy training to open up modern opportunities.", ""],
+];
+
+// Initiatives removed from the lineup — delete from Firestore if present.
+const removedInitiativeIds = [
+  "peace-ambassadors",
+  "youth-career-training-engagement",
+  "stem-camp-for-teen-girls",
+  "computer-training-programs",
 ];
 
 const now = Date.now();
@@ -60,6 +64,8 @@ for (let i = 0; i < initiatives.length; i++) {
   c++;
 }
 console.log(`initiatives: ${c}`);
+for (const rid of removedInitiativeIds) { await db.collection("initiatives").doc(rid).delete(); }
+console.log(`removed initiatives: ${removedInitiativeIds.length}`);
 c = 0;
 for (const e of events) { await db.collection("events").doc(e.id).set({ ...e, ...stamp() }, { merge: true }); c++; }
 console.log(`events: ${c}`);

@@ -30,24 +30,7 @@ export const initiatives: Initiative[] = [
     summary: "Relief that meets real needs: food, sanitation, and shelter for those facing hardship.",
   },
   {
-    title: "Peace Ambassadors",
-    summary: "Promoting peace, tolerance, and social cohesion within communities.",
-  },
-  {
     title: "Progressive Planning for Society",
     summary: "Long-term initiatives that build resilient, self-reliant communities.",
-  },
-  {
-    title: "Youth Career Training & Engagement",
-    summary: "Mentorship and career development to prepare young people for the future.",
-  },
-  {
-    title: "STEM Camp for Teen Girls",
-    summary:
-      "Science, Technology, Engineering & Mathematics camps designed to empower teenage girls.",
-  },
-  {
-    title: "Computer Training Programs",
-    summary: "Digital-literacy training to open up modern opportunities.",
   },
 ];

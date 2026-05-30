@@ -78,18 +78,31 @@ export function HeroSlider() {
           transition={{ duration: reduce ? 0.3 : 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0"
         >
+          {/* Blurred, dimmed fill so the sides are soft colour rather than bars */}
           <Image
             src={slide.image}
             alt=""
             fill
             priority
             sizes="100vw"
-            className="object-cover object-top"
-            style={{ objectPosition: "center 25%" }}
+            className="scale-110 object-cover blur-2xl"
+            aria-hidden
           />
-          {/* Cinematic scrim for legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/25" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-ink/45" />
+
+          {/* The actual image, shown as-is (contained) and centred */}
+          <Image
+            src={slide.image}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-contain"
+          />
+
+          {/* Brand gradient edges + legibility scrim over the left content area */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/35 to-ink/55" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/65 via-transparent to-ink/35" />
         </motion.div>
       </AnimatePresence>
 
@@ -121,8 +134,8 @@ export function HeroSlider() {
         </div>
       </Container>
 
-      {/* Content */}
-      <Container className="relative z-10 flex h-full items-center">
+      {/* Content — pushed down so it sits clearly below the menu bar */}
+      <Container className="relative z-10 flex h-full items-center pt-28 sm:pt-32">
         <div className="max-w-2xl">
           <AnimatePresence mode="wait">
             <motion.div
