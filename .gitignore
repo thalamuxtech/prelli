@@ -35,3 +35,7 @@ firestore-debug.log*
 !.vscode/extensions.json
 .idea/
 Thumbs.db
+
+# Firebase admin SDK private keys (NEVER commit)
+*adminsdk*.json
+serviceAccount*.json
