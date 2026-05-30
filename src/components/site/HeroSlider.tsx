@@ -112,24 +112,6 @@ export function HeroSlider() {
               Learn more <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
-
-          {/* Prev/next — under the CTAs, left-aligned with the text panel */}
-          <div className="mt-8 flex gap-3">
-            <button
-              onClick={prev}
-              aria-label="Previous slide"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-pill border border-white/20 bg-white/10 text-white backdrop-blur transition-all hover:bg-white/25"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={next}
-              aria-label="Next slide"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-pill border border-white/20 bg-white/10 text-white backdrop-blur transition-all hover:bg-white/25"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
         </div>
       </div>
 
@@ -158,9 +140,34 @@ export function HeroSlider() {
             />
           </motion.div>
         ))}
-        {/* seam gradient blending the image into the dark text panel on the left */}
-        <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-ink via-transparent to-transparent lg:block" />
+        {/* Smooth seam — long, eased fade from the dark panel into the image
+            so the left dissolves gently into the right with no hard edge. */}
+        <div
+          className="pointer-events-none absolute inset-0 hidden lg:block"
+          style={{
+            background:
+              "linear-gradient(to right, rgb(27,36,48) 0%, rgba(27,36,48,0.85) 12%, rgba(27,36,48,0.45) 26%, rgba(27,36,48,0.12) 40%, transparent 55%)",
+          }}
+        />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
+
+        {/* Prev/next arrows — bottom-right of the image */}
+        <div className="absolute bottom-5 right-5 z-30 flex gap-3 sm:bottom-6 sm:right-6">
+          <button
+            onClick={prev}
+            aria-label="Previous slide"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-pill border border-white/25 bg-ink/40 text-white backdrop-blur transition-all hover:bg-ink/70"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={next}
+            aria-label="Next slide"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-pill border border-white/25 bg-ink/40 text-white backdrop-blur transition-all hover:bg-ink/70"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
       </div>
 
       {/* Dots */}
