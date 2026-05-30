@@ -13,8 +13,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <SmoothScroll />
       <ScrollProgress />
       <Nav />
-      {/* Padding offsets the fixed header so content isn't hidden underneath. */}
-      <main className="pt-20">{children}</main>
+      {/* The home hero sits flush under the transparent nav; inner pages clear it
+          via their first section's top padding (see SitePage wrapper below). */}
+      <main>{children}</main>
       <Footer />
       <ScrollToTop />
     </>

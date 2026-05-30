@@ -2,10 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 
 /**
- * Official PreLLI logo (planning/PreLLILogoT.png → public/brand/prelli-logo.png).
- * The mark already carries the wordmark, so we render it as a single image.
+ * Official PreLLI logo. When `scrolled` is provided, the logo smoothly scales
+ * between a large (hero) and compact (sticky) size via a CSS transition.
  */
-export function Logo({ size = 48 }: { size?: number }) {
+export function Logo({
+  size = 48,
+  scrolled,
+}: {
+  size?: number;
+  scrolled?: boolean;
+}) {
+  // Animated mode: render at the larger size and scale down with a transition.
+  const animated = scrolled !== undefined;
+  const big = 60;
+  const small = 42;
+  const height = animated ? (scrolled ? small : big) : size;
+
   return (
     <Link
       href="/"
@@ -15,11 +27,11 @@ export function Logo({ size = 48 }: { size?: number }) {
       <Image
         src="/brand/prelli-logo.png"
         alt="PreLLI — Precious Little Lives Initiative"
-        width={size * 2.1}
-        height={size}
+        width={Math.round(big * 2.1)}
+        height={big}
         priority
-        className="h-auto w-auto"
-        style={{ height: size, width: "auto" }}
+        className="w-auto origin-left transition-[height] duration-300 ease-out-expo"
+        style={{ height }}
       />
     </Link>
   );

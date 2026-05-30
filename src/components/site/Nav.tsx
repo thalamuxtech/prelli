@@ -36,48 +36,66 @@ export function Nav() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+  // Only the home page has a dark full-bleed hero behind a transparent nav.
+  // Everywhere else the nav is solid from the top so links stay legible.
+  const isHome = pathname === "/";
+  const solid = scrolled || !isHome;
+
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-out-expo",
-        scrolled
-          ? "border-b border-line bg-white/85 py-2.5 shadow-e1 backdrop-blur-md"
-          : "bg-transparent py-4",
+        solid
+          ? "border-b border-line bg-white/80 py-2 shadow-e1 backdrop-blur-lg"
+          : "border-b border-transparent bg-gradient-to-b from-ink/40 to-transparent py-4",
       )}
       style={{ paddingTop: "max(env(safe-area-inset-top), 0px)" }}
     >
-      <nav className="container-px mx-auto flex max-w-content items-center justify-between">
-        <Logo size={scrolled ? 40 : 46} />
+      <nav className="container-px mx-auto flex max-w-content items-center justify-between gap-4">
+        <Logo scrolled={solid} />
 
         {/* Desktop links (lg+) */}
-        <ul className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={cn(
-                  "group relative px-3 py-2 text-[0.95rem] font-medium transition-colors",
-                  isActive(link.href)
-                    ? "text-prelli-green-600"
-                    : "text-ink hover:text-prelli-green-600",
-                )}
-              >
-                {link.label}
-                <span
+        <ul className="hidden items-center gap-0.5 lg:flex xl:gap-1.5">
+          {navLinks.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
                   className={cn(
-                    "absolute inset-x-3 -bottom-0.5 h-0.5 origin-center rounded-full bg-prelli-green transition-transform duration-300 ease-out-expo",
-                    isActive(link.href)
-                      ? "scale-x-100"
-                      : "scale-x-0 group-hover:scale-x-100",
+                    "group relative rounded-pill px-3.5 py-2 text-[0.95rem] font-medium transition-colors duration-200",
+                    active
+                      ? solid
+                        ? "text-prelli-green-600"
+                        : "text-white"
+                      : solid
+                        ? "text-ink hover:text-prelli-green-600"
+                        : "text-white/85 hover:text-white",
                   )}
-                />
-              </Link>
-            </li>
-          ))}
+                >
+                  {link.label}
+                  <span
+                    className={cn(
+                      "absolute inset-x-3.5 -bottom-0.5 h-0.5 origin-center rounded-full transition-transform duration-300 ease-out-expo",
+                      solid ? "bg-prelli-green" : "bg-white",
+                      active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
+                    )}
+                  />
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="hidden lg:block">
-          <Button href="/donate" size="sm">
+          <Button
+            href="/donate"
+            size="sm"
+            className={cn(
+              "shadow-e1 transition-shadow",
+              !solid && "ring-1 ring-white/30",
+            )}
+          >
             <Heart className="h-4 w-4" /> Donate
           </Button>
         </div>
@@ -88,7 +106,10 @@ export function Nav() {
           aria-label="Open menu"
           aria-expanded={open}
           onClick={() => setOpen(true)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-md text-ink lg:hidden"
+          className={cn(
+            "inline-flex h-11 w-11 items-center justify-center rounded-md transition-colors lg:hidden",
+            solid ? "text-ink" : "text-white",
+          )}
         >
           <Menu className="h-6 w-6" />
         </button>
