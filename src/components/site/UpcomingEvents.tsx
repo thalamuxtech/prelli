@@ -7,6 +7,7 @@ import { MapPin, ArrowRight, CalendarClock } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
+import { EventImageSlider } from "@/components/site/EventImageSlider";
 import { useUpcomingEvents } from "@/lib/usePublicContent";
 import type { AdminEvent } from "@/lib/types";
 
@@ -59,42 +60,51 @@ function EventCard({ ev, i }: { ev: AdminEvent; i: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex overflow-hidden rounded-lg border border-line bg-white shadow-e1 transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-e2"
+      className="group relative overflow-hidden rounded-lg border border-line bg-white shadow-e1 transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-e2"
     >
       {/* neon glow edge on hover */}
-      <span className="pointer-events-none absolute inset-0 rounded-lg opacity-0 ring-2 ring-prelli-green/40 transition-opacity duration-300 group-hover:opacity-100" />
+      <span className="pointer-events-none absolute inset-0 z-20 rounded-lg opacity-0 ring-2 ring-prelli-green/40 transition-opacity duration-300 group-hover:opacity-100" />
 
-      {/* Date badge square */}
-      <div className="relative flex w-24 shrink-0 flex-col items-center justify-center bg-gradient-to-b from-prelli-green to-prelli-green-600 text-white sm:w-28">
-        <span
-          className="pointer-events-none absolute inset-0 opacity-50"
-          style={{ background: "radial-gradient(60% 60% at 50% 0%, rgba(255,255,255,.35), transparent 60%)" }}
-        />
-        <span className="relative text-sm font-semibold tracking-wider">{month}</span>
-        <span className="relative font-display text-4xl font-bold leading-none">{day}</span>
-        <span className="relative mt-1 text-xs opacity-80">{date.getFullYear()}</span>
-      </div>
-
-      {/* Content */}
-      <div className="flex flex-1 flex-col justify-between gap-3 p-5">
-        <div>
-          <h3 className="font-display text-lg font-semibold text-ink transition-colors group-hover:text-prelli-green-600">
-            {ev.title}
-          </h3>
-          {ev.location && (
-            <p className="mt-1 inline-flex items-center gap-1.5 text-sm text-slate">
-              <MapPin className="h-3.5 w-3.5" /> {ev.location}
-            </p>
-          )}
+      {/* Image slider (3-5 images, auto-advance + full view) */}
+      {ev.images && ev.images.length > 0 && (
+        <div className="relative aspect-[16/9] w-full">
+          <EventImageSlider images={ev.images} alt={ev.title} />
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <MiniCountdown iso={ev.startAt} />
-          <Link
-            href="/events"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-prelli-green-600 transition-colors hover:text-prelli-green"
-          >
-            Details <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
+      )}
+
+      <div className="flex">
+        {/* Date badge square */}
+        <div className="relative flex w-24 shrink-0 flex-col items-center justify-center bg-gradient-to-b from-prelli-green to-prelli-green-600 text-white sm:w-28">
+          <span
+            className="pointer-events-none absolute inset-0 opacity-50"
+            style={{ background: "radial-gradient(60% 60% at 50% 0%, rgba(255,255,255,.35), transparent 60%)" }}
+          />
+          <span className="relative text-sm font-semibold tracking-wider">{month}</span>
+          <span className="relative font-display text-4xl font-bold leading-none">{day}</span>
+          <span className="relative mt-1 text-xs opacity-80">{date.getFullYear()}</span>
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-1 flex-col justify-between gap-3 p-5">
+          <div>
+            <h3 className="font-display text-lg font-semibold text-ink transition-colors group-hover:text-prelli-green-600">
+              {ev.title}
+            </h3>
+            {ev.location && (
+              <p className="mt-1 inline-flex items-center gap-1.5 text-sm text-slate">
+                <MapPin className="h-3.5 w-3.5" /> {ev.location}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <MiniCountdown iso={ev.startAt} />
+            <Link
+              href="/events"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-prelli-green-600 transition-colors hover:text-prelli-green"
+            >
+              Details <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
         </div>
       </div>
     </motion.div>

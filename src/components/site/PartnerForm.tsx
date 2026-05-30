@@ -25,6 +25,9 @@ export function PartnerForm() {
         email: String(fd.get("email") || ""),
         phone: String(fd.get("phone") || ""),
         organisation: String(fd.get("organisation") || ""),
+        country: String(fd.get("country") || ""),
+        state: String(fd.get("state") || ""),
+        languages: String(fd.get("languages") || ""),
         message: String(fd.get("message") || ""),
       });
       setStatus("done");
@@ -62,6 +65,18 @@ export function PartnerForm() {
         <div>
           <Label htmlFor="phone">Phone</Label>
           <Input id="phone" name="phone" type="tel" inputMode="tel" />
+        </div>
+        <div>
+          <Label htmlFor="country">Country</Label>
+          <Input id="country" name="country" placeholder="Nigeria" defaultValue="Nigeria" />
+        </div>
+        <div>
+          <Label htmlFor="state">State / Region</Label>
+          <Input id="state" name="state" placeholder="e.g. FCT, Lagos" />
+        </div>
+        <div className="sm:col-span-2">
+          <Label htmlFor="languages">Languages spoken</Label>
+          <Input id="languages" name="languages" placeholder="e.g. English, Hausa" />
         </div>
       </div>
       <div>

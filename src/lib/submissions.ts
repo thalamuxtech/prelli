@@ -64,6 +64,9 @@ export async function submitPartner(data: {
   phone?: string;
   message: string;
   organisation?: string;
+  country?: string;
+  state?: string;
+  languages?: string;
 }) {
   await addDoc(collection(db, "submissions"), {
     type: "partner",
@@ -71,7 +74,12 @@ export async function submitPartner(data: {
     email: data.email,
     phone: data.phone ?? "",
     message: data.message,
-    extra: { organisation: data.organisation ?? "" },
+    extra: {
+      organisation: data.organisation ?? "",
+      country: data.country ?? "",
+      state: data.state ?? "",
+      languages: data.languages ?? "",
+    },
     handled: false,
     archived: false,
     createdAt: serverTimestamp(),

@@ -85,7 +85,7 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative h-[88vh] min-h-[560px] w-full overflow-hidden bg-ink"
+      className="relative h-[78vh] min-h-[520px] w-full overflow-hidden bg-ink"
       aria-roledescription="carousel"
       onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
       onTouchEnd={(e) => {
@@ -100,7 +100,7 @@ export function HeroSlider() {
         <motion.div
           key={index}
           custom={dir}
-          initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 1.06 }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 1.02 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: reduce ? 0.3 : 1.1, ease: [0.22, 1, 0.36, 1] }}
@@ -112,7 +112,8 @@ export function HeroSlider() {
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover object-top"
+            style={{ objectPosition: "center 25%" }}
           />
           {/* Cinematic scrim for legibility */}
           <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/25" />

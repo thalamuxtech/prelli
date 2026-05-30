@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Plus, Pencil, Trash2, ArrowDownToLine, ArrowUpFromLine, MapPin } from "lucide-react";
-import { increment } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { Plus, Pencil, Trash2, ArrowDownToLine, ArrowUpFromLine, MapPin, History, ArrowDown, ArrowUp } from "lucide-react";
+import { increment, collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 import { useCollection, createDoc, updateDocById, deleteDocById, byCreatedDesc } from "@/lib/db";
 import { PageHeader, Modal, ConfirmButton, SubmitButton, EmptyState, LoadingRow } from "@/components/admin/ui";
 import { ImageUpload } from "@/components/admin/MediaPicker";
@@ -21,6 +22,7 @@ export default function InventoryAdmin() {
   const events = useCollection<AdminEvent>("events");
   const [editing, setEditing] = useState<Partial<InventoryItem> | null>(null);
   const [moving, setMoving] = useState<{ item: InventoryItem; dir: "in" | "out" } | null>(null);
+  const [history, setHistory] = useState<InventoryItem | null>(null);
   const [busy, setBusy] = useState(false);
 
   async function saveItem(e: React.FormEvent<HTMLFormElement>) {
@@ -129,6 +131,9 @@ export default function InventoryAdmin() {
                       <button onClick={() => setMoving({ item, dir: "out" })} title="Distribute" className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-line text-prelli-orange hover:bg-prelli-orange-50">
                         <ArrowUpFromLine className="h-4 w-4" />
                       </button>
+                      <button onClick={() => setHistory(item)} title="History" className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-line text-slate hover:bg-cloud hover:text-ink">
+                        <History className="h-4 w-4" />
+                      </button>
                       <button onClick={() => setEditing(item)} className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-line text-ink hover:bg-cloud">
                         <Pencil className="h-4 w-4" />
                       </button>
@@ -172,6 +177,9 @@ export default function InventoryAdmin() {
                   </button>
                   <button onClick={() => setMoving({ item, dir: "out" })} className="inline-flex h-9 items-center gap-1.5 rounded-md border border-line px-3 text-sm text-prelli-orange">
                     <ArrowUpFromLine className="h-4 w-4" /> Out
+                  </button>
+                  <button onClick={() => setHistory(item)} className="inline-flex h-9 items-center gap-1.5 rounded-md border border-line px-3 text-sm text-slate">
+                    <History className="h-4 w-4" /> History
                   </button>
                   <button onClick={() => setEditing(item)} className="inline-flex h-9 items-center gap-1.5 rounded-md border border-line px-3 text-sm text-ink">
                     <Pencil className="h-4 w-4" /> Edit
@@ -268,6 +276,76 @@ export default function InventoryAdmin() {
           </form>
         )}
       </Modal>
+
+      {/* Per-item stock movement history */}
+      <Modal open={!!history} onClose={() => setHistory(null)} title={history ? `History: ${history.name}` : "History"} wide>
+        {history && <ItemHistory item={history} />}
+      </Modal>
+    </div>
+  );
+}
+
+interface Movement {
+  id: string;
+  type: "in" | "out";
+  quantity: number;
+  destination?: string;
+  note?: string;
+  createdAt?: { toDate?: () => Date };
+}
+
+function ItemHistory({ item }: { item: InventoryItem }) {
+  const [rows, setRows] = useState<Movement[] | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const snap = await getDocs(query(collection(db, "stockMovements"), where("itemId", "==", item.id)));
+        const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }) as Movement);
+        list.sort((a, b) => {
+          const ta = a.createdAt?.toDate?.()?.getTime() ?? 0;
+          const tb = b.createdAt?.toDate?.()?.getTime() ?? 0;
+          return tb - ta;
+        });
+        setRows(list);
+      } catch {
+        setRows([]);
+      }
+    })();
+  }, [item.id]);
+
+  if (rows === null) return <LoadingRow />;
+
+  return (
+    <div>
+      <p className="mb-4 text-sm text-slate">
+        Currently <b className="text-ink">{item.quantity} {item.unit}</b> on hand
+        {item.packages ? ` · ${item.packages} package${item.packages > 1 ? "s" : ""}` : ""}.
+      </p>
+      {rows.length === 0 ? (
+        <EmptyState>No stock movements recorded yet.</EmptyState>
+      ) : (
+        <ul className="space-y-2">
+          {rows.map((m) => {
+            const when = m.createdAt?.toDate?.()?.toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) ?? "";
+            return (
+              <li key={m.id} className="flex items-center gap-3 rounded-md border border-line bg-white p-3">
+                <span className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md ${m.type === "in" ? "bg-prelli-green-50 text-prelli-green-600" : "bg-prelli-orange-50 text-prelli-orange"}`}>
+                  {m.type === "in" ? <ArrowDown className="h-4 w-4" /> : <ArrowUp className="h-4 w-4" />}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-ink">
+                    {m.type === "in" ? "Added" : "Distributed"} {m.quantity} {item.unit}
+                    {m.destination ? ` to ${m.destination}` : ""}
+                  </p>
+                  {m.note && <p className="text-xs text-slate">{m.note}</p>}
+                </div>
+                <span className="shrink-0 text-xs text-slate">{when}</span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }

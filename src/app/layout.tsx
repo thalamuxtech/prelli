@@ -21,11 +21,11 @@ const SITE_URL = "https://prelli.org";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "PreLLI — Precious Little Lives Initiative",
+    default: "PreLLI · Precious Little Lives Initiative",
     template: "%s · PreLLI",
   },
   description:
-    "Precious Little Lives Initiative (PreLLI) — a Nigerian non-profit bringing hope to orphans, widows, and the elderly through humanitarian relief, education, and empowerment since 2018.",
+    "Precious Little Lives Initiative (PreLLI) is a Nigerian non-profit bringing hope to orphans, widows, and the elderly through humanitarian relief, education, and empowerment since 2018.",
   keywords: [
     "PreLLI",
     "Precious Little Lives Initiative",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "humanitarian",
   ],
   openGraph: {
-    title: "PreLLI — Precious Little Lives Initiative",
+    title: "PreLLI · Precious Little Lives Initiative",
     description:
       "Bringing hope to orphans, widows, and the elderly across Nigeria since 2018.",
     url: SITE_URL,
