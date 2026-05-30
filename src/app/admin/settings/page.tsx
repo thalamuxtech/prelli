@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
-import { Check } from "lucide-react";
+import { Check, DownloadCloud, Loader2 } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { PageHeader, SubmitButton, LoadingRow } from "@/components/admin/ui";
 import { ImageUpload } from "@/components/admin/MediaPicker";
 import { Label, Input, Textarea } from "@/components/ui/FormField";
+import { importSeedContent } from "@/lib/seedContent";
 
 interface SiteSettings {
   heroTitle?: string;
@@ -59,9 +60,11 @@ export default function SettingsAdmin() {
 
   return (
     <div>
-      <PageHeader title="Site settings" subtitle="Homepage hero, contact details, social links, and donation link." />
+      <PageHeader title="Site settings" subtitle="Homepage hero, contact details, social links, and starter content." />
 
-      <form onSubmit={save} className="max-w-2xl space-y-8">
+      <ImportContentCard />
+
+      <form onSubmit={save} className="mt-8 max-w-2xl space-y-8">
         <section className="rounded-lg border border-line bg-white p-6 shadow-e1">
           <h2 className="font-display text-lg font-bold text-ink">Homepage hero</h2>
           <div className="mt-4 space-y-4">
@@ -78,7 +81,7 @@ export default function SettingsAdmin() {
         </section>
 
         <section className="rounded-lg border border-line bg-white p-6 shadow-e1">
-          <h2 className="font-display text-lg font-bold text-ink">Contact & giving</h2>
+          <h2 className="font-display text-lg font-bold text-ink">Contact &amp; giving</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div>
               <Label htmlFor="contactEmail">Contact email</Label>
@@ -86,7 +89,7 @@ export default function SettingsAdmin() {
             </div>
             <div>
               <Label htmlFor="contactLocation">Location</Label>
-              <Input id="contactLocation" name="contactLocation" defaultValue={s.contactLocation} />
+              <Input id="contactLocation" name="contactLocation" defaultValue={s.contactLocation} placeholder="Abuja, Nigeria" />
             </div>
             <div className="sm:col-span-2">
               <Label htmlFor="donateUrl">Donation link (optional, for future use)</Label>
@@ -123,5 +126,51 @@ export default function SettingsAdmin() {
         </div>
       </form>
     </div>
+  );
+}
+
+function ImportContentCard() {
+  const [state, setState] = useState<"idle" | "running" | "done" | "error">("idle");
+  const [result, setResult] = useState<{ posts: number; slides: number; initiatives: number; events: number; sponsors: number } | null>(null);
+
+  async function run() {
+    setState("running");
+    try {
+      const r = await importSeedContent();
+      setResult(r);
+      setState("done");
+    } catch {
+      setState("error");
+    }
+  }
+
+  return (
+    <section className="rounded-lg border border-line bg-white p-6 shadow-e1">
+      <h2 className="font-display text-lg font-bold text-ink">Import starter content</h2>
+      <p className="mt-1 text-sm leading-relaxed text-slate">
+        Load the website&apos;s built-in stories, hero slides, and initiatives into
+        the database so you can edit them here. Safe to run once; it won&apos;t
+        create duplicates.
+      </p>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={run}
+          disabled={state === "running"}
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-pill bg-prelli-green px-5 font-semibold text-white transition-colors hover:bg-prelli-green-600 disabled:opacity-60"
+        >
+          {state === "running" ? <Loader2 className="h-5 w-5 animate-spin" /> : <DownloadCloud className="h-5 w-5" />}
+          {state === "running" ? "Importing…" : "Import content"}
+        </button>
+        {state === "done" && result && (
+          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-prelli-green-600">
+            <Check className="h-4 w-4" /> Imported {result.posts} posts, {result.slides} slides, {result.initiatives} initiatives, {result.events} events, {result.sponsors} partners.
+          </span>
+        )}
+        {state === "error" && (
+          <span className="text-sm text-prelli-pink">Import failed. Check you&apos;re signed in and try again.</span>
+        )}
+      </div>
+    </section>
   );
 }

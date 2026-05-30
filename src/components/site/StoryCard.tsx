@@ -16,8 +16,9 @@ export function StoryCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/stories/${post.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-white shadow-e1 transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-e2"
+      className="glow-card group relative flex h-full flex-col overflow-hidden rounded-lg border border-line bg-white shadow-e1 transition-all duration-300 ease-out-expo hover:-translate-y-1"
     >
+      <span className="border-beam pointer-events-none z-20" />
       {/* Cover — real photo when available, brand gradient fallback otherwise */}
       <div className="relative aspect-[16/10] overflow-hidden">
         {post.coverImage ? (

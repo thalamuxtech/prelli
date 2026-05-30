@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { sortedPosts } from "@/content/posts";
-import type { Post, AdminEvent } from "@/lib/types";
+import { initiatives as seedInitiatives } from "@/content/initiatives";
+import type { Post, AdminEvent, Initiative } from "@/lib/types";
 
 /**
  * Public content reads from Firestore (admin-managed) and falls back to the
@@ -64,6 +65,32 @@ export function useUpcomingEvents(max = 2) {
   return { events, loaded };
 }
 
+interface SponsorDoc {
+  id: string;
+  name: string;
+  logo?: string;
+  url?: string;
+  order?: number;
+}
+
+/** Partners/sponsors (admin-managed). Empty array if none. */
+export function useSponsors() {
+  const [sponsors, setSponsors] = useState<SponsorDoc[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const snap = await getDocs(query(collection(db, "sponsors"), orderBy("order", "asc")));
+        setSponsors(snap.docs.map((d) => ({ id: d.id, ...d.data() }) as SponsorDoc));
+      } catch {
+        /* none */
+      }
+    })();
+  }, []);
+
+  return sponsors;
+}
+
 interface SlideDoc {
   id: string;
   image: string;
@@ -72,6 +99,26 @@ interface SlideDoc {
   highlight?: string;
   body?: string;
   order?: number;
+}
+
+/** Initiatives (admin-managed) with bundled seed fallback. */
+export function useInitiatives() {
+  const [items, setItems] = useState<Initiative[]>(seedInitiatives as Initiative[]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const snap = await getDocs(query(collection(db, "initiatives"), orderBy("order", "asc")));
+        if (!snap.empty) {
+          setItems(snap.docs.map((d) => d.data() as Initiative));
+        }
+      } catch {
+        /* seed fallback */
+      }
+    })();
+  }, []);
+
+  return items;
 }
 
 /** Hero slides (admin-managed); empty array means use the component's defaults. */

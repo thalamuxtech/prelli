@@ -8,6 +8,7 @@ import { EventCountdown } from "@/components/site/EventCountdown";
 import { UpcomingEvents } from "@/components/site/UpcomingEvents";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { FeaturedStories } from "@/components/site/FeaturedStories";
+import { PartnersSlider } from "@/components/site/PartnersSlider";
 import { mission, supportPillars } from "@/content/site";
 
 const icons = [HeartHandshake, Users, HandHeart];
@@ -73,18 +74,15 @@ export default function Home() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {pillars.map((p, i) => (
               <Reveal key={p.title} delay={i * 0.08}>
-                <article className="group relative h-full overflow-hidden rounded-lg bg-white p-8 shadow-e1 transition-all duration-300 ease-out-expo hover:-translate-y-1.5 hover:shadow-e2">
-                  {/* accent bar slides up on hover */}
-                  <span
-                    className={`absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r ${p.bar} transition-transform duration-300 ease-out-expo group-hover:scale-x-100`}
-                  />
-                  <div className={`mb-5 inline-flex rounded-md p-3.5 transition-transform duration-300 group-hover:scale-110 ${p.iconBg}`}>
+                <article className="glow-card group relative h-full overflow-hidden rounded-lg bg-white p-8 shadow-e1 transition-all duration-300 ease-out-expo hover:-translate-y-1.5">
+                  <span className="border-beam pointer-events-none" />
+                  <div className={`relative mb-5 inline-flex rounded-md p-3.5 transition-transform duration-300 group-hover:scale-110 ${p.iconBg}`}>
                     <p.icon className={`h-7 w-7 ${p.color}`} />
                   </div>
-                  <h3 className="font-display text-xl font-semibold text-ink transition-colors group-hover:text-prelli-green-600">
+                  <h3 className="relative font-display text-xl font-semibold text-ink transition-colors group-hover:text-prelli-green-600">
                     {p.title}
                   </h3>
-                  <p className="mt-2 leading-relaxed text-slate">{p.body}</p>
+                  <p className="relative mt-2 leading-relaxed text-slate">{p.body}</p>
                 </article>
               </Reveal>
             ))}
@@ -104,6 +102,9 @@ export default function Home() {
           <FeaturedStories />
         </Container>
       </section>
+
+      {/* ── Partners & sponsors (admin-managed, shows when any exist) ── */}
+      <PartnersSlider />
 
       {/* ── CTA ───────────────────────────────────────────────── */}
       <section className="section-y">

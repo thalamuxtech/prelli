@@ -29,18 +29,19 @@ export function ImpactStats({
         <StaggerItem key={s.label}>
           <div
             className={cn(
-              "group relative overflow-hidden rounded-lg p-6 text-center transition-all duration-300 hover:-translate-y-1.5 hover:[box-shadow:0_0_0_1px_rgba(123,186,60,.6),0_0_28px_-4px_rgba(123,186,60,.6)]",
+              "glow-card group relative overflow-hidden rounded-lg p-6 text-center transition-all duration-300 hover:-translate-y-1.5",
               dark
                 ? "border border-white/10 bg-white/5 backdrop-blur"
                 : "border border-line bg-white shadow-e1",
             )}
           >
-            {/* neon glow that lights up + pulses on hover */}
+            {/* animated multi-colour border + soft glow on hover */}
+            <span className="border-beam pointer-events-none" />
             <span
-              className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:animate-glow group-hover:opacity-100"
+              className="glow-layer pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(60% 70% at 50% 0%, rgba(123,186,60,.35), transparent 70%)",
+                  "radial-gradient(60% 70% at 50% 0%, rgba(123,186,60,.28), transparent 70%)",
               }}
             />
             <div className="relative">

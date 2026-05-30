@@ -44,10 +44,11 @@ export default function AboutPage() {
       <section className="bg-cloud section-y">
         <Container className="grid gap-6 md:grid-cols-2">
           <Reveal>
-            <div className="group relative h-full overflow-hidden rounded-lg bg-white p-8 shadow-e1 transition-all duration-300 hover:-translate-y-1.5 hover:[box-shadow:0_0_0_1px_rgba(123,186,60,.6),0_0_30px_-4px_rgba(123,186,60,.55)]">
+            <div className="glow-card group relative h-full overflow-hidden rounded-lg bg-white p-8 shadow-e1 transition-all duration-300 hover:-translate-y-1.5">
+              <span className="border-beam pointer-events-none" />
               <span
-                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:animate-glow group-hover:opacity-100"
-                style={{ background: "radial-gradient(60% 60% at 50% 0%, rgba(123,186,60,.22), transparent 70%)" }}
+                className="glow-layer pointer-events-none absolute inset-0"
+                style={{ background: "radial-gradient(65% 65% at 50% 0%, rgba(123,186,60,.18), transparent 72%)" }}
               />
               <div className="relative">
                 <div className="mb-4 inline-flex rounded-md bg-prelli-green-50 p-3 transition-transform duration-300 group-hover:scale-110">
@@ -59,10 +60,11 @@ export default function AboutPage() {
             </div>
           </Reveal>
           <Reveal delay={0.08}>
-            <div className="group relative h-full overflow-hidden rounded-lg bg-white p-8 shadow-e1 transition-all duration-300 hover:-translate-y-1.5 hover:[box-shadow:0_0_0_1px_rgba(45,156,219,.6),0_0_30px_-4px_rgba(45,156,219,.55)]">
+            <div className="glow-card group relative h-full overflow-hidden rounded-lg bg-white p-8 shadow-e1 transition-all duration-300 hover:-translate-y-1.5">
+              <span className="border-beam pointer-events-none" />
               <span
-                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:animate-glow group-hover:opacity-100"
-                style={{ background: "radial-gradient(60% 60% at 50% 0%, rgba(45,156,219,.2), transparent 70%)" }}
+                className="glow-layer pointer-events-none absolute inset-0"
+                style={{ background: "radial-gradient(65% 65% at 50% 0%, rgba(45,156,219,.16), transparent 72%)" }}
               />
               <div className="relative">
                 <div className="mb-4 inline-flex rounded-md bg-prelli-blue/10 p-3 transition-transform duration-300 group-hover:scale-110">

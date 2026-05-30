@@ -98,6 +98,67 @@
   box-shadow: 0 0 0 1px rgba(123, 186, 60, 0.5), 0 0 24px -4px rgba(123, 186, 60, 0.55);
 }
 
+/* Reliable hover glow layer for cards (radial wash that fades in + breathes). */
+.glow-layer {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.glow-card:hover .glow-layer {
+  opacity: 1;
+  animation: glow-pulse 3.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .glow-card:hover .glow-layer { animation: none; }
+}
+
+/* ── Animated lighting border that cycles through the PreLLI primary colors ──
+   Add `glow-card` (group + relative + overflow-hidden) to a card, and place a
+   <span class="border-beam"> inside as the first child. The border lights up on
+   hover and its colour rotates green → blue → orange → pink. */
+@property --beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes beam-spin {
+  to { --beam-angle: 360deg; }
+}
+.border-beam {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px; /* border thickness */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  /* conic gradient through the brand colours; masked to just the border ring */
+  background: conic-gradient(
+    from var(--beam-angle),
+    #7bba3c,
+    #2d9cdb,
+    #f2a33c,
+    #eb5286,
+    #7bba3c
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+.glow-card:hover .border-beam {
+  opacity: 1;
+  animation: beam-spin 4s linear infinite;
+}
+.glow-card:hover {
+  box-shadow: 0 8px 30px -10px rgba(16, 24, 32, 0.25);
+}
+@media (prefers-reduced-motion: reduce) {
+  .glow-card:hover .border-beam { animation: none; }
+}
+
 /* Respect users who prefer reduced motion — collapse animation to instant (§2.5) */
 @media (prefers-reduced-motion: reduce) {
   *,
