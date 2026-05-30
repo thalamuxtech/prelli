@@ -1,0 +1,72 @@
+rules_version = '2';
+
+// PreLLI Firestore security (Implementation Plan §7) — free plan, client-direct writes.
+// Public can READ published content and CREATE form submissions / subscribers
+// (guarded by App Check + field validation). Only signed-in staff can manage content.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function role() {
+      return isSignedIn()
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role
+        : "";
+    }
+    function isEditor() {
+      return role() in ["superadmin", "admin", "editor"];
+    }
+    function isSuperadmin() {
+      return role() == "superadmin";
+    }
+    function isEmail(v) {
+      return v is string && v.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$') && v.size() <= 254;
+    }
+
+    // ── Public-readable content, editor-writable ────────────────────────────
+    match /posts/{id} {
+      allow read: if resource.data.status == "published" || isEditor();
+      allow write: if isEditor();
+    }
+    match /events/{id}       { allow read: if true; allow write: if isEditor(); }
+    match /galleries/{id}    { allow read: if true; allow write: if isEditor(); }
+    match /team/{id}         { allow read: if true; allow write: if isEditor(); }
+    match /sponsors/{id}     { allow read: if true; allow write: if isEditor(); }
+    match /testimonials/{id} { allow read: if true; allow write: if isEditor(); }
+    match /initiatives/{id}  { allow read: if true; allow write: if isEditor(); }
+    match /impactStats/{id}  { allow read: if true; allow write: if isEditor(); }
+    match /campaigns/{id}    { allow read: if true; allow write: if isEditor(); }
+    match /settings/{doc} {
+      allow read: if true;
+      allow write: if isEditor();
+    }
+
+    // ── Newsletter subscribers: public create, staff manage ─────────────────
+    match /subscribers/{id} {
+      allow read, update, delete: if isEditor();
+      allow create: if isEmail(request.resource.data.email)
+        && request.resource.data.status == "active"
+        && request.resource.data.keys().hasOnly(["email", "name", "source", "status", "createdAt"]);
+    }
+
+    // ── Contact / volunteer submissions: public create, staff manage ────────
+    match /submissions/{id} {
+      allow read, update, delete: if isEditor();
+      allow create: if request.resource.data.type in ["contact", "volunteer"]
+        && isEmail(request.resource.data.email)
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 1
+        && request.resource.data.name.size() <= 120
+        && request.resource.data.message is string
+        && request.resource.data.message.size() <= 4000
+        && request.resource.data.handled == false;
+    }
+
+    // ── Staff accounts ──────────────────────────────────────────────────────
+    match /users/{uid} {
+      allow read: if isSignedIn() && (request.auth.uid == uid || isEditor());
+      allow write: if isSuperadmin();
+    }
+  }
+}

@@ -1,0 +1,43 @@
+name: Preview deploy (PRs)
+
+on:
+  pull_request:
+    branches: [main]
+
+# Builds and deploys each PR to a temporary Firebase Hosting preview channel.
+jobs:
+  build_and_preview:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - run: npm ci
+
+      - name: Build static export
+        run: npm run build
+        env:
+          NEXT_PUBLIC_FB_API_KEY: ${{ vars.NEXT_PUBLIC_FB_API_KEY }}
+          NEXT_PUBLIC_FB_AUTH_DOMAIN: ${{ vars.NEXT_PUBLIC_FB_AUTH_DOMAIN }}
+          NEXT_PUBLIC_FB_PROJECT_ID: ${{ vars.NEXT_PUBLIC_FB_PROJECT_ID }}
+          NEXT_PUBLIC_FB_STORAGE: ${{ vars.NEXT_PUBLIC_FB_STORAGE }}
+          NEXT_PUBLIC_FB_SENDER: ${{ vars.NEXT_PUBLIC_FB_SENDER }}
+          NEXT_PUBLIC_FB_APP_ID: ${{ vars.NEXT_PUBLIC_FB_APP_ID }}
+          NEXT_PUBLIC_FB_MEASUREMENT: ${{ vars.NEXT_PUBLIC_FB_MEASUREMENT }}
+
+      - name: Deploy preview channel
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: prelli
+          entryPoint: app

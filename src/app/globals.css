@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── PreLLI design tokens (Implementation Plan §2) ───────────────────────── */
+:root {
+  --prelli-green: #7bba3c;
+  --prelli-green-600: #69a330;
+  --prelli-green-50: #f1f7e8;
+  --prelli-blue: #2d9cdb;
+  --prelli-blue-700: #1f73a3;
+  --prelli-orange: #f2a33c;
+  --prelli-orange-50: #fef4e6;
+  --prelli-pink: #eb5286;
+
+  --ink: #1b2430;
+  --slate: #5a6472;
+  --line: #e7ece3;
+  --cloud: #f6f8f5;
+  --white: #ffffff;
+  --overlay: rgba(15, 23, 32, 0.55);
+
+  --bg: var(--white);
+  --fg: var(--ink);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  --bg: #0f1722;
+  --fg: #eef2f6;
+  --cloud: #16202c;
+  --line: #243140;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-feature-settings: "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+  /* Accessible, brand-consistent focus ring on every interactive element */
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(31, 115, 163, 0.45);
+    border-radius: 4px;
+  }
+  /* Inputs at >=16px so mobile Safari doesn't zoom on focus (§2.7) */
+  input, textarea, select {
+    font-size: 16px;
+  }
+}
+
+@layer utilities {
+  .container-px {
+    padding-left: clamp(16px, 4vw, 40px);
+    padding-right: clamp(16px, 4vw, 40px);
+  }
+  .text-display {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.05;
+  }
+  .text-h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+  }
+  .text-h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    line-height: 1.15;
+  }
+  .section-y {
+    padding-top: clamp(64px, 10vw, 128px);
+    padding-bottom: clamp(64px, 10vw, 128px);
+  }
+}
+
+/* Respect users who prefer reduced motion — collapse animation to instant (§2.5) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
