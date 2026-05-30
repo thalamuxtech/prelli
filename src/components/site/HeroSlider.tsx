@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Heart, ArrowRight } from "lucide-react";
-import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { useHeroSlides } from "@/lib/usePublicContent";
 import { defaultHeroSlides } from "@/content/heroSlides";
@@ -57,7 +56,7 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative h-[78vh] min-h-[520px] w-full overflow-hidden bg-ink"
+      className="relative flex min-h-[560px] w-full flex-col overflow-hidden bg-ink lg:h-[82vh] lg:flex-row"
       aria-roledescription="carousel"
       onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
       onTouchEnd={(e) => {
@@ -67,108 +66,40 @@ export function HeroSlider() {
         touchX.current = null;
       }}
     >
-      {/* Slides */}
-      <AnimatePresence initial={false} custom={dir}>
-        <motion.div
-          key={index}
-          custom={dir}
-          initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 1.02 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: reduce ? 0.3 : 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0"
-        >
-          {/* Blurred, dimmed fill so the sides are soft colour rather than bars */}
-          <Image
-            src={slide.image}
-            alt=""
-            fill
-            priority
-            quality={90}
-            sizes="100vw"
-            className="scale-110 object-cover blur-2xl"
-            aria-hidden
-          />
-          <div className="absolute inset-0 bg-ink/55" />
-
-          {/* The actual image, shown in full (no top/bottom crop) within the
-              content column, clear of the nav (top) and the dots (bottom) */}
-          <div className="relative flex h-full items-center px-4 pb-16 pt-24 sm:px-6 sm:pb-20 sm:pt-28">
-            <div className="mx-auto h-full w-full max-w-[1320px]">
-              <div className="relative h-full w-full overflow-hidden rounded-xl shadow-e3">
-              <Image
-                src={slide.image}
-                alt=""
-                fill
-                priority
-                quality={92}
-                sizes="(max-width: 1320px) 100vw, 1320px"
-                className="object-contain"
-              />
-              {/* legibility scrim only over the image, fading from the left */}
-              <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/40 to-ink/20" />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Brand aurora glow */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-40 mix-blend-screen"
-        style={{
-          background:
-            "radial-gradient(50% 50% at 78% 18%, rgba(123,186,60,.5), transparent 60%), radial-gradient(40% 40% at 12% 85%, rgba(45,156,219,.4), transparent 60%)",
-        }}
-      />
-
-      {/* Eyebrow tag — top-right, dropped to the headline level (sits beside the big text) */}
-      <Container className="pointer-events-none absolute inset-x-0 top-1/2 z-10 hidden -translate-y-1/2 pt-14 sm:block">
-        <div className="flex justify-end">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={`eyebrow-${index}`}
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2 rounded-pill border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur"
-            >
-              <span className="h-2 w-2 rounded-full bg-prelli-green" />
-              {slide.eyebrow}
-            </motion.p>
-          </AnimatePresence>
-        </div>
-      </Container>
-
-      {/* Content — pushed down so it sits clearly below the menu bar */}
-      <Container className="relative z-10 flex h-full items-center pt-28 sm:pt-32">
-        <div className="max-w-2xl">
+      {/* ── LEFT: text panel (30%) ─────────────────────────────── */}
+      <div className="relative z-20 flex w-full flex-col justify-center bg-ink px-6 pb-10 pt-28 sm:px-10 lg:w-[34%] lg:pb-16 lg:pt-24 lg:pl-[max(2.5rem,calc((100vw-1200px)/2))]">
+        {/* subtle brand glow in the panel */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-50"
+          style={{
+            background:
+              "radial-gradient(60% 50% at 20% 20%, rgba(123,186,60,.22), transparent 60%), radial-gradient(50% 50% at 10% 90%, rgba(45,156,219,.18), transparent 60%)",
+          }}
+        />
+        <div className="relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 26 }}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -16 }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -14 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* Mobile eyebrow (inline, since the logo is small/centered there) */}
-              <p className="mb-4 inline-flex items-center gap-2 rounded-pill border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur sm:hidden">
+              <p className="mb-4 inline-flex items-center gap-2 rounded-pill border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur">
                 <span className="h-2 w-2 rounded-full bg-prelli-green" />
                 {slide.eyebrow}
               </p>
-              <h1 className="text-display font-display font-bold text-white drop-shadow-sm">
+              <h1 className="font-display text-4xl font-bold leading-[1.05] text-white sm:text-5xl lg:text-[clamp(2.5rem,3.4vw,4rem)]">
                 {slide.title}{" "}
                 <span className="text-prelli-green">{slide.highlight}</span>.
               </h1>
-              <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85">
+              <p className="mt-5 max-w-md text-base leading-relaxed text-white/85 lg:text-lg">
                 {slide.body}
               </p>
             </motion.div>
           </AnimatePresence>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button href="/donate" size="lg">
               <Heart className="h-5 w-5" /> Make a difference
             </Button>
@@ -181,31 +112,56 @@ export function HeroSlider() {
               Learn more <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
-        </div>
-      </Container>
 
-      {/* Prev/next arrows — bottom-right of the content column, level with the CTAs */}
-      <Container className="pointer-events-none absolute inset-x-0 bottom-16 z-20 hidden sm:block">
-        <div className="pointer-events-auto flex justify-end gap-3">
-          <button
-            onClick={prev}
-            aria-label="Previous slide"
-            className="inline-flex h-12 w-12 items-center justify-center rounded-pill border border-white/20 bg-white/10 text-white backdrop-blur transition-all hover:bg-white/25"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button
-            onClick={next}
-            aria-label="Next slide"
-            className="inline-flex h-12 w-12 items-center justify-center rounded-pill border border-white/20 bg-white/10 text-white backdrop-blur transition-all hover:bg-white/25"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
+          {/* Prev/next — under the CTAs, left-aligned with the text panel */}
+          <div className="mt-8 flex gap-3">
+            <button
+              onClick={prev}
+              aria-label="Previous slide"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-pill border border-white/20 bg-white/10 text-white backdrop-blur transition-all hover:bg-white/25"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={next}
+              aria-label="Next slide"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-pill border border-white/20 bg-white/10 text-white backdrop-blur transition-all hover:bg-white/25"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
         </div>
-      </Container>
+      </div>
+
+      {/* ── RIGHT: image (70%), natural, fills its column ──────── */}
+      <div className="relative h-64 w-full overflow-hidden sm:h-80 lg:h-auto lg:flex-1">
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={index}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduce ? 0.3 : 1, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={slide.image}
+              alt={slide.eyebrow}
+              fill
+              priority
+              quality={92}
+              sizes="(max-width: 1024px) 100vw, 66vw"
+              className="object-cover"
+            />
+          </motion.div>
+        </AnimatePresence>
+        {/* seam gradient blending the image into the dark text panel on the left */}
+        <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-ink via-transparent to-transparent lg:block" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
+      </div>
 
       {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2.5">
+      <div className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 gap-2.5">
         {slides.map((_, i) => (
           <button
             key={i}
