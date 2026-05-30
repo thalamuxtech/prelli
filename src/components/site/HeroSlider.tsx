@@ -67,7 +67,7 @@ export function HeroSlider() {
       }}
     >
       {/* ── LEFT: text panel (30%) ─────────────────────────────── */}
-      <div className="relative z-20 flex w-full flex-col justify-center bg-ink px-6 pb-10 pt-28 sm:px-10 lg:w-[34%] lg:pb-16 lg:pt-24 lg:pl-[max(2.5rem,calc((100vw-1200px)/2))]">
+      <div className="relative z-20 flex w-full flex-col justify-center bg-ink px-6 pb-10 pt-28 sm:px-10 lg:w-[46%] lg:pb-16 lg:pt-24 lg:pl-[max(2.5rem,calc((100vw-1200px)/2))]">
         {/* subtle brand glow in the panel */}
         <div
           className="pointer-events-none absolute inset-0 opacity-50"
@@ -135,26 +135,29 @@ export function HeroSlider() {
 
       {/* ── RIGHT: image (70%), natural, fills its column ──────── */}
       <div className="relative h-64 w-full overflow-hidden sm:h-80 lg:h-auto lg:flex-1">
-        <AnimatePresence initial={false}>
+        {/* Render every slide image stacked; only the active one is opaque.
+            This guarantees the current image is always visible (no hydration /
+            AnimatePresence race that could leave the first slide blank). */}
+        {slides.map((s, i) => (
           <motion.div
-            key={index}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduce ? 0.3 : 1, ease: [0.22, 1, 0.36, 1] }}
+            key={s.image + i}
+            initial={false}
+            animate={{ opacity: i === index ? 1 : 0, scale: i === index ? 1 : 1.04 }}
+            transition={{ duration: reduce ? 0.2 : 0.9, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0"
+            style={{ zIndex: i === index ? 1 : 0 }}
           >
             <Image
-              src={slide.image}
-              alt={slide.eyebrow}
+              src={s.image}
+              alt={s.eyebrow}
               fill
-              priority
+              priority={i === 0}
               quality={92}
               sizes="(max-width: 1024px) 100vw, 66vw"
               className="object-cover"
             />
           </motion.div>
-        </AnimatePresence>
+        ))}
         {/* seam gradient blending the image into the dark text panel on the left */}
         <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-ink via-transparent to-transparent lg:block" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
