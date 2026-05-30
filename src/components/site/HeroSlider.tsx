@@ -91,24 +91,26 @@ export function HeroSlider() {
           />
           <div className="absolute inset-0 bg-ink/55" />
 
-          {/* The actual image, contained within the content column width
-              (from the left of the headline to the right of the CTAs) */}
-          <Container className="relative flex h-full items-center">
-            <div className="relative h-[78%] w-full overflow-hidden rounded-xl shadow-e3">
+          {/* The actual image, shown in full (no top/bottom crop) within the
+              content column, clear of the nav (top) and the dots (bottom) */}
+          <div className="relative flex h-full items-center px-4 pb-16 pt-24 sm:px-6 sm:pb-20 sm:pt-28">
+            <div className="mx-auto h-full w-full max-w-[1320px]">
+              <div className="relative h-full w-full overflow-hidden rounded-xl shadow-e3">
               <Image
                 src={slide.image}
                 alt=""
                 fill
                 priority
                 quality={92}
-                sizes="(max-width: 1280px) 100vw, 1200px"
-                className="object-cover"
+                sizes="(max-width: 1320px) 100vw, 1320px"
+                className="object-contain"
               />
               {/* legibility scrim only over the image, fading from the left */}
               <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/40 to-ink/20" />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
+              </div>
             </div>
-          </Container>
+          </div>
         </motion.div>
       </AnimatePresence>
 
