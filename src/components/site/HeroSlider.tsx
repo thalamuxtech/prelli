@@ -84,25 +84,31 @@ export function HeroSlider() {
             alt=""
             fill
             priority
+            quality={90}
             sizes="100vw"
             className="scale-110 object-cover blur-2xl"
             aria-hidden
           />
-          <div className="absolute inset-0 bg-ink/45" />
+          <div className="absolute inset-0 bg-ink/55" />
 
-          {/* The actual image, shown as-is (contained) and centred */}
-          <Image
-            src={slide.image}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-contain"
-          />
-
-          {/* Brand gradient edges + legibility scrim over the left content area */}
-          <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/35 to-ink/55" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/65 via-transparent to-ink/35" />
+          {/* The actual image, contained within the content column width
+              (from the left of the headline to the right of the CTAs) */}
+          <Container className="relative flex h-full items-center">
+            <div className="relative h-[78%] w-full overflow-hidden rounded-xl shadow-e3">
+              <Image
+                src={slide.image}
+                alt=""
+                fill
+                priority
+                quality={92}
+                sizes="(max-width: 1280px) 100vw, 1200px"
+                className="object-cover"
+              />
+              {/* legibility scrim only over the image, fading from the left */}
+              <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/40 to-ink/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
+            </div>
+          </Container>
         </motion.div>
       </AnimatePresence>
 
@@ -115,8 +121,8 @@ export function HeroSlider() {
         }}
       />
 
-      {/* Eyebrow tag — pinned top-right so it never clashes with the logo (top-left) */}
-      <Container className="pointer-events-none absolute inset-x-0 top-24 z-10 hidden sm:block">
+      {/* Eyebrow tag — top-right, dropped to the headline level (sits beside the big text) */}
+      <Container className="pointer-events-none absolute inset-x-0 top-1/2 z-10 hidden -translate-y-1/2 pt-14 sm:block">
         <div className="flex justify-end">
           <AnimatePresence mode="wait">
             <motion.p
