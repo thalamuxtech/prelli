@@ -57,9 +57,33 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NGO",
+    name: "Precious Little Lives Initiative",
+    alternateName: "PreLLI",
+    url: SITE_URL,
+    email: "prellicares@gmail.com",
+    foundingDate: "2018",
+    description:
+      "A Nigerian non-profit supporting orphans, widows, and the elderly through humanitarian relief, education, and empowerment.",
+    areaServed: "Nigeria",
+    sameAs: [
+      "https://instagram.com/prelli",
+      "https://facebook.com/prelli",
+      "https://twitter.com/prelli",
+    ],
+  };
+
   return (
     <html lang="en" className={`${sora.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

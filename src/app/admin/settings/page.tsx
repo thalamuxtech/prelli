@@ -89,8 +89,8 @@ export default function SettingsAdmin() {
               <Input id="contactLocation" name="contactLocation" defaultValue={s.contactLocation} />
             </div>
             <div className="sm:col-span-2">
-              <Label htmlFor="donateUrl">Donation link (Paystack / Flutterwave)</Label>
-              <Input id="donateUrl" name="donateUrl" type="url" defaultValue={s.donateUrl} placeholder="https://paystack.com/pay/..." />
+              <Label htmlFor="donateUrl">Donation link (optional, for future use)</Label>
+              <Input id="donateUrl" name="donateUrl" type="url" defaultValue={s.donateUrl} placeholder="https://… (leave blank — pledges are collected via the form)" />
             </div>
           </div>
         </section>

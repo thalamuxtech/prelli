@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
+import { initAppCheck } from "@/lib/firebase";
 import { useAuth, isStaff } from "@/lib/auth";
 import { LoginScreen } from "@/components/admin/LoginScreen";
 import { ChangePassword } from "@/components/admin/ChangePassword";
@@ -9,6 +11,10 @@ import { AdminShell } from "@/components/admin/AdminShell";
 /** Auth + role gate guarding the whole /admin area. */
 export function AdminGate({ children }: { children: React.ReactNode }) {
   const { user, profile, loading } = useAuth();
+
+  useEffect(() => {
+    initAppCheck();
+  }, []);
 
   if (loading) {
     return (

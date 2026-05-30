@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Heart, Utensils, GraduationCap, HandHeart } from "lucide-react";
+import { Utensils, GraduationCap, HandHeart } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -10,11 +10,8 @@ import { PledgeForm } from "@/components/site/PledgeForm";
 export const metadata: Metadata = {
   title: "Donate",
   description:
-    "Support Precious Little Lives Initiative. Your generosity provides food, education, and empowerment for vulnerable children, widows, and the elderly in Nigeria.",
+    "Pledge your support to Precious Little Lives Initiative. Your generosity provides food, education, and empowerment for vulnerable children, widows, and the elderly in Nigeria.",
 };
-
-// TODO (Phase 5): replace with the live Paystack/Flutterwave payment-link URL.
-const PAYMENT_URL = "#";
 
 const impactOf = [
   { Icon: Utensils, title: "Feed a family", body: "A bag of rice and essentials brings relief to a household in need." },
@@ -40,15 +37,16 @@ export default function DonatePage() {
               act of kindness, no matter how small, goes a long way.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Button href={PAYMENT_URL} size="lg">
-                <Heart className="h-5 w-5" /> Donate now
+              <Button href="#pledge" size="lg">
+                <HandHeart className="h-5 w-5" /> Make a pledge
               </Button>
-              <Button href="/contact" variant="secondary" size="lg">
+              <Button href="/partner" variant="secondary" size="lg">
                 Partner with us
               </Button>
             </div>
             <p className="mt-4 text-sm text-slate">
-              Secure giving via Paystack / Flutterwave — coming online shortly.
+              Pledge your support below and our team will reach out with how to
+              give — whether funds or items.
             </p>
           </Reveal>
         </Container>
@@ -80,17 +78,18 @@ export default function DonatePage() {
       </section>
 
       {/* Pledge form */}
-      <section className="section-y">
+      <section id="pledge" className="section-y scroll-mt-24">
         <Container className="max-w-2xl">
           <Reveal>
             <SectionHeading
               eyebrow="Pledge your support"
-              title="Prefer to pledge?"
+              title="Make a pledge"
               align="left"
             />
             <p className="mt-3 text-slate">
-              Let us know what you&apos;d like to give — funds or items — and
-              we&apos;ll follow up with how to deliver it.
+              Tell us what you&apos;d like to give — funds or items — and our team
+              will follow up with how to deliver it. There&apos;s no online payment;
+              we&apos;ll arrange everything personally with you.
             </p>
             <div className="mt-8 rounded-lg border border-line bg-white p-6 shadow-e1 sm:p-8">
               <PledgeForm />

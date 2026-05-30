@@ -4,6 +4,19 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "cleanUrls": true,
     "trailingSlash": true,
+    "redirects": [
+      { "source": "/supporting-the-less-previlege-orphanage-home-outreach-in-kaduna", "destination": "/stories/orphanage-home-outreach-kaduna-2018", "type": 301 },
+      { "source": "/visit-to-idp-camp-supporting-education-and-well-being-of-orphans-and", "destination": "/stories/visit-to-idp-camp-2018", "type": 301 },
+      { "source": "/mbora-community-visit-empowering-women-in-need-2019", "destination": "/stories/mbora-community-visit-empowering-women-2019", "type": 301 },
+      { "source": "/prelli-fun-fair-for-orphans-and-widows-december-7-2019", "destination": "/stories/prelli-fun-fair-for-orphans-and-widows-2019", "type": 301 },
+      { "source": "/al-ansar-orphanage-home-visit-2020", "destination": "/stories/al-ansar-orphanage-home-visit-2020", "type": 301 },
+      { "source": "/gaduwa-central-mosque-donation-2020", "destination": "/stories/gaduwa-central-mosque-donation-2020", "type": 301 },
+      { "source": "/visit-to-orphanage-home-in-lugbe-2020", "destination": "/stories/visit-to-orphanage-home-in-lugbe-2020", "type": 301 },
+      { "source": "/christ-foundation-orphanage-home-widows-outreach-2021", "destination": "/stories/christ-foundation-orphanage-home-widows-outreach-2021", "type": 301 },
+      { "source": "/al-ansar-orphanage-home-ramadan-donation-march-2025", "destination": "/stories/al-ansar-orphanage-home-ramadan-donation-2025", "type": 301 },
+      { "source": "/bringing-hope-to-christ-foundation-orphanage-home-march-2025", "destination": "/stories/bringing-hope-to-christ-foundation-orphanage-home-2025", "type": 301 },
+      { "source": "/outreach-at-aso-drive-mosque-2025", "destination": "/stories/outreach-at-aso-drive-mosque-2025", "type": 301 }
+    ],
     "rewrites": [
       {
         "source": "/admin/**",

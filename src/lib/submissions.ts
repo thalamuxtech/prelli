@@ -1,10 +1,11 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { notifyByEmail } from "@/lib/notify";
 
 /**
  * Client-direct writes to Firestore (Implementation Plan §8, free plan).
- * Secured by Security Rules + App Check (App Check added in a later phase).
- * Email notification (EmailJS/Web3Forms) is wired in the same phase.
+ * Secured by Security Rules + App Check. Each write also fires an optional
+ * EmailJS notification (no-op unless keys are configured).
  */
 
 export async function submitContact(data: {
@@ -22,6 +23,12 @@ export async function submitContact(data: {
     handled: false,
     archived: false,
     createdAt: serverTimestamp(),
+  });
+  await notifyByEmail("New contact message", {
+    type: "Contact",
+    name: data.name,
+    email: data.email,
+    message: data.message,
   });
 }
 
@@ -43,6 +50,12 @@ export async function submitVolunteer(data: {
     archived: false,
     createdAt: serverTimestamp(),
   });
+  await notifyByEmail("New volunteer application", {
+    type: "Volunteer",
+    name: data.name,
+    email: data.email,
+    message: data.message,
+  });
 }
 
 export async function submitPartner(data: {
@@ -62,6 +75,12 @@ export async function submitPartner(data: {
     handled: false,
     archived: false,
     createdAt: serverTimestamp(),
+  });
+  await notifyByEmail("New partner / sponsor inquiry", {
+    type: "Partner",
+    name: data.name,
+    email: data.email,
+    message: data.message,
   });
 }
 
@@ -83,6 +102,12 @@ export async function submitPledge(data: {
     archived: false,
     createdAt: serverTimestamp(),
   });
+  await notifyByEmail("New donation pledge", {
+    type: "Donation pledge",
+    name: data.name,
+    email: data.email,
+    message: `${data.amount ? `Pledge: ${data.amount}. ` : ""}${data.message}`,
+  });
 }
 
 export async function subscribeNewsletter(email: string, source = "footer") {
@@ -93,4 +118,5 @@ export async function subscribeNewsletter(email: string, source = "footer") {
     status: "active",
     createdAt: serverTimestamp(),
   });
+  await notifyByEmail("New newsletter subscriber", { type: "Newsletter", name: "", email, message: "" });
 }

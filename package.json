@@ -11,6 +11,7 @@
     "serve": "firebase emulators:start --only hosting"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "clsx": "2.1.1",
     "firebase": "11.2.0",
     "framer-motion": "11.18.0",
