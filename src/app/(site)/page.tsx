@@ -6,9 +6,10 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
-import { Stagger, StaggerItem } from "@/components/motion/Stagger";
-import { Counter } from "@/components/motion/Counter";
+import { ImpactStats } from "@/components/site/ImpactStats";
+import { StoryCard } from "@/components/site/StoryCard";
 import { mission, supportPillars } from "@/content/site";
+import { sortedPosts } from "@/content/posts";
 
 const icons = [HeartHandshake, Users, HandHeart];
 const accents: Record<string, { color: string; ring: string }> = {
@@ -17,13 +18,7 @@ const accents: Record<string, { color: string; ring: string }> = {
   orange: { color: "text-prelli-orange", ring: "group-hover:ring-prelli-orange/30" },
 };
 const pillars = supportPillars.map((p, i) => ({ ...p, icon: icons[i], ...accents[p.accent] }));
-
-const stats = [
-  { value: 8, suffix: "+", label: "Years of service" },
-  { value: 12, suffix: "+", label: "Communities reached" },
-  { value: 500, suffix: "+", label: "Women empowered" },
-  { value: 1000, suffix: "+", label: "Lives touched" },
-];
+const featured = sortedPosts.slice(0, 3);
 
 export default function Home() {
   const reduce = useReducedMotion();
@@ -96,18 +91,7 @@ export default function Home() {
       <section className="section-y">
         <Container>
           <SectionHeading eyebrow="Our impact" title="Measurable change, since 2018" />
-          <Stagger className="mt-12 grid grid-cols-2 gap-6 lg:grid-cols-4">
-            {stats.map((s) => (
-              <StaggerItem key={s.label}>
-                <div className="rounded-lg border border-line bg-white p-6 text-center shadow-e1">
-                  <div className="font-display text-4xl font-bold text-prelli-green sm:text-5xl">
-                    <Counter value={s.value} suffix={s.suffix} />
-                  </div>
-                  <p className="mt-2 text-sm font-medium text-slate">{s.label}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <ImpactStats className="mt-12" />
         </Container>
       </section>
 
@@ -127,6 +111,25 @@ export default function Home() {
                   <h3 className="font-display text-xl font-semibold text-ink">{p.title}</h3>
                   <p className="mt-2 leading-relaxed text-slate">{p.body}</p>
                 </article>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Featured stories ──────────────────────────────────── */}
+      <section className="section-y">
+        <Container>
+          <SectionHeading
+            eyebrow="From the field"
+            title="Recent stories"
+            align="left"
+            seeAll={{ label: "See all stories", href: "/stories" }}
+          />
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {featured.map((post, i) => (
+              <Reveal key={post.id} delay={i * 0.08}>
+                <StoryCard post={post} />
               </Reveal>
             ))}
           </div>

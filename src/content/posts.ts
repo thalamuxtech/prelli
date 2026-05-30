@@ -1,0 +1,244 @@
+import type { Post } from "@/lib/types";
+
+/**
+ * The 11 historical PreLLI stories, migrated verbatim from the organisation's
+ * WordPress export (planning/.../prelli_posts_export.docx + Donations Writeup).
+ * This is the seed/fallback set; the admin CMS will manage these in Firestore.
+ */
+export const posts: Post[] = [
+  {
+    id: "kaduna-orphanage-2018",
+    slug: "orphanage-home-outreach-kaduna-2018",
+    title: "Supporting the Less Privileged: Orphanage Home Outreach in Kaduna",
+    excerpt:
+      "Our first outreach — essential supplies for children and caregivers at an orphanage home in Kaduna.",
+    body: [
+      "At Precious Little Lives Initiative (PreLLI), we believe in the power of kindness and the impact it can have on the lives of those in need. In 2018, we visited an orphanage home in Kaduna, where we provided essential supplies to support the children and caregivers.",
+      "This initiative is a step toward making a difference in the lives of the less privileged, especially during critical times. Every act of kindness, no matter how small, goes a long way in bringing hope and relief.",
+      "We remain committed to uplifting vulnerable communities and creating a brighter future for all.",
+    ],
+    donations: [
+      "50kg of rice",
+      "Carton of Indomie noodles",
+      "Tomato paste",
+      "Carton of Milo",
+      "Carton of Peak milk",
+      "Cooking oil",
+      "A generator set",
+      "Clothing items",
+    ],
+    coverImage: "/stories/orphanage-home-outreach-kaduna-2018.jpg",
+    category: "children",
+    date: "2018-01-18",
+    year: 2018,
+    location: "Kaduna, Nigeria",
+    status: "published",
+  },
+  {
+    id: "idp-camp-2018",
+    slug: "visit-to-idp-camp-2018",
+    title: "Visit to IDP Camp: Supporting Education & Well-being of Orphans and Widows",
+    excerpt:
+      "In collaboration with the NTIC Foundation, we supported children and widows at an IDP camp near Games Village, Abuja.",
+    body: [
+      "In 2018, the Precious Little Lives Initiative (PreLLI), in collaboration with the NTIC Foundation, visited an Internally Displaced Persons (IDP) Camp near Games Village, FCT, Abuja, to extend support to children and widows in the community.",
+      "This initiative aimed to enhance the quality of life for displaced individuals, ensuring that children have access to education and that widows receive the necessary support to rebuild their lives.",
+      "At PreLLI, we remain committed to uplifting vulnerable communities through education, welfare, and sustainable interventions. Together, we can make a difference!",
+    ],
+    donations: [
+      "School stationery items to support children's education",
+      "Food supplies to provide nourishment for families",
+      "Outdoor public restrooms to improve hygiene and sanitation in the camp",
+    ],
+    coverImage: "/stories/visit-to-idp-camp-2018.jpg",
+    category: "idp",
+    date: "2018-01-18",
+    year: 2018,
+    location: "Games Village, FCT, Abuja",
+    status: "published",
+  },
+  {
+    id: "mbora-women-2019",
+    slug: "mbora-community-visit-empowering-women-2019",
+    title: "Mbora Community Visit: Empowering Women in Need",
+    excerpt:
+      "A total of 500 women received essential relief materials in the Mbora community.",
+    body: [
+      "In 2019, the Precious Little Lives Initiative (PreLLI) visited the Mbora community to support women facing financial hardship and struggling to provide for their families.",
+      "With the help of the community leader, we distributed essential relief materials. A total of 500 women received these supplies, and their heartfelt gratitude was a reminder of the impact that kindness and community support can bring.",
+      "At PreLLI, we remain committed to uplifting those in need, one act of generosity at a time. Together, we can create a brighter future for all.",
+    ],
+    donations: [
+      "Rice",
+      "Sugar",
+      "Salt",
+      "Vegetable oil",
+      "Plastic plates and spoons",
+      "Spaghetti",
+      "Tins of milk",
+      "Lipton tea",
+    ],
+    coverImage: "/stories/mbora-community-visit-empowering-women-2019.jpg",
+    category: "community",
+    date: "2019-01-18",
+    year: 2019,
+    location: "Mbora, Abuja",
+    status: "published",
+  },
+  {
+    id: "fun-fair-2019",
+    slug: "prelli-fun-fair-for-orphans-and-widows-2019",
+    title: "PreLLI Fun Fair for Orphans and Widows",
+    excerpt:
+      "A day of laughter for orphaned children and empowerment for armed-forces widows at the Old Parade Ground, Abuja.",
+    body: [
+      "On December 7, 2019, the Precious Little Lives Initiative (PreLLI) organized a fun fair at the Old Parade Ground, Area 10, FCT Abuja, to bring joy to orphaned children and support widows of the armed forces whose husbands lost their lives in service to our nation.",
+      "The event featured a playground with a bouncing castle, giving the children a day filled with laughter and unforgettable memories.",
+      "In a show of support for widows, our founder and chairperson led the distribution of empowerment materials to help them rebuild their lives while caring for their families.",
+      "Through this initiative, PreLLI continues to bring hope, joy, and empowerment to vulnerable members of our society. Together, we can make a difference!",
+    ],
+    donations: [
+      "A grinding machine",
+      "A bag of rice",
+      "A carton of Indomie noodles",
+      "Other essential household items",
+    ],
+    coverImage: "/stories/prelli-fun-fair-for-orphans-and-widows-2019.jpg",
+    category: "community",
+    date: "2019-12-07",
+    year: 2019,
+    location: "Old Parade Ground, Area 10, FCT Abuja",
+    status: "published",
+  },
+  {
+    id: "al-ansar-2020",
+    slug: "al-ansar-orphanage-home-visit-2020",
+    title: "Al Ansar Orphanage Home Visit",
+    excerpt:
+      "Part of our ongoing food intervention program — nourishment for orphans at Al Ansar, Kuje.",
+    body: [
+      "At Precious Little Lives Initiative (PreLLI), we believe every child deserves a chance to thrive. As part of our ongoing food intervention program, we visited the Al Ansar Orphanage Home in Kuje, FCT, Abuja, to support orphans and less privileged children.",
+      "These essential food supplies aim to provide nourishment and bring relief to the children, ensuring they have access to the basics they need to grow and flourish.",
+      "We remain committed to making a lasting impact in the lives of vulnerable communities. Together, we can create a brighter future for these precious little lives.",
+    ],
+    donations: ["10kg bags of rice", "Yam tubers"],
+    coverImage: "/stories/al-ansar-orphanage-home-visit-2020.jpg",
+    category: "children",
+    date: "2020-01-18",
+    year: 2020,
+    location: "Kuje, FCT, Abuja",
+    status: "published",
+  },
+  {
+    id: "gaduwa-mosque-2020",
+    slug: "gaduwa-central-mosque-donation-2020",
+    title: "Gaduwa Central Mosque Donation",
+    excerpt:
+      "Relief materials for elderly community members in Gaduwa, FCT.",
+    body: [
+      "At Precious Little Lives Initiative (PreLLI), we believe in extending care and support to all members of our community, especially the elderly who have given so much to society.",
+      "As part of our ongoing commitment to supporting vulnerable communities, we visited Gaduwa, FCT, where we provided relief materials to elderly members in need.",
+      "We remain dedicated to bringing hope, relief, and assistance to those who need it most. Together, we can make a difference!",
+    ],
+    donations: ["10kg bags of rice", "Yam tubers"],
+    category: "community",
+    date: "2020-01-16",
+    year: 2020,
+    location: "Gaduwa, FCT, Abuja",
+    status: "published",
+  },
+  {
+    id: "lugbe-orphanage-2020",
+    slug: "visit-to-orphanage-home-in-lugbe-2020",
+    title: "Visit to Orphanage Home in Lugbe",
+    excerpt: "Continuing our outreach across the FCT with essential support for orphans in Lugbe.",
+    body: [
+      "As part of our continued outreach efforts across the FCT, the Precious Little Lives Initiative (PreLLI) visited an orphanage home in Lugbe, extending essential support to orphans in need.",
+      "This initiative was aimed at ensuring that the children received the nourishment and care they deserve, reinforcing PreLLI's commitment to supporting vulnerable communities.",
+      "At PreLLI, we believe that every child deserves love, care, and access to basic necessities. We remain dedicated to making a difference, one act of kindness at a time.",
+    ],
+    donations: ["10kg bags of rice", "Yam tubers"],
+    category: "children",
+    date: "2020-01-07",
+    year: 2020,
+    location: "Lugbe, FCT, Abuja",
+    status: "published",
+  },
+  {
+    id: "christ-foundation-2021",
+    slug: "christ-foundation-orphanage-home-widows-outreach-2021",
+    title: "Christ Foundation Orphanage Home & Widows Outreach",
+    excerpt: "Humanitarian support for orphans, less-privileged children, and widows in Kuje.",
+    body: [
+      "In 2021, the Precious Little Lives Initiative (PreLLI) extended its humanitarian efforts to the Christ Foundation Orphanage Home in Kuje, FCT, Abuja, providing essential support to orphans, less privileged children, and widows.",
+      "This initiative was aimed at alleviating hunger and bringing relief to those in need, ensuring that both children and widows had access to essential food supplies.",
+      "At PreLLI, we remain committed to supporting vulnerable communities and making a lasting impact in their lives. Together, we can create a brighter future for all.",
+    ],
+    donations: ["10kg bags of rice", "Yam tubers"],
+    coverImage: "/stories/christ-foundation-orphanage-home-widows-outreach-2021.jpg",
+    category: "children",
+    date: "2021-12-28",
+    year: 2021,
+    location: "Kuje, FCT, Abuja",
+    status: "published",
+  },
+  {
+    id: "al-ansar-ramadan-2025",
+    slug: "al-ansar-orphanage-home-ramadan-donation-2025",
+    title: "Al Ansar Orphanage Home Ramadan Donation",
+    excerpt:
+      "A Ramadan donation drive for the Al Ansar Children's Orphanage Home, plus food for mosques across Abuja.",
+    body: [
+      "During the holy month of Ramadan, the Precious Little Lives Initiative (PreLLI) once again extended its support to the Al Ansar Children's Orphanage Home, ensuring the children had access to essential food supplies.",
+      "Beyond this, PreLLI also donated additional food items to mosques across Abuja, reinforcing the spirit of charity and community support during this sacred time.",
+      "Our commitment to spreading kindness and providing for those in need remains at the heart of our mission. Together, we can make a difference!",
+    ],
+    donations: ["Bags of corn", "Millet", "Beans", "Rice", "Cartons of Indomie noodles", "Bags of sugar"],
+    coverImage: "/stories/al-ansar-orphanage-home-ramadan-donation-2025.jpg",
+    category: "children",
+    date: "2025-03-19",
+    year: 2025,
+    location: "Abuja, Nigeria",
+    status: "published",
+  },
+  {
+    id: "christ-foundation-2025",
+    slug: "bringing-hope-to-christ-foundation-orphanage-home-2025",
+    title: "Bringing Hope to Christ Foundation Orphanage Home",
+    excerpt: "Nourishment and smiles for Christ Foundation Orphanage Home and Widows Outreach.",
+    body: [
+      "This March, our PreLLI team brought nourishment and smiles to Christ Foundation Orphanage Home and Widows Outreach!",
+      "The joy on the children's faces reminds us why we do this work. Every bag of rice represents hope, and every carton of noodles symbolizes our commitment to these vulnerable communities.",
+    ],
+    donations: ["50kg bags of premium rice", "Multiple cartons of Indomie noodles"],
+    category: "children",
+    date: "2025-03-17",
+    year: 2025,
+    location: "Kuje, FCT, Abuja",
+    status: "published",
+  },
+  {
+    id: "aso-drive-mosque-2025",
+    slug: "outreach-at-aso-drive-mosque-2025",
+    title: "Outreach at Aso Drive Mosque",
+    excerpt: "Food provisions for domestic workers at Aso Drive Mosque, Mambila Street, Abuja.",
+    body: [
+      "Continuing our commitment to community support, PreLLI visited Aso Drive Mosque at Mambila Street, Abuja, to assist domestic workers in the area with essential food provisions.",
+      "At PreLLI, we recognize that true community development begins with supporting those who work tirelessly behind the scenes.",
+    ],
+    donations: ["10kg bags of grains"],
+    category: "community",
+    date: "2025-03-11",
+    year: 2025,
+    location: "Mambila Street, Abuja",
+    status: "published",
+  },
+];
+
+export const sortedPosts = [...posts].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+);
+
+export function getPost(slug: string) {
+  return posts.find((p) => p.slug === slug);
+}

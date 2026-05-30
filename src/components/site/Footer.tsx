@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Instagram, Facebook, Twitter, Mail, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
+import { Newsletter } from "./Newsletter";
 import { Container } from "@/components/ui/Container";
 import { org } from "@/content/site";
 import { footerGroups } from "@/content/nav";
@@ -14,6 +15,19 @@ const socials = [
 export function Footer() {
   return (
     <footer className="border-t border-line bg-white">
+      {/* Newsletter band */}
+      <div className="border-b border-line bg-prelli-green-50">
+        <Container className="flex flex-col gap-5 py-10 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-md">
+            <h3 className="font-display text-xl font-bold text-ink">Get our emails</h3>
+            <p className="mt-1 text-slate">
+              Subscribe to stay up-to-date with our news and outreach.
+            </p>
+          </div>
+          <Newsletter />
+        </Container>
+      </div>
+
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         {/* Brand + mission blurb */}
         <div className="sm:col-span-2 lg:col-span-2">
