@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -62,7 +62,7 @@ export async function importSeedContent(): Promise<{
       description: "Join us as we distribute food packages to orphanages and families across Abuja.",
       startAt: inDays(30),
       location: "Abuja, Nigeria",
-      images: ["/stories/al-ansar-orphanage-home-ramadan-donation-2025.jpg"],
+      images: ["/stories/al-ansar-orphanage-home-ramadan-donation-2025/1.jpg"],
       countdownEnabled: true,
       status: "upcoming",
     },
@@ -73,7 +73,7 @@ export async function importSeedContent(): Promise<{
       description: "Providing school supplies and learning materials to less privileged children.",
       startAt: inDays(60),
       location: "Abuja, Nigeria",
-      images: ["/stories/mbora-community-visit-empowering-women-2019.jpg"],
+      images: ["/stories/mbora-community-visit-empowering-women-2019/1.jpg"],
       countdownEnabled: false,
       status: "upcoming",
     },
@@ -89,7 +89,7 @@ export async function importSeedContent(): Promise<{
   }
 
   // Sample partners so the homepage partners slider is populated (text logos;
-  // admin can add real logo images). Edit/replace in Admin → Sponsors.
+  // admin can add real logo images). Edit/replace in Admin > Sponsors.
   const sampleSponsors = [
     { id: "partner-ntic", name: "NTIC Foundation", order: 1 },
     { id: "partner-al-ansar", name: "Al Ansar Orphanage", order: 2 },

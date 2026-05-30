@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
 import { ImpactStats } from "@/components/site/ImpactStats";
 import { RelatedEventsCarousel } from "@/components/site/RelatedEventsCarousel";
+import { EventImageSlider } from "@/components/site/EventImageSlider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { posts, getPost, sortedPosts } from "@/content/posts";
 import { categoryLabels, categoryColors } from "@/lib/types";
@@ -73,10 +74,10 @@ export default async function StoryDetail({
         )}
         <Container className="relative py-16 sm:py-24">
           <Link
-            href="/stories"
+            href="/events"
             className="inline-flex items-center gap-2 text-sm font-medium text-white/90 transition-colors hover:text-white"
           >
-            <ArrowLeft className="h-4 w-4" /> All stories
+            <ArrowLeft className="h-4 w-4" /> All events
           </Link>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Badge className="bg-white/90 text-ink">{categoryLabels[post.category]}</Badge>
@@ -94,6 +95,19 @@ export default async function StoryDetail({
           )}
         </Container>
       </header>
+
+      {/* Photo gallery slider (when the event has multiple images) */}
+      {post.gallery && post.gallery.length > 1 && (
+        <section className="bg-cloud py-10">
+          <Container className="max-w-4xl">
+            <div className="overflow-hidden rounded-lg shadow-e2">
+              <div className="relative aspect-[16/9] w-full">
+                <EventImageSlider images={post.gallery} alt={post.title} />
+              </div>
+            </div>
+          </Container>
+        </section>
+      )}
 
       {/* Body */}
       <section className="section-y">

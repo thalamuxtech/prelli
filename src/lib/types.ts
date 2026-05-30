@@ -26,6 +26,8 @@ export interface Post {
   /** Bullet list of donated/provided items, if any. */
   donations?: string[];
   coverImage?: string;
+  /** Up to 3–5 images for the event/story slider. */
+  gallery?: string[];
   category: Category;
   /** ISO date string. */
   date: string;

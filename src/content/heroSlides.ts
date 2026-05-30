@@ -1,4 +1,4 @@
-/** Default hero slides (also the seed for the admin-managed `heroSlides` collection). */
+﻿/** Default hero slides (also the seed for the admin-managed `heroSlides` collection). */
 export interface HeroSlideSeed {
   id: string;
   image: string;
@@ -12,7 +12,7 @@ export interface HeroSlideSeed {
 export const defaultHeroSlides: HeroSlideSeed[] = [
   {
     id: "slide-hope",
-    image: "/stories/al-ansar-orphanage-home-ramadan-donation-2025.jpg",
+    image: "/stories/al-ansar-orphanage-home-ramadan-donation-2025/1.jpg",
     eyebrow: "Precious Little Lives Initiative · since 2018",
     title: "Bringing hope to",
     highlight: "precious little lives",
@@ -21,7 +21,7 @@ export const defaultHeroSlides: HeroSlideSeed[] = [
   },
   {
     id: "slide-dignity",
-    image: "/stories/christ-foundation-orphanage-home-widows-outreach-2021.jpg",
+    image: "/stories/bringing-hope-to-christ-foundation-orphanage-home-2025/1.jpg",
     eyebrow: "Empowering families in need",
     title: "Restoring dignity,",
     highlight: "one family at a time",
@@ -30,7 +30,7 @@ export const defaultHeroSlides: HeroSlideSeed[] = [
   },
   {
     id: "slide-kindness",
-    image: "/stories/prelli-fun-fair-for-orphans-and-widows-2019.jpg",
+    image: "/stories/prelli-fun-fair-for-orphans-and-widows-2019/1.jpg",
     eyebrow: "Joy for orphans and widows",
     title: "Every act of kindness",
     highlight: "brings hope and relief",
@@ -39,7 +39,7 @@ export const defaultHeroSlides: HeroSlideSeed[] = [
   },
   {
     id: "slide-future",
-    image: "/stories/orphanage-home-outreach-kaduna-2018.jpg",
+    image: "/stories/orphanage-home-outreach-kaduna-2018/1.jpg",
     eyebrow: "Supporting the less privileged",
     title: "Creating pathways to",
     highlight: "a brighter future",
