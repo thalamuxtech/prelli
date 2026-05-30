@@ -7,7 +7,9 @@ import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
-import { StoryCard } from "@/components/site/StoryCard";
+import { ImpactStats } from "@/components/site/ImpactStats";
+import { RelatedEventsCarousel } from "@/components/site/RelatedEventsCarousel";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { posts, getPost, sortedPosts } from "@/content/posts";
 import { categoryLabels, categoryColors } from "@/lib/types";
 
@@ -46,9 +48,11 @@ export default async function StoryDetail({
     year: "numeric",
     month: "long",
   });
-  const related = sortedPosts
-    .filter((p) => p.id !== post.id && p.category === post.category)
-    .slice(0, 3);
+  // Same-category first, then fill with other events, for a fuller carousel.
+  const others = sortedPosts.filter((p) => p.id !== post.id);
+  const sameCat = others.filter((p) => p.category === post.category);
+  const rest = others.filter((p) => p.category !== post.category);
+  const related = [...sameCat, ...rest].slice(0, 8);
 
   return (
     <article>
@@ -119,23 +123,43 @@ export default async function StoryDetail({
 
             <div className="mt-10 flex flex-wrap gap-4 border-t border-line pt-8">
               <Button href="/donate">Support our work</Button>
-              <Button href="/stories" variant="secondary">
-                Read more stories
+              <Button href="/events" variant="secondary">
+                See more events
               </Button>
             </div>
           </Reveal>
         </Container>
       </section>
 
-      {/* Related */}
+      {/* Impact band */}
+      <section className="relative overflow-hidden bg-ink section-y">
+        <div
+          className="animate-glow pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(45% 60% at 80% 10%, rgba(123,186,60,.5), transparent 60%), radial-gradient(40% 60% at 12% 90%, rgba(45,156,219,.45), transparent 60%)",
+          }}
+        />
+        <Container className="relative">
+          <Reveal className="text-center">
+            <p className="text-sm font-semibold uppercase tracking-wider text-prelli-green">
+              Our impact
+            </p>
+            <h2 className="text-h2 mt-2 font-display font-bold text-white">
+              The bigger picture
+            </h2>
+          </Reveal>
+          <ImpactStats className="mt-12" variant="dark" />
+        </Container>
+      </section>
+
+      {/* Related events carousel */}
       {related.length > 0 && (
         <section className="bg-cloud section-y">
           <Container>
-            <h2 className="text-h2 font-display font-bold text-ink">Related stories</h2>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((p) => (
-                <StoryCard key={p.id} post={p} />
-              ))}
+            <SectionHeading eyebrow="Keep exploring" title="Related events" align="left" />
+            <div className="mt-10">
+              <RelatedEventsCarousel posts={related} />
             </div>
           </Container>
         </section>

@@ -200,7 +200,7 @@ export function PledgeForm() {
 
       {status === "error" && <p className="text-sm text-prelli-pink">Something went wrong. Please try again.</p>}
 
-      <Button type="submit" size="lg" disabled={status === "sending"} className="w-full">
+      <Button type="submit" size="lg" disabled={status === "sending"} className="btn-gradient w-full border-0 text-white hover:text-white">
         {status === "sending" ? (
           <><Loader2 className="h-5 w-5 animate-spin" /> Submitting…</>
         ) : (

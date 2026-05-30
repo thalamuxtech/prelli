@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 export interface GalleryItem {
   src: string;
@@ -13,7 +13,42 @@ export interface GalleryItem {
 
 /** Masonry-ish gallery grid with a shared-layout lightbox (§2.5). */
 export function Gallery({ items }: { items: GalleryItem[] }) {
-  const [active, setActive] = useState<GalleryItem | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const open = activeIndex !== null;
+  const active = activeIndex !== null ? items[activeIndex] : null;
+
+  const close = useCallback(() => setActiveIndex(null), []);
+  const prev = useCallback(
+    () =>
+      setActiveIndex((i) =>
+        i === null ? i : (i - 1 + items.length) % items.length
+      ),
+    [items.length]
+  );
+  const next = useCallback(
+    () => setActiveIndex((i) => (i === null ? i : (i + 1) % items.length)),
+    [items.length]
+  );
+
+  // Keyboard navigation + body scroll lock while the lightbox is open.
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") prev();
+      else if (e.key === "ArrowRight") next();
+      else if (e.key === "Escape") close();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open, prev, next, close]);
 
   return (
     <>
@@ -22,7 +57,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
           <motion.button
             key={item.src}
             type="button"
-            onClick={() => setActive(item)}
+            onClick={() => setActiveIndex(i)}
             layoutId={`g-${i}`}
             className="group relative aspect-square overflow-hidden rounded-md bg-cloud focus-visible:outline-none"
           >
@@ -42,22 +77,51 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
       </div>
 
       <AnimatePresence>
-        {active && (
+        {active && activeIndex !== null && (
           <motion.div
             className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/85 p-4 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setActive(null)}
+            onClick={close}
           >
             <button
               type="button"
               aria-label="Close"
+              onClick={(e) => {
+                e.stopPropagation();
+                close();
+              }}
               className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-pill bg-white/10 text-white hover:bg-white/20"
               style={{ top: "max(1rem, env(safe-area-inset-top))" }}
             >
               <X className="h-6 w-6" />
             </button>
+
+            <button
+              type="button"
+              aria-label="Previous image"
+              onClick={(e) => {
+                e.stopPropagation();
+                prev();
+              }}
+              className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-pill bg-white/10 text-white hover:bg-white/20"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+
+            <button
+              type="button"
+              aria-label="Next image"
+              onClick={(e) => {
+                e.stopPropagation();
+                next();
+              }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-12 w-12 items-center justify-center rounded-pill bg-white/10 text-white hover:bg-white/20"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+
             <motion.div
               className="relative max-h-[80vh] w-full max-w-3xl overflow-hidden rounded-lg"
               initial={{ scale: 0.92, opacity: 0 }}
@@ -77,6 +141,10 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
                 {active.caption} · {active.year}
               </p>
             </motion.div>
+
+            <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-pill bg-white/10 px-3 py-1 text-sm text-white">
+              {activeIndex + 1} / {items.length}
+            </span>
           </motion.div>
         )}
       </AnimatePresence>

@@ -48,6 +48,8 @@ export interface EventItem {
 export interface Initiative {
   title: string;
   summary: string;
+  /** Optional headline impact figure shown on hover, e.g. "500+ children reached". */
+  impact?: string;
 }
 
 /** ── Admin / backend types ─────────────────────────────────────────── */
@@ -149,6 +151,8 @@ export interface AdminEvent {
   images: string[]; // 3–5 max
   countdownEnabled: boolean;
   status: "upcoming" | "past";
+  /** Optional impact figure shown on click/hover, e.g. "300 families fed". */
+  impact?: string;
   createdAt?: unknown;
 }
 

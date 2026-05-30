@@ -19,24 +19,24 @@ const heroSlides = [
 ];
 
 const initiatives = [
-  ["Special Care for Orphans & Widows", "Food, clothing, and essential support for orphaned children and widows rebuilding their lives."],
-  ["Nigerian Military Family Care", "Support for the families and widows of armed-forces personnel who served the nation."],
-  ["Community Health Care Programs", "Health interventions that improve well-being in underserved communities."],
-  ["Quality Education", "Educational resources and support for both gifted and less-privileged children and youth."],
-  ["Skill Acquisition Programs", "Practical skills training that builds self-sufficiency and livelihoods."],
-  ["Humanitarian Projects", "Relief that meets real needs: food, sanitation, and shelter for those facing hardship."],
-  ["Peace Ambassadors", "Promoting peace, tolerance, and social cohesion within communities."],
-  ["Progressive Planning for Society", "Long-term initiatives that build resilient, self-reliant communities."],
-  ["Youth Career Training & Engagement", "Mentorship and career development to prepare young people for the future."],
-  ["STEM Camp for Teen Girls", "Science, Technology, Engineering & Mathematics camps designed to empower teenage girls."],
-  ["Computer Training Programs", "Digital-literacy training to open up modern opportunities."],
+  ["Special Care for Orphans & Widows", "Food, clothing, and essential support for orphaned children and widows rebuilding their lives.", "2,500+ widows empowered"],
+  ["Nigerian Military Family Care", "Support for the families and widows of armed-forces personnel who served the nation.", "100+ families supported"],
+  ["Community Health Care Programs", "Health interventions that improve well-being in underserved communities.", "12+ communities reached"],
+  ["Quality Education", "Educational resources and support for both gifted and less-privileged children and youth.", "1,000+ children in school"],
+  ["Skill Acquisition Programs", "Practical skills training that builds self-sufficiency and livelihoods.", "300+ trained"],
+  ["Humanitarian Projects", "Relief that meets real needs: food, sanitation, and shelter for those facing hardship.", "4,000+ lives touched"],
+  ["Peace Ambassadors", "Promoting peace, tolerance, and social cohesion within communities.", ""],
+  ["Progressive Planning for Society", "Long-term initiatives that build resilient, self-reliant communities.", ""],
+  ["Youth Career Training & Engagement", "Mentorship and career development to prepare young people for the future.", ""],
+  ["STEM Camp for Teen Girls", "Science, Technology, Engineering & Mathematics camps designed to empower teenage girls.", ""],
+  ["Computer Training Programs", "Digital-literacy training to open up modern opportunities.", ""],
 ];
 
 const now = Date.now();
 const inDays = (d) => new Date(now + d * 86400000).toISOString().slice(0, 16);
 const events = [
-  { id: "sample-ramadan-outreach", title: "Ramadan Food Outreach", slug: "ramadan-food-outreach", description: "Join us as we distribute food packages to orphanages and families across Abuja.", startAt: inDays(30), location: "Abuja, Nigeria", images: ["/stories/al-ansar-orphanage-home-ramadan-donation-2025.jpg", "/stories/christ-foundation-orphanage-home-widows-outreach-2021.jpg", "/stories/al-ansar-orphanage-home-visit-2020.jpg"], countdownEnabled: true, status: "upcoming" },
-  { id: "sample-back-to-school", title: "Back-to-School Drive", slug: "back-to-school-drive", description: "Providing school supplies and learning materials to less privileged children.", startAt: inDays(60), location: "Abuja, Nigeria", images: ["/stories/mbora-community-visit-empowering-women-2019.jpg", "/stories/prelli-fun-fair-for-orphans-and-widows-2019.jpg", "/stories/orphanage-home-outreach-kaduna-2018.jpg"], countdownEnabled: false, status: "upcoming" },
+  { id: "sample-ramadan-outreach", title: "Ramadan Food Outreach", slug: "ramadan-food-outreach", description: "Join us as we distribute food packages to orphanages and families across Abuja.", startAt: inDays(30), location: "Abuja, Nigeria", impact: "300+ families fed", images: ["/stories/al-ansar-orphanage-home-ramadan-donation-2025.jpg", "/stories/christ-foundation-orphanage-home-widows-outreach-2021.jpg", "/stories/al-ansar-orphanage-home-visit-2020.jpg"], countdownEnabled: true, status: "upcoming" },
+  { id: "sample-back-to-school", title: "Back-to-School Drive", slug: "back-to-school-drive", description: "Providing school supplies and learning materials to less privileged children.", startAt: inDays(60), location: "Abuja, Nigeria", impact: "200+ children supported", images: ["/stories/mbora-community-visit-empowering-women-2019.jpg", "/stories/prelli-fun-fair-for-orphans-and-widows-2019.jpg", "/stories/orphanage-home-outreach-kaduna-2018.jpg"], countdownEnabled: false, status: "upcoming" },
 ];
 
 const sponsors = [
@@ -54,9 +54,9 @@ for (const h of heroSlides) { await db.collection("heroSlides").doc(h.id).set({ 
 console.log(`heroSlides: ${c}`);
 c = 0;
 for (let i = 0; i < initiatives.length; i++) {
-  const [title, summary] = initiatives[i];
+  const [title, summary, impact] = initiatives[i];
   const id = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-  await db.collection("initiatives").doc(id).set({ title, summary, order: i + 1, ...stamp() }, { merge: true });
+  await db.collection("initiatives").doc(id).set({ title, summary, impact: impact || "", order: i + 1, ...stamp() }, { merge: true });
   c++;
 }
 console.log(`initiatives: ${c}`);

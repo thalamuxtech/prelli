@@ -98,7 +98,8 @@ export default function AboutPage() {
           <Stagger className="mt-12 grid gap-6 sm:grid-cols-2">
             {focusAreas.map((area) => (
               <StaggerItem key={area.key}>
-                <article className="h-full rounded-lg bg-white p-7 shadow-e1">
+                <article className="glow-card group relative h-full overflow-hidden rounded-lg bg-white p-7 shadow-e1 transition-all duration-300 hover:-translate-y-1">
+                  <span className="border-beam pointer-events-none" />
                   <h3 className="font-display text-xl font-semibold text-prelli-green-600">
                     {area.title}
                   </h3>
@@ -119,7 +120,8 @@ export default function AboutPage() {
               const Icon = valueIcons[i];
               return (
                 <StaggerItem key={v.title}>
-                  <div className="h-full rounded-lg border border-line bg-white p-6 text-center shadow-e1">
+                  <div className="glow-card group relative h-full overflow-hidden rounded-lg bg-white p-6 text-center shadow-e1 transition-all duration-300 hover:-translate-y-1">
+                    <span className="border-beam pointer-events-none" />
                     <div className="mx-auto mb-4 inline-flex rounded-md bg-prelli-green-50 p-3">
                       <Icon className="h-6 w-6 text-prelli-green-600" />
                     </div>

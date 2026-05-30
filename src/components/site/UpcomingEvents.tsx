@@ -7,7 +7,6 @@ import { MapPin, ArrowRight, CalendarClock } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
-import { EventImageSlider } from "@/components/site/EventImageSlider";
 import { useUpcomingEvents } from "@/lib/usePublicContent";
 import type { AdminEvent } from "@/lib/types";
 
@@ -59,17 +58,10 @@ function EventCard({ ev, i }: { ev: AdminEvent; i: number }) {
       initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative overflow-hidden rounded-lg border border-line bg-white shadow-e1 transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-e2"
+      className="glow-card group relative overflow-hidden rounded-lg border border-line bg-white shadow-e1 transition-all duration-300 ease-out-expo hover:-translate-y-1"
     >
-      {/* neon glow edge on hover */}
-      <span className="pointer-events-none absolute inset-0 z-20 rounded-lg opacity-0 ring-2 ring-prelli-green/40 transition-opacity duration-300 group-hover:opacity-100" />
-
-      {/* Image slider (3-5 images, auto-advance + full view) */}
-      {ev.images && ev.images.length > 0 && (
-        <div className="relative aspect-[16/9] w-full">
-          <EventImageSlider images={ev.images} alt={ev.title} />
-        </div>
-      )}
+      {/* animated multi-colour border on hover */}
+      <span className="border-beam pointer-events-none z-20" />
 
       <div className="flex">
         {/* Date badge square */}

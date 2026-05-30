@@ -27,6 +27,7 @@ export default function EventsAdmin() {
       description: String(fd.get("description")),
       startAt,
       location: String(fd.get("location")),
+      impact: String(fd.get("impact") || ""),
       images: editing?.images || [],
       countdownEnabled: fd.get("countdownEnabled") === "on",
       status: new Date(startAt).getTime() > Date.now() ? "upcoming" : "past",
@@ -123,6 +124,7 @@ export default function EventsAdmin() {
                 <Input id="location" name="location" defaultValue={editing.location} />
               </div>
             </div>
+            <div><Label htmlFor="impact">Impact figure (optional)</Label><Input id="impact" name="impact" defaultValue={editing.impact} placeholder="e.g. 300 families fed" /></div>
 
             <MultiImageUpload
               values={editing.images || []}

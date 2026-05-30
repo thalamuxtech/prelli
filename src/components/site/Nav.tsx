@@ -46,10 +46,10 @@ export function Nav() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-out-expo",
         solid
-          ? "border-b border-line bg-white/80 py-3 shadow-e1 backdrop-blur-lg"
-          : "border-b border-transparent bg-gradient-to-b from-ink/45 to-transparent py-5",
+          ? "border-b border-line bg-white/80 py-4 shadow-e1 backdrop-blur-lg"
+          : "border-b border-transparent bg-gradient-to-b from-ink/45 to-transparent py-6",
       )}
-      style={{ paddingTop: "max(env(safe-area-inset-top), 0px)" }}
+      style={{ paddingTop: "max(env(safe-area-inset-top), 1rem)" }}
     >
       {/* Logo is allowed to overflow the bar (detached, oversized) without clipping. */}
       <nav className="container-px mx-auto flex max-w-content items-center justify-between gap-4 overflow-visible">

@@ -102,6 +102,25 @@ export function HeroSlider() {
         }}
       />
 
+      {/* Eyebrow tag — pinned top-right so it never clashes with the logo (top-left) */}
+      <Container className="pointer-events-none absolute inset-x-0 top-24 z-10 hidden sm:block">
+        <div className="flex justify-end">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={`eyebrow-${index}`}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-2 rounded-pill border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur"
+            >
+              <span className="h-2 w-2 rounded-full bg-prelli-green" />
+              {slide.eyebrow}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+      </Container>
+
       {/* Content */}
       <Container className="relative z-10 flex h-full items-center">
         <div className="max-w-2xl">
@@ -113,7 +132,8 @@ export function HeroSlider() {
               exit={reduce ? { opacity: 0 } : { opacity: 0, y: -16 }}
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="mb-4 inline-flex items-center gap-2 rounded-pill border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur">
+              {/* Mobile eyebrow (inline, since the logo is small/centered there) */}
+              <p className="mb-4 inline-flex items-center gap-2 rounded-pill border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur sm:hidden">
                 <span className="h-2 w-2 rounded-full bg-prelli-green" />
                 {slide.eyebrow}
               </p>

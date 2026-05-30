@@ -90,14 +90,14 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* ── Featured stories ──────────────────────────────────── */}
+      {/* ── Recent outreach ───────────────────────────────────── */}
       <section className="section-y">
         <Container>
           <SectionHeading
             eyebrow="From the field"
-            title="Recent stories"
+            title="Recent outreach"
             align="left"
-            seeAll={{ label: "See all stories", href: "/stories" }}
+            seeAll={{ label: "See all events", href: "/events" }}
           />
           <FeaturedStories />
         </Container>

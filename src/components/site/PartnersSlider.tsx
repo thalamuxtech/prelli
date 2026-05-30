@@ -48,7 +48,11 @@ export function PartnersSlider() {
                 </span>
               );
               return (
-                <div key={`${s.id}-${idx}`} className="flex shrink-0 items-center justify-center">
+                <div
+                  key={`${s.id}-${idx}`}
+                  className="glow-card group relative flex h-24 w-44 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white p-5 transition-all duration-300 hover:-translate-y-1"
+                >
+                  <span className="border-beam pointer-events-none" />
                   {s.url ? (
                     <a href={s.url} target="_blank" rel="noreferrer" aria-label={s.name}>
                       {inner}

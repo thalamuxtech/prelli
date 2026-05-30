@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import { MapPin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { ImpactStats } from "@/components/site/ImpactStats";
 import { InitiativesGrid } from "@/components/site/InitiativesGrid";
+import { ImpactTimeline } from "@/components/site/ImpactTimeline";
 import { sortedPosts } from "@/content/posts";
-import { categoryLabels, categoryColors } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Our Work & Impact",
@@ -54,41 +52,8 @@ export default function WorkPage() {
       {/* Timeline */}
       <section className="section-y">
         <Container>
-          <SectionHeading eyebrow="Our journey" title="A timeline of outreach" />
-          <div className="relative mx-auto mt-14 max-w-3xl">
-            <div className="absolute left-[7px] top-2 h-full w-0.5 bg-line sm:left-1/2 sm:-translate-x-1/2" />
-            <ol className="space-y-8">
-              {timeline.map((post, i) => (
-                <li key={post.id} className="relative">
-                  <Reveal delay={(i % 4) * 0.05}>
-                    <div
-                      className={`relative pl-8 sm:w-1/2 sm:pl-0 ${
-                        i % 2 === 0 ? "sm:pr-10 sm:text-right" : "sm:ml-auto sm:pl-10"
-                      }`}
-                    >
-                      <span
-                        className={`absolute top-1.5 h-4 w-4 rounded-full border-2 border-white bg-prelli-green shadow-e1 ${
-                          i % 2 === 0 ? "left-0 sm:left-auto sm:-right-2" : "left-0 sm:-left-2"
-                        }`}
-                      />
-                      <div className="rounded-lg border border-line bg-white p-5 shadow-e1">
-                        <div className={`mb-2 flex items-center gap-2 ${i % 2 === 0 ? "sm:justify-end" : ""}`}>
-                          <span className="font-display text-sm font-bold text-prelli-green-600">{post.year}</span>
-                          <Badge className={categoryColors[post.category]}>{categoryLabels[post.category]}</Badge>
-                        </div>
-                        <h3 className="font-display font-semibold leading-snug text-ink">{post.title}</h3>
-                        {post.location && (
-                          <p className={`mt-1.5 inline-flex items-center gap-1.5 text-xs text-slate ${i % 2 === 0 ? "sm:flex-row-reverse" : ""}`}>
-                            <MapPin className="h-3.5 w-3.5" /> {post.location}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </Reveal>
-                </li>
-              ))}
-            </ol>
-          </div>
+          <SectionHeading eyebrow="Our journey" title="A timeline of dedication and impact" />
+          <ImpactTimeline items={timeline} />
         </Container>
       </section>
 

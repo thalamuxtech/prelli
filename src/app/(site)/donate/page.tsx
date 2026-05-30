@@ -58,7 +58,8 @@ export default function DonatePage() {
           <Stagger className="mt-12 grid gap-6 sm:grid-cols-3">
             {impactOf.map(({ Icon, title, body }) => (
               <StaggerItem key={title}>
-                <div className="h-full rounded-lg bg-white p-7 text-center shadow-e1">
+                <div className="glow-card group relative h-full overflow-hidden rounded-lg bg-white p-7 text-center shadow-e1 transition-all duration-300 hover:-translate-y-1">
+                  <span className="border-beam pointer-events-none" />
                   <div className="mx-auto mb-4 inline-flex rounded-md bg-prelli-green-50 p-3">
                     <Icon className="h-7 w-7 text-prelli-green-600" />
                   </div>
@@ -79,7 +80,7 @@ export default function DonatePage() {
 
       {/* Pledge form */}
       <section id="pledge" className="section-y scroll-mt-24">
-        <Container className="max-w-2xl">
+        <Container className="max-w-xl">
           <Reveal>
             <SectionHeading
               eyebrow="Pledge your support"

@@ -10,6 +10,7 @@ interface InitiativeDoc {
   id: string;
   title: string;
   summary: string;
+  impact?: string;
   order: number;
 }
 
@@ -24,6 +25,7 @@ export default function InitiativesAdmin() {
     const payload = {
       title: String(fd.get("title")),
       summary: String(fd.get("summary")),
+      impact: String(fd.get("impact") || ""),
       order: Number(fd.get("order")) || 0,
     };
     setBusy(true);
@@ -88,6 +90,7 @@ export default function InitiativesAdmin() {
               <Label htmlFor="summary">Summary</Label>
               <Textarea id="summary" name="summary" required defaultValue={editing.summary} className="min-h-[90px]" />
             </div>
+            <div><Label htmlFor="impact">Impact figure (optional)</Label><Input id="impact" name="impact" defaultValue={editing.impact} placeholder="e.g. 500+ children reached" /></div>
             <div>
               <Label htmlFor="order">Order</Label>
               <Input id="order" name="order" type="number" inputMode="numeric" defaultValue={editing.order ?? 0} />

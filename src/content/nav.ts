@@ -2,8 +2,7 @@
 export const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Our Work", href: "/work" },
-  { label: "Stories", href: "/stories" },
+  { label: "Impact", href: "/work" },
   { label: "Gallery", href: "/gallery" },
   { label: "Events", href: "/events" },
   { label: "Contact", href: "/contact" },
@@ -15,9 +14,10 @@ export const footerGroups = [
     title: "Explore",
     links: [
       { label: "About PreLLI", href: "/about" },
-      { label: "Our Work & Impact", href: "/work" },
-      { label: "Stories", href: "/stories" },
+      { label: "Impact", href: "/work" },
+      { label: "Events", href: "/events" },
       { label: "Gallery", href: "/gallery" },
+      { label: "Blog", href: "/blog" },
     ],
   },
   {
@@ -26,7 +26,6 @@ export const footerGroups = [
       { label: "Donate", href: "/donate" },
       { label: "Volunteer", href: "/volunteer" },
       { label: "Partner with us", href: "/partner" },
-      { label: "Events", href: "/events" },
       { label: "Contact", href: "/contact" },
     ],
   },
