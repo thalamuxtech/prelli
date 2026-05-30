@@ -39,3 +39,9 @@ Thumbs.db
 # Firebase admin SDK private keys (NEVER commit)
 *adminsdk*.json
 serviceAccount*.json
+
+# MCP config (contains API key — never commit)
+.mcp.json
+
+# UI/UX design skill (local tooling, not app code)
+.claude/skills/

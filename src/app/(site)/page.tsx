@@ -1,78 +1,29 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-import { HeartHandshake, Users, HandHeart, ArrowRight, Heart } from "lucide-react";
+import { HeartHandshake, Users, HandHeart, Heart } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { ImpactStats } from "@/components/site/ImpactStats";
 import { EventCountdown } from "@/components/site/EventCountdown";
+import { HeroSlider } from "@/components/site/HeroSlider";
 import { StoryCard } from "@/components/site/StoryCard";
 import { mission, supportPillars } from "@/content/site";
 import { sortedPosts } from "@/content/posts";
 
 const icons = [HeartHandshake, Users, HandHeart];
-const accents: Record<string, { color: string; ring: string }> = {
-  blue: { color: "text-prelli-blue", ring: "group-hover:ring-prelli-blue/30" },
-  green: { color: "text-prelli-green", ring: "group-hover:ring-prelli-green/30" },
-  orange: { color: "text-prelli-orange", ring: "group-hover:ring-prelli-orange/30" },
+const accents: Record<string, { color: string; iconBg: string; bar: string }> = {
+  blue: { color: "text-prelli-blue", iconBg: "bg-prelli-blue/10", bar: "from-prelli-blue to-prelli-green" },
+  green: { color: "text-prelli-green-600", iconBg: "bg-prelli-green-50", bar: "from-prelli-green to-prelli-blue" },
+  orange: { color: "text-prelli-orange", iconBg: "bg-prelli-orange-50", bar: "from-prelli-orange to-prelli-pink" },
 };
 const pillars = supportPillars.map((p, i) => ({ ...p, icon: icons[i], ...accents[p.accent] }));
 const featured = sortedPosts.slice(0, 3);
 
 export default function Home() {
-  const reduce = useReducedMotion();
-  const fade = (delay: number) => ({
-    initial: reduce ? false : { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
-  });
-
   return (
     <>
-      {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div
-          className="pointer-events-none absolute inset-0 -z-10 opacity-60"
-          style={{
-            background:
-              "radial-gradient(60% 60% at 72% 8%, rgba(123,186,60,.20), transparent 60%), radial-gradient(50% 50% at 12% 28%, rgba(45,156,219,.16), transparent 60%), radial-gradient(42% 42% at 88% 82%, rgba(242,163,60,.18), transparent 60%)",
-          }}
-        />
-        <Container className="py-16 sm:py-24 lg:py-32">
-          <motion.p
-            {...fade(0)}
-            className="mb-4 inline-flex items-center gap-2 rounded-pill border border-line bg-white px-4 py-1.5 text-sm font-medium text-slate shadow-e1"
-          >
-            <span className="h-2 w-2 rounded-full bg-prelli-green" />
-            Precious Little Lives Initiative · since 2018
-          </motion.p>
-
-          <motion.h1
-            {...fade(0.08)}
-            className="text-display max-w-4xl font-display font-bold text-ink"
-          >
-            Bringing hope to{" "}
-            <span className="text-prelli-green">precious little lives</span>.
-          </motion.h1>
-
-          <motion.p {...fade(0.16)} className="mt-6 max-w-2xl text-lg leading-relaxed text-slate">
-            A Nigerian non-profit supporting orphans, widows, and the elderly
-            through humanitarian relief, education, and empowerment — caring for
-            the whole family, not just the child.
-          </motion.p>
-
-          <motion.div {...fade(0.24)} className="mt-9 flex flex-wrap items-center gap-4">
-            <Button href="/donate" size="lg">
-              <Heart className="h-5 w-5" /> Make a difference
-            </Button>
-            <Button href="/about" variant="secondary" size="lg">
-              Learn more <ArrowRight className="h-4 w-4" />
-            </Button>
-          </motion.div>
-        </Container>
-      </section>
+      {/* ── Hero slider ───────────────────────────────────────── */}
+      <HeroSlider />
 
       {/* ── Mission band ──────────────────────────────────────── */}
       <section className="border-y border-line bg-prelli-green-50">
@@ -91,11 +42,25 @@ export default function Home() {
       {/* ── Event countdown (shows only when an event has it enabled) ── */}
       <EventCountdown />
 
-      {/* ── Impact counters ───────────────────────────────────── */}
-      <section className="section-y">
-        <Container>
-          <SectionHeading eyebrow="Our impact" title="Measurable change, since 2018" />
-          <ImpactStats className="mt-12" />
+      {/* ── Impact counters (dark band) ───────────────────────── */}
+      <section className="relative overflow-hidden bg-ink section-y">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-50"
+          style={{
+            background:
+              "radial-gradient(45% 60% at 80% 10%, rgba(123,186,60,.45), transparent 60%), radial-gradient(40% 60% at 12% 90%, rgba(45,156,219,.4), transparent 60%)",
+          }}
+        />
+        <Container className="relative">
+          <Reveal className="text-center">
+            <p className="text-sm font-semibold uppercase tracking-wider text-prelli-green">
+              Our impact
+            </p>
+            <h2 className="text-h2 mt-2 font-display font-bold text-white">
+              Measurable change, since 2018
+            </h2>
+          </Reveal>
+          <ImpactStats className="mt-12" variant="dark" />
         </Container>
       </section>
 
@@ -106,13 +71,17 @@ export default function Home() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {pillars.map((p, i) => (
               <Reveal key={p.title} delay={i * 0.08}>
-                <article
-                  className={`group h-full rounded-lg bg-white p-8 shadow-e1 ring-1 ring-transparent transition-all duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-e2 ${p.ring}`}
-                >
-                  <div className="mb-5 inline-flex rounded-md bg-cloud p-3">
+                <article className="group relative h-full overflow-hidden rounded-lg bg-white p-8 shadow-e1 transition-all duration-300 ease-out-expo hover:-translate-y-1.5 hover:shadow-e2">
+                  {/* accent bar slides up on hover */}
+                  <span
+                    className={`absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r ${p.bar} transition-transform duration-300 ease-out-expo group-hover:scale-x-100`}
+                  />
+                  <div className={`mb-5 inline-flex rounded-md p-3.5 transition-transform duration-300 group-hover:scale-110 ${p.iconBg}`}>
                     <p.icon className={`h-7 w-7 ${p.color}`} />
                   </div>
-                  <h3 className="font-display text-xl font-semibold text-ink">{p.title}</h3>
+                  <h3 className="font-display text-xl font-semibold text-ink transition-colors group-hover:text-prelli-green-600">
+                    {p.title}
+                  </h3>
                   <p className="mt-2 leading-relaxed text-slate">{p.body}</p>
                 </article>
               </Reveal>

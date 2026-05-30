@@ -11,19 +11,41 @@ const stats = [
   { value: 1000, suffix: "+", label: "Lives touched" },
 ];
 
-/** Animated impact counters — used on the home and impact pages (§2.5). */
-export function ImpactStats({ className }: { className?: string }) {
+/**
+ * Animated impact counters (§2.5). `variant="dark"` renders glassy tiles on a
+ * dark band; default renders light cards.
+ */
+export function ImpactStats({
+  className,
+  variant = "light",
+}: {
+  className?: string;
+  variant?: "light" | "dark";
+}) {
+  const dark = variant === "dark";
   return (
-    <Stagger
-      className={cn("grid grid-cols-2 gap-6 lg:grid-cols-4", className)}
-    >
+    <Stagger className={cn("grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4", className)}>
       {stats.map((s) => (
         <StaggerItem key={s.label}>
-          <div className="rounded-lg border border-line bg-white p-6 text-center shadow-e1">
-            <div className="font-display text-4xl font-bold text-prelli-green sm:text-5xl">
+          <div
+            className={cn(
+              "rounded-lg p-6 text-center transition-transform duration-300 hover:-translate-y-1",
+              dark
+                ? "border border-white/10 bg-white/5 backdrop-blur"
+                : "border border-line bg-white shadow-e1",
+            )}
+          >
+            <div
+              className={cn(
+                "font-display text-4xl font-bold sm:text-5xl",
+                dark ? "text-white" : "text-prelli-green",
+              )}
+            >
               <Counter value={s.value} suffix={s.suffix} />
             </div>
-            <p className="mt-2 text-sm font-medium text-slate">{s.label}</p>
+            <p className={cn("mt-2 text-sm font-medium", dark ? "text-white/75" : "text-slate")}>
+              {s.label}
+            </p>
           </div>
         </StaggerItem>
       ))}
