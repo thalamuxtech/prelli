@@ -8,7 +8,7 @@ import { org } from "@/content/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Precious Little Lives Initiative — partner with us, volunteer, or learn how we support vulnerable communities in Nigeria.",
+    "Get in touch with Precious Little Lives Initiative. Partner with us, volunteer, or learn how we support vulnerable communities across Nigeria.",
 };
 
 const socials = [

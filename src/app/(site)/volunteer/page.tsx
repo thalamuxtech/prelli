@@ -7,7 +7,7 @@ import { VolunteerForm } from "@/components/site/VolunteerForm";
 export const metadata: Metadata = {
   title: "Volunteer",
   description:
-    "Give your time and skills to Precious Little Lives Initiative — join our outreaches and help bring hope to vulnerable communities in Nigeria.",
+    "Give your time and skills to Precious Little Lives Initiative. Join our outreaches and help bring hope to vulnerable communities across Nigeria.",
 };
 
 const ways = [
@@ -28,7 +28,7 @@ export default function VolunteerPage() {
           <h1 className="text-h1 mt-3 font-display font-bold text-ink">Lend a hand</h1>
           <p className="mt-5 text-lg leading-relaxed text-slate">
             Your time and skills can bring joy and relief to vulnerable children,
-            widows, and the elderly. Tell us how you'd like to help — we'll be in
+            widows, and the elderly. Tell us how you&apos;d like to help and we&apos;ll be in
             touch about our next outreach.
           </p>
 

@@ -27,7 +27,7 @@ export function Newsletter() {
   if (status === "done") {
     return (
       <p className="inline-flex items-center gap-2 rounded-md bg-prelli-green-50 px-4 py-3 text-sm font-medium text-prelli-green-600">
-        <CheckCircle2 className="h-5 w-5" /> You're subscribed — thank you!
+        <CheckCircle2 className="h-5 w-5" /> You&apos;re subscribed. Thank you!
       </p>
     );
   }

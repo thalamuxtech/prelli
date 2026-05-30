@@ -118,7 +118,9 @@ export interface InventoryItem {
   name: string;
   category: InventoryCategory;
   unit: string; // bags, cartons, kg, pieces…
-  quantity: number; // current on-hand
+  quantity: number; // current on-hand (number of items / units)
+  packages?: number; // number of packages/cartons this represents
+  itemsPerPackage?: number; // items contained in each package
   location?: string;
   photo?: string;
   notes?: string;

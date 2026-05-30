@@ -247,7 +247,7 @@ export default function SubmissionsAdmin() {
             <div className="flex flex-wrap items-center gap-2">
               <a
                 href={`mailto:${selected.email}?subject=${encodeURIComponent(
-                  `Re: ${submissionLabels[selected.type]} — PreLLI`,
+                  `Re: ${submissionLabels[selected.type]} · PreLLI`,
                 )}`}
                 className="inline-flex min-h-[44px] items-center gap-2 rounded-pill bg-prelli-green px-5 font-semibold text-white hover:bg-prelli-green-600"
               >

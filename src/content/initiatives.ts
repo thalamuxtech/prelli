@@ -1,6 +1,6 @@
 import type { Initiative } from "@/lib/types";
 
-/** The 11 core initiatives (from PreLLI Documentation — "Core Initiative"). */
+/** The 11 core initiatives (from PreLLI Documentation, "Core Initiative"). */
 export const initiatives: Initiative[] = [
   {
     title: "Special Care for Orphans & Widows",
@@ -27,7 +27,7 @@ export const initiatives: Initiative[] = [
   },
   {
     title: "Humanitarian Projects",
-    summary: "Relief interventions — food, sanitation, and shelter — for those facing hardship.",
+    summary: "Relief that meets real needs: food, sanitation, and shelter for those facing hardship.",
   },
   {
     title: "Peace Ambassadors",

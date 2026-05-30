@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, Send, Loader2 } from "lucide-react";
+import { Send, Loader2 } from "lucide-react";
 import { Label, Input, Textarea } from "@/components/ui/FormField";
 import { Button } from "@/components/ui/Button";
+import { FormSuccess } from "@/components/site/FormSuccess";
 import { submitContact } from "@/lib/submissions";
 
 type Status = "idle" | "sending" | "done" | "error";
@@ -35,22 +36,12 @@ export function ContactForm() {
 
   if (status === "done") {
     return (
-      <div className="rounded-lg border border-prelli-green/30 bg-prelli-green-50 p-8 text-center">
-        <CheckCircle2 className="mx-auto h-12 w-12 text-prelli-green-600" />
-        <h3 className="mt-4 font-display text-xl font-semibold text-ink">
-          Message sent — thank you!
-        </h3>
-        <p className="mt-2 text-slate">
-          We've received your message and will get back to you soon.
-        </p>
-        <button
-          type="button"
-          onClick={() => setStatus("idle")}
-          className="mt-4 text-sm font-semibold text-prelli-green-600 hover:underline"
-        >
-          Send another message
-        </button>
-      </div>
+      <FormSuccess
+        title="Message sent. Thank you!"
+        message="We've received your message and will get back to you soon."
+        onReset={() => setStatus("idle")}
+        resetLabel="Send another message"
+      />
     );
   }
 

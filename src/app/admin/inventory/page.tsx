@@ -31,6 +31,8 @@ export default function InventoryAdmin() {
       category: String(fd.get("category")) as InventoryCategory,
       unit: String(fd.get("unit")) || "pcs",
       quantity: Number(fd.get("quantity")) || 0,
+      packages: Number(fd.get("packages")) || 0,
+      itemsPerPackage: Number(fd.get("itemsPerPackage")) || 0,
       location: String(fd.get("location")),
       notes: String(fd.get("notes")),
       photo: editing?.photo || "",
@@ -111,6 +113,12 @@ export default function InventoryAdmin() {
                     <span className={`font-semibold ${item.quantity <= 0 ? "text-prelli-pink" : "text-ink"}`}>
                       {item.quantity} {item.unit}
                     </span>
+                    {!!item.packages && (
+                      <span className="block text-xs text-slate">
+                        {item.packages} package{item.packages > 1 ? "s" : ""}
+                        {item.itemsPerPackage ? ` × ${item.itemsPerPackage}` : ""}
+                      </span>
+                    )}
                   </td>
                   <td className="px-4 py-3 text-slate">{item.location || "—"}</td>
                   <td className="px-4 py-3">
@@ -143,8 +151,14 @@ export default function InventoryAdmin() {
                     <h3 className="font-medium text-ink">{item.name}</h3>
                     <p className="text-xs text-slate">{inventoryCategoryLabels[item.category]}</p>
                   </div>
-                  <span className={`font-semibold ${item.quantity <= 0 ? "text-prelli-pink" : "text-ink"}`}>
+                  <span className={`text-right font-semibold ${item.quantity <= 0 ? "text-prelli-pink" : "text-ink"}`}>
                     {item.quantity} {item.unit}
+                    {!!item.packages && (
+                      <span className="block text-xs font-normal text-slate">
+                        {item.packages} pkg{item.packages > 1 ? "s" : ""}
+                        {item.itemsPerPackage ? ` × ${item.itemsPerPackage}` : ""}
+                      </span>
+                    )}
                   </span>
                 </div>
                 {item.location && (
@@ -197,9 +211,19 @@ export default function InventoryAdmin() {
                 <Input id="unit" name="unit" placeholder="bags, cartons, kg" defaultValue={editing.unit} />
               </div>
             </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <Label htmlFor="packages">Number of packages</Label>
+                <Input id="packages" name="packages" type="number" min={0} inputMode="numeric" placeholder="e.g. 20 cartons" defaultValue={editing.packages ?? 0} />
+              </div>
+              <div>
+                <Label htmlFor="itemsPerPackage">Items per package</Label>
+                <Input id="itemsPerPackage" name="itemsPerPackage" type="number" min={0} inputMode="numeric" placeholder="e.g. 40 per carton" defaultValue={editing.itemsPerPackage ?? 0} />
+              </div>
+            </div>
             <div>
               <Label htmlFor="location">Storage location</Label>
-              <Input id="location" name="location" defaultValue={editing.location} />
+              <Input id="location" name="location" defaultValue={editing.location} placeholder="Abuja, Nigeria" />
             </div>
             <div>
               <Label htmlFor="notes">Notes</Label>
@@ -218,7 +242,7 @@ export default function InventoryAdmin() {
         {moving && (
           <form onSubmit={saveMovement} className="space-y-4">
             <p className="text-sm text-slate">
-              {moving.item.name} — currently <b>{moving.item.quantity} {moving.item.unit}</b> on hand.
+              {moving.item.name}: currently <b>{moving.item.quantity} {moving.item.unit}</b> on hand.
             </p>
             <div>
               <Label htmlFor="quantity">Quantity to {moving.dir === "in" ? "add" : "remove"}</Label>
@@ -228,7 +252,7 @@ export default function InventoryAdmin() {
               <div>
                 <Label htmlFor="destination">Distributed to (event / outreach)</Label>
                 <select id="destination" name="destination" className="w-full rounded-md border border-line bg-white px-4 py-3 text-ink">
-                  <option value="">— Select or leave blank —</option>
+                  <option value="">Select or leave blank</option>
                   {events.data.map((ev) => (<option key={ev.id} value={ev.title}>{ev.title}</option>))}
                 </select>
               </div>

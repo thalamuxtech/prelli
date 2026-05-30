@@ -17,7 +17,7 @@ import {
 export const metadata: Metadata = {
   title: "About PreLLI",
   description:
-    "Precious Little Lives Initiative — who we are, our mission and vision, and the focus areas through which we support vulnerable children, widows, and the elderly in Nigeria.",
+    "Precious Little Lives Initiative: who we are, our mission and vision, and the focus areas through which we support vulnerable children, widows, and the elderly across Nigeria.",
 };
 
 const valueIcons = [ShieldCheck, MapPin, Sparkles, Users2];

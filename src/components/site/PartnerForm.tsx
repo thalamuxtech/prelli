@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, Send, Loader2 } from "lucide-react";
+import { Send, Loader2 } from "lucide-react";
 import { Label, Input, Textarea } from "@/components/ui/FormField";
 import { Button } from "@/components/ui/Button";
+import { FormSuccess } from "@/components/site/FormSuccess";
 import { submitPartner } from "@/lib/submissions";
 
 type Status = "idle" | "sending" | "done" | "error";
@@ -35,13 +36,10 @@ export function PartnerForm() {
 
   if (status === "done") {
     return (
-      <div className="rounded-lg border border-prelli-green/30 bg-prelli-green-50 p-8 text-center">
-        <CheckCircle2 className="mx-auto h-12 w-12 text-prelli-green-600" />
-        <h3 className="mt-4 font-display text-xl font-semibold text-ink">Thank you!</h3>
-        <p className="mt-2 text-slate">
-          We&apos;ve received your inquiry and will reach out to explore how we can work together.
-        </p>
-      </div>
+      <FormSuccess
+        title="Thank you!"
+        message="We've received your inquiry and will reach out to explore how we can work together."
+      />
     );
   }
 

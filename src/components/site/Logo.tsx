@@ -22,12 +22,12 @@ export function Logo({
   return (
     <Link
       href="/"
-      aria-label="PreLLI — Precious Little Lives Initiative, home"
+      aria-label="PreLLI, Precious Little Lives Initiative, home"
       className="inline-flex items-center transition-opacity hover:opacity-90"
     >
       <Image
         src="/brand/prelli-logo.png"
-        alt="PreLLI — Precious Little Lives Initiative"
+        alt="PreLLI, Precious Little Lives Initiative"
         width={Math.round(big * 2.1)}
         height={big}
         priority

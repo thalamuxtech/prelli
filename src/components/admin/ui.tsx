@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
-import { X, Loader2 } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Loader2, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /** Page header with title + optional action button. */
@@ -79,54 +80,116 @@ export function Modal({
     };
   }, [open, onClose]);
 
-  if (!open) return null;
   return (
-    <div className="fixed inset-0 z-[80] flex items-start justify-center overflow-y-auto bg-ink/50 p-4 backdrop-blur-sm sm:p-8">
-      <div
-        className={cn(
-          "my-auto w-full rounded-lg bg-white shadow-e3",
-          wide ? "max-w-2xl" : "max-w-lg",
-        )}
-      >
-        <div className="flex items-center justify-between border-b border-line px-6 py-4">
-          <h2 className="font-display text-lg font-bold text-ink">{title}</h2>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md text-slate hover:bg-cloud"
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className="fixed inset-0 z-[80] flex items-start justify-center overflow-y-auto bg-ink/50 p-4 backdrop-blur-sm sm:p-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          onMouseDown={(e) => e.target === e.currentTarget && onClose()}
+        >
+          <motion.div
+            className={cn(
+              "my-auto w-full rounded-lg bg-white shadow-e3",
+              wide ? "max-w-2xl" : "max-w-lg",
+            )}
+            initial={{ opacity: 0, y: 20, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 280, damping: 26 }}
           >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-        <div className="px-6 py-5">{children}</div>
-      </div>
-    </div>
+            <div className="flex items-center justify-between border-b border-line px-6 py-4">
+              <h2 className="font-display text-lg font-bold text-ink">{title}</h2>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md text-slate hover:bg-cloud"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="px-6 py-5">{children}</div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
-/** Confirm dialog for destructive actions. */
+/** Destructive-action button with an in-app animated confirm dialog (no browser confirm). */
 export function ConfirmButton({
   onConfirm,
   children,
-  message = "Are you sure? This cannot be undone.",
+  message = "Are you sure? This action cannot be undone.",
+  title = "Please confirm",
+  confirmLabel = "Delete",
   className,
 }: {
   onConfirm: () => void;
   children: ReactNode;
   message?: string;
+  title?: string;
+  confirmLabel?: string;
   className?: string;
 }) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <button
-      type="button"
-      className={className}
-      onClick={() => {
-        if (window.confirm(message)) onConfirm();
-      }}
-    >
-      {children}
-    </button>
+    <>
+      <button type="button" className={className} onClick={() => setOpen(true)}>
+        {children}
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/50 p-4 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onMouseDown={(e) => e.target === e.currentTarget && setOpen(false)}
+          >
+            <motion.div
+              className="w-full max-w-sm rounded-lg bg-white p-6 text-center shadow-e3"
+              initial={{ opacity: 0, scale: 0.95, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 300, damping: 24 }}
+            >
+              <div className="mx-auto mb-4 inline-flex rounded-pill bg-prelli-pink/10 p-3">
+                <AlertTriangle className="h-6 w-6 text-prelli-pink" />
+              </div>
+              <h3 className="font-display text-lg font-bold text-ink">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate">{message}</p>
+              <div className="mt-6 flex justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="min-h-[44px] rounded-pill border border-line px-5 font-medium text-ink transition-colors hover:bg-cloud"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    onConfirm();
+                  }}
+                  className="min-h-[44px] rounded-pill bg-prelli-pink px-5 font-semibold text-white transition-opacity hover:opacity-90"
+                >
+                  {confirmLabel}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 

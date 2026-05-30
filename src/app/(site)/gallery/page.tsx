@@ -7,7 +7,7 @@ import { posts } from "@/content/posts";
 export const metadata: Metadata = {
   title: "Gallery",
   description:
-    "Moments from PreLLI's outreach across Nigeria — photos from our visits, donations, and community programs.",
+    "Moments from PreLLI's outreach across Nigeria: photos from our visits, donations, and community programmes.",
 };
 
 // Curated from the outreach archive; the full library is managed via the admin CMS.

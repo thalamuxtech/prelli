@@ -9,7 +9,7 @@ export const org = {
   short: "PreLLI",
   tagline: "Bringing hope to precious little lives.",
   since: 2018,
-  location: "Abuja (FCT) & Kaduna, Nigeria",
+  location: "Abuja, Nigeria",
   email: "prellicares@gmail.com",
   socials: {
     instagram: "https://instagram.com/prelli",
@@ -19,22 +19,22 @@ export const org = {
 } as const;
 
 export const mission =
-  "To break cycles of poverty by empowering vulnerable children, single mothers, and families in Nigeria through holistic support — providing immediate relief while creating pathways to self-sufficiency.";
+  "We break cycles of poverty by empowering vulnerable children, single mothers, and families across Nigeria. We meet urgent needs today while building real pathways to a self-reliant tomorrow.";
 
 export const vision =
-  "A Nigeria where every child, regardless of circumstance, grows up in a nurturing environment with access to education, healthcare, and hope for a self-reliant future.";
+  "A Nigeria where every child, whatever their circumstances, grows up cared for and safe, with access to education, healthcare, and genuine hope for the future.";
 
 export const whyWeExist =
-  "In Nigeria, millions of children face hunger, interrupted education, and unstable homes due to poverty, displacement, or loss of parents. Single mothers and widows often lack the resources to provide for their families, trapping generations in hardship. As a charity organisation, we are here to change that narrative.";
+  "Across Nigeria, millions of children live with hunger, interrupted schooling, and unstable homes brought on by poverty, displacement, or the loss of a parent. Too often, single mothers and widows simply don't have the means to provide, and the hardship passes from one generation to the next. We exist to help change that story.";
 
 export const intro =
-  "PreLLI is a passionate charity dedicated to breaking down barriers and creating opportunities for less privileged children. We believe every child deserves access to education, support, and the chance to build a brighter future. Through our programs and community initiatives, we empower these young lives and give them the tools they need to succeed.";
+  "PreLLI is a charity built on a simple belief: every child deserves the chance to thrive. We work to remove the barriers that hold less privileged children back, opening doors to education, support, and a brighter future. Through our programmes and community partnerships, we give these young lives the encouragement and tools they need to succeed.";
 
 export const values = [
-  { title: "Proven Model", body: "We support the whole family, not just the child." },
-  { title: "Local Focus", body: "Programs with community-tailored solutions." },
-  { title: "Transparency", body: "Reports showing exact donation allocations." },
-  { title: "Community-Driven", body: "We work with locals, not just for them." },
+  { title: "Whole-family care", body: "We support the whole family, not just the child." },
+  { title: "Rooted locally", body: "Our programmes are shaped around each community we serve." },
+  { title: "Full transparency", body: "We share clear reports on exactly where every donation goes." },
+  { title: "Led with community", body: "We work with local people, not just for them." },
 ] as const;
 
 /** The four pillars / focus areas, with the org's own descriptions. */
@@ -44,7 +44,7 @@ export const focusAreas = [
     title: "Children",
     summary:
       "Supporting orphans and vulnerable children with care, nutrition, and protection in safe, nurturing environments.",
-    body: "Children are at the heart of PreLLI's mission. We create safe and nurturing environments that allow children to grow emotionally and socially, promoting inclusion, dignity, and a sense of belonging — because every child deserves love, hope, and stability regardless of their circumstances.",
+    body: "Children are at the heart of everything we do. We create safe, nurturing spaces where they can grow emotionally and socially, and feel a real sense of belonging and dignity. Every child deserves love, hope, and stability, whatever their circumstances.",
   },
   {
     key: "education",
@@ -58,14 +58,14 @@ export const focusAreas = [
     title: "Community",
     summary:
       "Welfare initiatives for widows, the elderly, and vulnerable families to restore dignity and resilience.",
-    body: "PreLLI strengthens communities by supporting widows, the elderly, and vulnerable families through targeted welfare initiatives — addressing food security and basic living needs, and empowering caregivers to create stable, supportive homes for children.",
+    body: "We strengthen communities by standing with widows, the elderly, and families who are struggling. Our welfare work meets everyday needs like food and basic living support, and helps caregivers build stable, loving homes for their children.",
   },
   {
     key: "idp",
     title: "IDP Support",
     summary:
-      "Humanitarian relief for internally displaced persons — food, clothing, sanitation, and family support.",
-    body: "PreLLI provides humanitarian assistance to internally displaced persons affected by conflict and hardship — supporting displaced children, widows, and families with food, clothing, and essential relief materials, and improving living conditions through welfare and sanitation support.",
+      "Humanitarian relief for internally displaced persons, including food, clothing, sanitation, and family support.",
+    body: "We bring humanitarian support to people displaced by conflict and hardship. For displaced children, widows, and families, that means food, clothing, and essential relief materials, alongside welfare and sanitation support that helps restore everyday dignity.",
   },
 ] as const;
 

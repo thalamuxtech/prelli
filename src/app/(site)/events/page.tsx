@@ -11,7 +11,7 @@ import { sortedPosts } from "@/content/posts";
 export const metadata: Metadata = {
   title: "Events",
   description:
-    "Past and upcoming events from Precious Little Lives Initiative — outreaches, fun fairs, and community programs across Nigeria.",
+    "Past and upcoming events from Precious Little Lives Initiative: outreaches, fun fairs, and community programmes across Nigeria.",
 };
 
 export default function EventsPage() {
@@ -32,7 +32,7 @@ export default function EventsPage() {
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-slate">
               We're planning our next outreach. Follow us or get in touch to be
-              the first to know — and to join us on the ground.
+              the first to know, and to join us on the ground.
             </p>
             <div className="mt-8">
               <div className="mx-auto inline-flex items-center gap-3 rounded-lg border border-dashed border-line bg-cloud px-6 py-5 text-slate">

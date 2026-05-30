@@ -11,7 +11,7 @@ export const posts: Post[] = [
     slug: "orphanage-home-outreach-kaduna-2018",
     title: "Supporting the Less Privileged: Orphanage Home Outreach in Kaduna",
     excerpt:
-      "Our first outreach — essential supplies for children and caregivers at an orphanage home in Kaduna.",
+      "Our very first outreach, bringing essential supplies to the children and caregivers of an orphanage home in Kaduna.",
     body: [
       "At Precious Little Lives Initiative (PreLLI), we believe in the power of kindness and the impact it can have on the lives of those in need. In 2018, we visited an orphanage home in Kaduna, where we provided essential supplies to support the children and caregivers.",
       "This initiative is a step toward making a difference in the lives of the less privileged, especially during critical times. Every act of kindness, no matter how small, goes a long way in bringing hope and relief.",
@@ -115,7 +115,7 @@ export const posts: Post[] = [
     slug: "al-ansar-orphanage-home-visit-2020",
     title: "Al Ansar Orphanage Home Visit",
     excerpt:
-      "Part of our ongoing food intervention program — nourishment for orphans at Al Ansar, Kuje.",
+      "Part of our ongoing food programme, bringing nourishment to orphans at Al Ansar in Kuje.",
     body: [
       "At Precious Little Lives Initiative (PreLLI), we believe every child deserves a chance to thrive. As part of our ongoing food intervention program, we visited the Al Ansar Orphanage Home in Kuje, FCT, Abuja, to support orphans and less privileged children.",
       "These essential food supplies aim to provide nourishment and bring relief to the children, ensuring they have access to the basics they need to grow and flourish.",

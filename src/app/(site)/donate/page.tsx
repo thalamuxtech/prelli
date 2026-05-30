@@ -46,7 +46,7 @@ export default function DonatePage() {
             </div>
             <p className="mt-4 text-sm text-slate">
               Pledge your support below and our team will reach out with how to
-              give — whether funds or items.
+              give, whether that&apos;s funds or items.
             </p>
           </Reveal>
         </Container>
@@ -70,8 +70,8 @@ export default function DonatePage() {
           </Stagger>
           <Reveal className="mt-10 text-center text-sm text-slate">
             <p>
-              PreLLI is a CAC-registered non-profit. We believe in transparency —
-              with reports showing exactly how donations are allocated.
+              PreLLI is a CAC-registered non-profit, and transparency matters to
+              us. We share clear reports on exactly how every donation is used.
             </p>
           </Reveal>
         </Container>
@@ -87,9 +87,9 @@ export default function DonatePage() {
               align="left"
             />
             <p className="mt-3 text-slate">
-              Tell us what you&apos;d like to give — funds or items — and our team
-              will follow up with how to deliver it. There&apos;s no online payment;
-              we&apos;ll arrange everything personally with you.
+              Tell us what you&apos;d like to give, whether funds or items, and our
+              team will follow up with how to deliver it. There&apos;s no online
+              payment; we&apos;ll arrange everything personally with you.
             </p>
             <div className="mt-8 rounded-lg border border-line bg-white p-6 shadow-e1 sm:p-8">
               <PledgeForm />
