@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { posts } from "@/content/posts";
 
-const BASE = "https://prellicares.org";
+const BASE = "https://prelli.org";
 
 export const dynamic = "force-static";
 

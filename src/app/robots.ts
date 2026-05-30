@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/admin",
     },
-    sitemap: "https://prellicares.org/sitemap.xml",
+    sitemap: "https://prelli.org/sitemap.xml",
   };
 }

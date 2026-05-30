@@ -1,6 +1,6 @@
 # PreLLI — Deployment & Go-Live
 
-Project: **`prelli`** (Firebase, free Spark plan) · Repo: **thalamuxtech/prelli** · Domain: **prellicares.org**
+Project: **`prelli`** (Firebase, free Spark plan) · Repo: **thalamuxtech/prelli** · Domain: **prelli.org**
 
 ## One-time Firebase setup (in the `scholarlyechos@gmail.com` console)
 
@@ -53,4 +53,4 @@ Both are no-ops until set; the site and admin work without them.
 
 ## Custom domain
 
-Firebase console → Hosting → **Add custom domain** → `prellicares.org`, then update DNS as instructed.
+Firebase console → Hosting → **Add custom domain** → `prelli.org`, then update DNS as instructed.
