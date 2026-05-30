@@ -66,8 +66,8 @@ export function HeroSlider() {
         touchX.current = null;
       }}
     >
-      {/* ── LEFT: text panel (30%) ─────────────────────────────── */}
-      <div className="relative z-20 flex w-full flex-col justify-center bg-ink px-6 pb-10 pt-28 sm:px-10 lg:w-[46%] lg:pb-16 lg:pt-24 lg:pl-[max(2.5rem,calc((100vw-1200px)/2))]">
+      {/* ── LEFT: text panel ───────────────────────────────────── */}
+      <div className="relative z-20 flex w-full flex-col bg-ink px-6 pb-24 pt-28 sm:px-10 lg:w-[46%] lg:pb-24 lg:pt-24 lg:pl-[max(2.5rem,calc((100vw-1200px)/2))]">
         {/* subtle brand glow in the panel */}
         <div
           className="pointer-events-none absolute inset-0 opacity-50"
@@ -76,7 +76,8 @@ export function HeroSlider() {
               "radial-gradient(60% 50% at 20% 20%, rgba(123,186,60,.22), transparent 60%), radial-gradient(50% 50% at 10% 90%, rgba(45,156,219,.18), transparent 60%)",
           }}
         />
-        <div className="relative">
+        {/* Text block — pushed to the lower part of the panel, just above the CTAs */}
+        <div className="relative flex flex-1 flex-col justify-end pb-2">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
@@ -98,20 +99,21 @@ export function HeroSlider() {
               </p>
             </motion.div>
           </AnimatePresence>
+        </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button href="/donate" size="lg">
-              <Heart className="h-5 w-5" /> Make a difference
-            </Button>
-            <Button
-              href="/about"
-              variant="secondary"
-              size="lg"
-              className="border-white/25 bg-white/10 text-white backdrop-blur hover:border-white hover:bg-white hover:text-ink"
-            >
-              Learn more <ArrowRight className="h-4 w-4" />
-            </Button>
-          </div>
+        {/* Buttons — pinned at the bottom of the panel, level with dots/arrows */}
+        <div className="relative mt-8 flex flex-wrap items-center gap-3">
+          <Button href="/donate" size="lg">
+            <Heart className="h-5 w-5" /> Make a difference
+          </Button>
+          <Button
+            href="/about"
+            variant="secondary"
+            size="lg"
+            className="border-white/25 bg-white/10 text-white backdrop-blur hover:border-white hover:bg-white hover:text-ink"
+          >
+            Learn more <ArrowRight className="h-4 w-4" />
+          </Button>
         </div>
       </div>
 
@@ -140,16 +142,8 @@ export function HeroSlider() {
             />
           </motion.div>
         ))}
-        {/* Smooth seam — long, eased fade from the dark panel into the image
-            so the left dissolves gently into the right with no hard edge. */}
-        <div
-          className="pointer-events-none absolute inset-0 hidden lg:block"
-          style={{
-            background:
-              "linear-gradient(to right, rgb(27,36,48) 0%, rgba(27,36,48,0.85) 12%, rgba(27,36,48,0.45) 26%, rgba(27,36,48,0.12) 40%, transparent 55%)",
-          }}
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
+        {/* vertical bottom scrim for legibility of the controls */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-transparent" />
 
         {/* Prev/next arrows — bottom-right of the image */}
         <div className="absolute bottom-5 right-5 z-30 flex gap-3 sm:bottom-6 sm:right-6">
@@ -169,6 +163,17 @@ export function HeroSlider() {
           </button>
         </div>
       </div>
+
+      {/* Dissolve seam — spans the panel→image boundary so the dark left blends
+          smoothly into the photo (desktop only). Sits above the image (z-1)
+          but below the text panel (z-20). */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 hidden lg:block"
+        style={{
+          background:
+            "linear-gradient(to right, #1b2430 40%, rgba(27,36,48,0.85) 50%, rgba(27,36,48,0.4) 60%, rgba(27,36,48,0.1) 70%, transparent 80%)",
+        }}
+      />
 
       {/* Dots */}
       <div className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 gap-2.5">
