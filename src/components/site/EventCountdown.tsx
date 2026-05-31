@@ -20,8 +20,8 @@ function parts(target: number) {
   };
 }
 
-/** Compact countdown matching the upcoming-event cards. */
-function MiniCountdown({ iso }: { iso: string }) {
+/** Large countdown for the right side of the featured upcoming-event card. */
+function BigCountdown({ iso }: { iso: string }) {
   const target = new Date(iso).getTime();
   const [t, setT] = useState(() => parts(target));
   useEffect(() => {
@@ -29,19 +29,27 @@ function MiniCountdown({ iso }: { iso: string }) {
     return () => clearInterval(id);
   }, [target]);
   const cells = [
-    { v: t.d, l: "days" },
-    { v: t.h, l: "hrs" },
-    { v: t.m, l: "min" },
-    { v: t.s, l: "sec" },
+    { v: t.d, l: "Days" },
+    { v: t.h, l: "Hours" },
+    { v: t.m, l: "Minutes" },
+    { v: t.s, l: "Seconds" },
   ];
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2.5 sm:gap-3">
       {cells.map((c) => (
-        <div key={c.l} className="flex min-w-[44px] flex-col items-center rounded-md bg-ink/90 px-2 py-1.5">
-          <span className="font-display text-lg font-bold leading-none text-white" style={{ fontVariantNumeric: "tabular-nums" }}>
+        <div
+          key={c.l}
+          className="flex min-w-[64px] flex-col items-center rounded-lg bg-ink px-3 py-3 shadow-e1 sm:min-w-[80px] sm:py-4"
+        >
+          <span
+            className="font-display text-3xl font-bold leading-none text-white sm:text-5xl"
+            style={{ fontVariantNumeric: "tabular-nums" }}
+          >
             {String(c.v).padStart(2, "0")}
           </span>
-          <span className="mt-0.5 text-[10px] uppercase tracking-wide text-white/70">{c.l}</span>
+          <span className="mt-1.5 text-[10px] font-medium uppercase tracking-wider text-white/70 sm:text-xs">
+            {c.l}
+          </span>
         </div>
       ))}
     </div>
@@ -102,29 +110,31 @@ export function EventCountdown() {
                 <span className="relative text-xs opacity-80 sm:mt-1">{date.getFullYear()}</span>
               </div>
 
-              {/* Content */}
-              <div className="flex flex-1 flex-col justify-between gap-4 p-6">
-                <div>
-                  <h3 className="font-display text-xl font-semibold text-ink transition-colors group-hover:text-prelli-green-600">
+              {/* Content: details on the left, large countdown on the right */}
+              <div className="flex flex-1 flex-col items-start justify-between gap-6 p-6 lg:flex-row lg:items-center lg:gap-8 lg:p-8">
+                <div className="min-w-0">
+                  <h3 className="font-display text-2xl font-semibold text-ink transition-colors group-hover:text-prelli-green-600">
                     {event.title}
                   </h3>
                   {event.location && (
-                    <p className="mt-1 inline-flex items-center gap-1.5 text-sm text-slate">
+                    <p className="mt-1.5 inline-flex items-center gap-1.5 text-sm text-slate">
                       <MapPin className="h-4 w-4" /> {event.location}
                     </p>
                   )}
                   {event.description && (
-                    <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate">{event.description}</p>
+                    <p className="mt-3 max-w-md text-sm leading-relaxed text-slate">{event.description}</p>
                   )}
-                </div>
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <MiniCountdown iso={event.startAt} />
                   <Link
                     href="/events"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-prelli-green-600 transition-colors hover:text-prelli-green"
+                    className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-prelli-green-600 transition-colors hover:text-prelli-green"
                   >
                     Details <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
+                </div>
+
+                {/* Large countdown — right side */}
+                <div className="shrink-0 lg:ml-auto">
+                  <BigCountdown iso={event.startAt} />
                 </div>
               </div>
             </div>
