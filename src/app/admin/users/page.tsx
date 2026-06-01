@@ -32,6 +32,27 @@ const fbConfig = {
 
 export default function UsersAdmin() {
   const { profile } = useAuth();
+
+  // User management is superadmin-only. Admins/editors who reach this route
+  // directly get a clear block (the nav link is already hidden for them, and
+  // Firestore rules reject the writes/reads regardless).
+  if (profile && profile.role !== "superadmin") {
+    return (
+      <div className="rounded-lg border border-line bg-white p-10 text-center shadow-e1">
+        <Shield className="mx-auto h-8 w-8 text-slate" />
+        <h1 className="mt-3 font-display text-xl font-bold text-ink">Superadmin only</h1>
+        <p className="mx-auto mt-1 max-w-sm text-sm text-slate">
+          Only a super admin can create and manage staff accounts. Contact a
+          PreLLI super admin if you need access changed.
+        </p>
+      </div>
+    );
+  }
+
+  return <UsersAdminInner profile={profile} />;
+}
+
+function UsersAdminInner({ profile }: { profile: AppUser | null }) {
   const { data, loading } = useCollection<AppUser>("users", byCreatedDesc());
   const [adding, setAdding] = useState(false);
   const [busy, setBusy] = useState(false);

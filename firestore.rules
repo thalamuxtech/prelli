@@ -75,8 +75,10 @@ service cloud.firestore {
     match /stockMovements/{id} { allow read, write: if isEditor(); }
 
     // ── Staff accounts ──────────────────────────────────────────────────────
+    // Only superadmins can see other staff (incl. who the superadmins are).
+    // A signed-in user may always read their own record.
     match /users/{uid} {
-      allow read: if isSignedIn() && (request.auth.uid == uid || isEditor());
+      allow read: if isSignedIn() && (request.auth.uid == uid || isSuperadmin());
       // Superadmins manage all staff; a user may clear their own first-login flag.
       allow create, delete: if isSuperadmin();
       allow update: if isSuperadmin()
