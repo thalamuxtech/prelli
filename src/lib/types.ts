@@ -67,6 +67,16 @@ export interface AppUser {
   createdAt?: unknown;
 }
 
+/** A per-device site-visit record (superadmin-managed). */
+export interface SiteVisit {
+  id: string;
+  label?: string; // friendly "PC name" — derived by default, superadmin can rename
+  userAgent?: string;
+  firstSeen?: { seconds: number } | null;
+  lastSeen?: { seconds: number } | null;
+  visits?: number;
+}
+
 export type SubmissionType = "contact" | "volunteer" | "partner" | "pledge";
 
 export const submissionLabels: Record<SubmissionType, string> = {

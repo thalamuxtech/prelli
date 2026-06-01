@@ -44,6 +44,20 @@ service cloud.firestore {
       allow read: if true;
       allow create, update: if true;
     }
+
+    // Per-device visit records: anonymous visitors create / increment their own
+    // record; only superadmins can list, rename, or delete them.
+    match /siteVisits/{id} {
+      allow read, delete: if isSuperadmin();
+      // First visit: a new doc may only contain the tracking fields below.
+      allow create: if isSuperadmin()
+        || request.resource.data.keys().hasOnly(["label", "userAgent", "firstSeen", "lastSeen", "visits"]);
+      // Return visit: public pings may only touch lastSeen / visits / userAgent —
+      // they can never change the label (protects a superadmin's rename) or firstSeen.
+      allow update: if isSuperadmin()
+        || request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(["lastSeen", "visits", "userAgent"]);
+    }
     match /settings/{doc} {
       allow read: if true;
       allow write: if isEditor();

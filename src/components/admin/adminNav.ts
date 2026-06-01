@@ -12,6 +12,7 @@ import {
   HeartHandshake,
   Settings,
   UserCog,
+  MonitorSmartphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -35,6 +36,7 @@ export const adminNav: AdminNavItem[] = [
   { label: "Gallery", href: "/admin/gallery", icon: Image },
   { label: "Team", href: "/admin/team", icon: Users2 },
   { label: "Sponsors", href: "/admin/sponsors", icon: Handshake },
+  { label: "Site visits", href: "/admin/visits", icon: MonitorSmartphone, superadminOnly: true },
   { label: "Users", href: "/admin/users", icon: UserCog, superadminOnly: true },
   { label: "Settings", href: "/admin/settings", icon: Settings },
 ];

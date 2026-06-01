@@ -35,7 +35,13 @@ export default function AdminDashboard() {
       />
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-        <StatTile label="Site visits" value={visits ?? "—"} icon={Eye} accent="green" />
+        {profile?.role === "superadmin" ? (
+          <Link href="/admin/visits" className="rounded-lg transition-transform hover:-translate-y-0.5">
+            <StatTile label="Site visits" value={visits ?? "—"} icon={Eye} accent="green" />
+          </Link>
+        ) : (
+          <StatTile label="Site visits" value={visits ?? "—"} icon={Eye} accent="green" />
+        )}
         <StatTile label="Posts" value={posts.data.length} icon={FileText} accent="blue" />
         <StatTile label="Events" value={events.data.length} icon={CalendarDays} accent="orange" />
         <StatTile label="Inventory items" value={inventory.data.length} icon={Boxes} accent="green" />
