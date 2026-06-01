@@ -9,7 +9,7 @@ import { db } from "@/lib/firebase";
 import { useAuth } from "@/lib/auth";
 import { useCollection, deleteDocById, byCreatedDesc } from "@/lib/db";
 import { PageHeader, Modal, ConfirmButton, SubmitButton, EmptyState, LoadingRow } from "@/components/admin/ui";
-import { Label, Input } from "@/components/ui/FormField";
+import { Label, Input, PasswordInput } from "@/components/ui/FormField";
 import type { AppUser, Role } from "@/lib/types";
 
 const roles: Role[] = ["superadmin", "admin", "editor"];
@@ -142,7 +142,7 @@ export default function UsersAdmin() {
           </div>
           <div>
             <Label htmlFor="password">Temporary password</Label>
-            <Input id="password" name="password" type="text" required minLength={8} defaultValue={genPassword()} />
+            <PasswordInput id="password" name="password" required minLength={8} defaultValue={genPassword()} defaultVisible />
             <p className="mt-1 text-xs text-slate">They&apos;ll be asked to set their own password on first login.</p>
           </div>
           <div>

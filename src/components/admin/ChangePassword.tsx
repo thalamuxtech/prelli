@@ -7,7 +7,7 @@ import { Loader2, KeyRound } from "lucide-react";
 import { auth, db } from "@/lib/firebase";
 import { useAuth } from "@/lib/auth";
 import { Logo } from "@/components/site/Logo";
-import { Label, Input } from "@/components/ui/FormField";
+import { Label, PasswordInput } from "@/components/ui/FormField";
 
 /** First-login password change for admin-created accounts. */
 export function ChangePassword() {
@@ -54,11 +54,11 @@ export function ChangePassword() {
           <form onSubmit={onSubmit} className="mt-6 space-y-4">
             <div>
               <Label htmlFor="password">New password</Label>
-              <Input id="password" name="password" type="password" required minLength={8} autoComplete="new-password" />
+              <PasswordInput id="password" name="password" required minLength={8} autoComplete="new-password" />
             </div>
             <div>
               <Label htmlFor="confirm">Confirm password</Label>
-              <Input id="confirm" name="confirm" type="password" required autoComplete="new-password" />
+              <PasswordInput id="confirm" name="confirm" required autoComplete="new-password" />
             </div>
             {error && <p className="text-sm text-prelli-pink">{error}</p>}
             <button

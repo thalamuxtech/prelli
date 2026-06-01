@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Loader2, LogIn } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { Logo } from "@/components/site/Logo";
-import { Label, Input } from "@/components/ui/FormField";
+import { Label, Input, PasswordInput } from "@/components/ui/FormField";
 
 export function LoginScreen() {
   const { signIn } = useAuth();
@@ -41,7 +41,7 @@ export function LoginScreen() {
             </div>
             <div>
               <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" required autoComplete="current-password" />
+              <PasswordInput id="password" name="password" required autoComplete="current-password" />
             </div>
             {error && <p className="text-sm text-prelli-pink">{error}</p>}
             <button
