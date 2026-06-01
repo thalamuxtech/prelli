@@ -32,15 +32,17 @@ export function PartnersSlider() {
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
 
-          <div className="flex w-max animate-marquee items-center gap-12 group-hover:[animation-play-state:paused]">
+          {/* py-4 gives the lifted cards + their animated border breathing room
+              so they aren't clipped by the overflow-hidden ancestor. */}
+          <div className="flex w-max animate-marquee items-center gap-12 py-4 group-hover:[animation-play-state:paused]">
             {loop.map((s, idx) => {
               const inner = s.logo ? (
                 <Image
                   src={s.logo}
                   alt={s.name}
-                  width={160}
-                  height={64}
-                  className="h-12 w-auto object-contain opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-14"
+                  width={220}
+                  height={96}
+                  className="h-20 w-auto object-contain opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-24"
                 />
               ) : (
                 <span className="whitespace-nowrap font-display text-lg font-semibold text-slate transition-colors hover:text-prelli-green-600">
@@ -50,7 +52,7 @@ export function PartnersSlider() {
               return (
                 <div
                   key={`${s.id}-${idx}`}
-                  className="glow-card group relative flex h-24 w-44 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white p-5 transition-all duration-300 hover:-translate-y-1"
+                  className="glow-card group relative flex h-32 w-52 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white p-4 transition-all duration-300 hover:-translate-y-1"
                 >
                   <span className="border-beam pointer-events-none" />
                   {s.url ? (
