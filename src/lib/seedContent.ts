@@ -88,19 +88,18 @@ export async function importSeedContent(): Promise<{
     e++;
   }
 
-  // Sample partners so the homepage partners slider is populated (text logos;
-  // admin can add real logo images). Edit/replace in Admin > Sponsors.
+  // Real partner logos (live in /public/partners). Edit/replace in Admin > Sponsors.
   const sampleSponsors = [
-    { id: "partner-ntic", name: "NTIC Foundation", order: 1 },
-    { id: "partner-al-ansar", name: "Al Ansar Orphanage", order: 2 },
-    { id: "partner-christ-foundation", name: "Christ Foundation", order: 3 },
-    { id: "partner-community", name: "Community Partners", order: 4 },
+    { id: "partner-gearloose-works", name: "Gearloose Works", order: 1, logo: "/partners/gearloose-works.png", url: "" },
+    { id: "partner-nightowl-technology", name: "NightOwl Technology", order: 2, logo: "/partners/nightowl-technology.png", url: "" },
+    { id: "partner-pick-a-tell", name: "Pick a Tell", order: 3, logo: "/partners/pick-a-tell.png", url: "" },
+    { id: "partner-hale-youth-foundation", name: "Hale Youth Foundation", order: 4, logo: "/partners/hale-youth-foundation.png", url: "https://haleyouthfoundation.org" },
   ];
   let sp = 0;
   for (const partner of sampleSponsors) {
     await setDoc(
       doc(db, "sponsors", partner.id),
-      { ...partner, logo: "", url: "", createdAt: serverTimestamp(), updatedAt: serverTimestamp() },
+      { ...partner, createdAt: serverTimestamp(), updatedAt: serverTimestamp() },
       { merge: true },
     );
     sp++;
