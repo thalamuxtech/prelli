@@ -1,11 +1,57 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where, orderBy, limit } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { sortedPosts } from "@/content/posts";
 import { initiatives as seedInitiatives } from "@/content/initiatives";
+import { org } from "@/content/site";
 import type { Post, AdminEvent, Initiative } from "@/lib/types";
+
+export interface PublicSettings {
+  contactEmail: string;
+  contactLocation: string;
+  instagram: string;
+  facebook: string;
+  twitter: string;
+}
+
+/**
+ * Public site settings (contact email, location, social links) sourced from the
+ * admin-managed settings/site doc, falling back to the bundled defaults so the
+ * site always renders. Edits in Admin > Settings appear here without a rebuild.
+ */
+export function useSiteSettings(): PublicSettings {
+  const [s, setS] = useState<PublicSettings>({
+    contactEmail: org.email,
+    contactLocation: org.location,
+    instagram: org.socials.instagram,
+    facebook: org.socials.facebook,
+    twitter: org.socials.twitter,
+  });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const snap = await getDoc(doc(db, "settings", "site"));
+        if (snap.exists()) {
+          const d = snap.data() as Record<string, string | undefined>;
+          setS((prev) => ({
+            contactEmail: d.contactEmail || prev.contactEmail,
+            contactLocation: d.contactLocation || prev.contactLocation,
+            instagram: d.instagram || prev.instagram,
+            facebook: d.facebook || prev.facebook,
+            twitter: d.twitter || prev.twitter,
+          }));
+        }
+      } catch {
+        /* keep defaults */
+      }
+    })();
+  }, []);
+
+  return s;
+}
 
 /**
  * Public content reads from Firestore (admin-managed) and falls back to the

@@ -47,7 +47,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             {mini ? <PanelLeft className="h-5 w-5" /> : <PanelLeftClose className="h-5 w-5" />}
           </button>
         </div>
-        <nav className="flex-1 space-y-1 px-3">
+        <nav className="flex-1 space-y-1 overflow-y-auto px-3">
           {items.map((item) => (
             <Link
               key={item.href}

@@ -52,7 +52,7 @@ export const posts: Post[] = [
       "Outdoor public restrooms to improve hygiene and sanitation in the camp",
     ],
     coverImage: "/stories/visit-to-idp-camp-2018/1.jpg",
-    gallery: ["/stories/visit-to-idp-camp-2018/1.jpg", "/stories/visit-to-idp-camp-2018/2.jpg", "/stories/visit-to-idp-camp-2018/3.jpg", "/stories/visit-to-idp-camp-2018/4.jpg"],
+    gallery: ["/stories/visit-to-idp-camp-2018/1.jpg", "/stories/visit-to-idp-camp-2018/4.jpg"],
     category: "idp",
     date: "2018-01-18",
     year: 2018,

@@ -35,14 +35,14 @@ export default function SponsorsAdmin() {
   return (
     <div>
       <PageHeader
-        title="Sponsors"
+        title="Partners"
         subtitle="Partners and sponsors shown on the website."
         action={
           <button
             onClick={() => setEditing({ order: (data.length + 1) })}
             className="inline-flex min-h-[44px] items-center gap-2 rounded-pill bg-prelli-green px-5 font-semibold text-white hover:bg-prelli-green-600"
           >
-            <Plus className="h-5 w-5" /> New sponsor
+            <Plus className="h-5 w-5" /> New partner
           </button>
         }
       />
@@ -50,7 +50,7 @@ export default function SponsorsAdmin() {
       {loading ? (
         <LoadingRow />
       ) : data.length === 0 ? (
-        <EmptyState>No sponsors yet. Add your first partner.</EmptyState>
+        <EmptyState>No partners yet. Add your first partner.</EmptyState>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {data.map((sponsor) => (
@@ -104,7 +104,7 @@ export default function SponsorsAdmin() {
         </div>
       )}
 
-      <Modal open={!!editing} onClose={() => setEditing(null)} title={editing?.id ? "Edit sponsor" : "New sponsor"}>
+      <Modal open={!!editing} onClose={() => setEditing(null)} title={editing?.id ? "Edit partner" : "New partner"}>
         {editing && (
           <form onSubmit={save} className="space-y-4">
             <div>
@@ -129,7 +129,7 @@ export default function SponsorsAdmin() {
               <button type="button" onClick={() => setEditing(null)} className="rounded-pill px-5 py-2.5 font-medium text-slate hover:bg-cloud">
                 Cancel
               </button>
-              <SubmitButton busy={busy}>{editing.id ? "Save changes" : "Create sponsor"}</SubmitButton>
+              <SubmitButton busy={busy}>{editing.id ? "Save changes" : "Create partner"}</SubmitButton>
             </div>
           </form>
         )}

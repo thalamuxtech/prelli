@@ -51,12 +51,12 @@ service cloud.firestore {
       allow read, delete: if isSuperadmin();
       // First visit: a new doc may only contain the tracking fields below.
       allow create: if isSuperadmin()
-        || request.resource.data.keys().hasOnly(["label", "userAgent", "firstSeen", "lastSeen", "visits"]);
-      // Return visit: public pings may only touch lastSeen / visits / userAgent —
+        || request.resource.data.keys().hasOnly(["label", "userAgent", "location", "firstSeen", "lastSeen", "visits"]);
+      // Return visit: public pings may only touch the volatile tracking fields —
       // they can never change the label (protects a superadmin's rename) or firstSeen.
       allow update: if isSuperadmin()
         || request.resource.data.diff(resource.data).affectedKeys()
-             .hasOnly(["lastSeen", "visits", "userAgent"]);
+             .hasOnly(["lastSeen", "visits", "userAgent", "location"]);
     }
     match /settings/{doc} {
       allow read: if true;
@@ -71,17 +71,26 @@ service cloud.firestore {
         && request.resource.data.keys().hasOnly(["email", "name", "source", "status", "createdAt"]);
     }
 
-    // ── Contact / volunteer submissions: public create, staff manage ────────
+    // ── Contact / volunteer / pledge / newsletter submissions ───────────────
+    // Public create, staff manage. A newsletter sign-up ("subscribe") only
+    // needs an email; the other types need a name + message.
     match /submissions/{id} {
       allow read, update, delete: if isEditor();
-      allow create: if request.resource.data.type in ["contact", "volunteer", "partner", "pledge"]
-        && isEmail(request.resource.data.email)
-        && request.resource.data.name is string
-        && request.resource.data.name.size() > 1
-        && request.resource.data.name.size() <= 120
+      allow create: if isEmail(request.resource.data.email)
+        && request.resource.data.handled == false
         && request.resource.data.message is string
         && request.resource.data.message.size() <= 4000
-        && request.resource.data.handled == false;
+        && (
+          // Newsletter sign-up: email only (name/message may be empty).
+          (request.resource.data.type == "subscribe"
+            && request.resource.data.name is string
+            && request.resource.data.name.size() <= 120)
+          // Other submissions: require a real name.
+          || (request.resource.data.type in ["contact", "volunteer", "partner", "pledge"]
+            && request.resource.data.name is string
+            && request.resource.data.name.size() > 1
+            && request.resource.data.name.size() <= 120)
+        );
     }
 
     // ── Internal: inventory & stock movements (staff only, never public) ─────

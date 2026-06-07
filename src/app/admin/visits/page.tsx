@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { orderBy } from "firebase/firestore";
-import { Monitor, Pencil, Trash2, Shield } from "lucide-react";
+import { Monitor, Pencil, Trash2, Shield, MapPin } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { useCollection, updateDocById, deleteDocById } from "@/lib/db";
 import { PageHeader, Modal, ConfirmButton, SubmitButton, EmptyState, LoadingRow } from "@/components/admin/ui";
@@ -61,7 +61,7 @@ function VisitsInner() {
     <div>
       <PageHeader
         title="Site visits"
-        subtitle="Each device that visited the site, with its name and last visit time. Rename or remove any entry."
+        subtitle="Each device that visited the site, with its name, approximate location and last visit time. Rename or remove any entry."
       />
 
       {loading ? (
@@ -79,6 +79,7 @@ function VisitsInner() {
               <thead className="border-b border-line bg-cloud text-xs uppercase tracking-wide text-slate">
                 <tr>
                   <th className="px-4 py-3 font-semibold">PC / Device name</th>
+                  <th className="hidden px-4 py-3 font-semibold md:table-cell">Location</th>
                   <th className="hidden px-4 py-3 font-semibold sm:table-cell">First seen</th>
                   <th className="px-4 py-3 font-semibold">Last seen</th>
                   <th className="px-4 py-3 text-center font-semibold">Visits</th>
@@ -93,6 +94,15 @@ function VisitsInner() {
                         <Monitor className="h-4 w-4 shrink-0 text-prelli-green-600" />
                         <span className="font-medium text-ink">{v.label || "Unnamed device"}</span>
                       </div>
+                    </td>
+                    <td className="hidden px-4 py-3 text-slate md:table-cell">
+                      {v.location ? (
+                        <span className="inline-flex items-center gap-1.5">
+                          <MapPin className="h-3.5 w-3.5 text-slate" /> {v.location}
+                        </span>
+                      ) : (
+                        "—"
+                      )}
                     </td>
                     <td className="hidden px-4 py-3 text-slate sm:table-cell">{fmt(v.firstSeen)}</td>
                     <td className="px-4 py-3 text-slate">{fmt(v.lastSeen)}</td>

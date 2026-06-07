@@ -26,6 +26,7 @@ const filters: { key: Filter; label: string }[] = [
   { key: "volunteer", label: submissionLabels.volunteer },
   { key: "partner", label: submissionLabels.partner },
   { key: "pledge", label: submissionLabels.pledge },
+  { key: "subscribe", label: submissionLabels.subscribe },
 ];
 
 const typeBadge: Record<SubmissionType, string> = {
@@ -33,6 +34,7 @@ const typeBadge: Record<SubmissionType, string> = {
   volunteer: "bg-prelli-orange/10 text-prelli-orange",
   partner: "bg-prelli-pink/10 text-prelli-pink",
   pledge: "bg-cloud text-slate",
+  subscribe: "bg-prelli-blue/10 text-prelli-blue-700",
 };
 
 /** Safely render a Firestore Timestamp (or anything date-ish). */
@@ -185,9 +187,21 @@ export default function SubmissionsAdmin() {
                   <span className="text-xs text-slate">{fmtDate(s.createdAt)}</span>
                 </div>
                 <h3 className="mt-1 truncate font-medium text-ink">
-                  {s.name} <span className="font-normal text-slate">· {s.email}</span>
+                  {s.name ? (
+                    <>
+                      {s.name} <span className="font-normal text-slate">· {s.email}</span>
+                    </>
+                  ) : (
+                    s.email
+                  )}
                 </h3>
-                <p className="mt-0.5 truncate text-sm text-slate">{s.message}</p>
+                {s.message ? (
+                  <p className="mt-0.5 truncate text-sm text-slate">{s.message}</p>
+                ) : s.type === "subscribe" ? (
+                  <p className="mt-0.5 truncate text-sm text-slate">
+                    Newsletter sign-up{s.extra?.source ? ` · via ${s.extra.source}` : ""}
+                  </p>
+                ) : null}
               </div>
             </button>
           ))}

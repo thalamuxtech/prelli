@@ -8,7 +8,7 @@ import { db } from "@/lib/firebase";
 import { useAuth } from "@/lib/auth";
 import { useCollection } from "@/lib/db";
 import { PageHeader, StatTile } from "@/components/admin/ui";
-import type { Submission, Subscriber } from "@/lib/types";
+import type { Submission } from "@/lib/types";
 
 export default function AdminDashboard() {
   const { profile } = useAuth();
@@ -16,7 +16,7 @@ export default function AdminDashboard() {
   const events = useCollection<{ id: string }>("events");
   const inventory = useCollection<{ id: string }>("inventory");
   const submissions = useCollection<Submission>("submissions");
-  const subscribers = useCollection<Subscriber>("subscribers");
+  const subscriberCount = submissions.data.filter((s) => s.type === "subscribe").length;
   const [visits, setVisits] = useState<number | null>(null);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function AdminDashboard() {
         <StatTile label="Inventory items" value={inventory.data.length} icon={Boxes} accent="green" />
         <StatTile label="New submissions" value={newSubs} icon={Inbox} accent="pink" />
         <StatTile label="Total submissions" value={submissions.data.length} icon={Inbox} accent="blue" />
-        <StatTile label="Subscribers" value={subscribers.data.length} icon={Mail} accent="green" />
+        <StatTile label="Subscribers" value={subscriberCount} icon={Mail} accent="green" />
       </div>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

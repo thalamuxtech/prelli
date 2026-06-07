@@ -68,8 +68,8 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               className="object-cover transition-transform duration-500 ease-out-expo group-hover:scale-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <span className="absolute inset-x-0 bottom-0 translate-y-2 p-3 text-left text-xs font-medium text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <span className="absolute inset-x-0 bottom-0 max-h-full translate-y-2 overflow-y-auto p-3 text-left text-xs font-medium leading-snug text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
               {item.caption}
             </span>
           </motion.button>
@@ -123,21 +123,23 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
             </button>
 
             <motion.div
-              className="relative max-h-[80vh] w-full max-w-3xl overflow-hidden rounded-lg"
+              className="relative flex w-full max-w-3xl flex-col overflow-hidden rounded-lg"
               initial={{ scale: 0.92, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.92, opacity: 0 }}
               transition={{ type: "spring", stiffness: 240, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Cap the image height so a tall image never pushes the caption
+                  out of view — the caption below always stays readable. */}
               <Image
                 src={active.src}
                 alt={active.caption}
                 width={1200}
                 height={900}
-                className="h-auto w-full object-contain"
+                className="max-h-[70vh] w-full object-contain"
               />
-              <p className="bg-ink/90 p-4 text-center text-sm text-white">
+              <p className="bg-ink/90 p-4 text-center text-sm leading-relaxed text-white">
                 {active.caption} · {active.year}
               </p>
             </motion.div>

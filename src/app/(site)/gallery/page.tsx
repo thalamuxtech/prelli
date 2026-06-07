@@ -1,20 +1,13 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/motion/Reveal";
-import { Gallery, type GalleryItem } from "@/components/site/Gallery";
-import { posts } from "@/content/posts";
+import { GalleryClient } from "./GalleryClient";
 
 export const metadata: Metadata = {
   title: "Gallery",
   description:
     "Moments from PreLLI's outreach across Nigeria: photos from our visits, donations, and community programmes.",
 };
-
-// Curated from the outreach archive; the full library is managed via the admin CMS.
-const items: GalleryItem[] = posts
-  .filter((p) => p.coverImage)
-  .map((p) => ({ src: p.coverImage as string, caption: p.title, year: p.year }))
-  .sort((a, b) => b.year - a.year);
 
 export default function GalleryPage() {
   return (
@@ -34,7 +27,7 @@ export default function GalleryPage() {
         </Reveal>
 
         <div className="mt-12">
-          <Gallery items={items} />
+          <GalleryClient />
         </div>
       </Container>
     </section>

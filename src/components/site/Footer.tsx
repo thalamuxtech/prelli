@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Instagram, Facebook, Twitter, Mail, MapPin } from "lucide-react";
@@ -6,14 +8,16 @@ import { Newsletter } from "./Newsletter";
 import { Container } from "@/components/ui/Container";
 import { org } from "@/content/site";
 import { footerGroups } from "@/content/nav";
-
-const socials = [
-  { Icon: Instagram, href: org.socials.instagram, label: "Instagram" },
-  { Icon: Facebook, href: org.socials.facebook, label: "Facebook" },
-  { Icon: Twitter, href: org.socials.twitter, label: "Twitter / X" },
-];
+import { useSiteSettings } from "@/lib/usePublicContent";
 
 export function Footer() {
+  const settings = useSiteSettings();
+  const socials = [
+    { Icon: Instagram, href: settings.instagram, label: "Instagram" },
+    { Icon: Facebook, href: settings.facebook, label: "Facebook" },
+    { Icon: Twitter, href: settings.twitter, label: "Twitter / X" },
+  ].filter((s) => s.href); // hide a social link that's been cleared in the admin
+
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-ink text-white">
       {/* Brand aurora — subtle green/blue glow anchoring the dark footer. */}
@@ -89,13 +93,13 @@ export function Footer() {
           <Container className="flex flex-col gap-4 py-6 text-sm text-white/70 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
               <a
-                href={`mailto:${org.email}`}
+                href={`mailto:${settings.contactEmail}`}
                 className="inline-flex items-center gap-2 transition-colors hover:text-prelli-green"
               >
-                <Mail className="h-4 w-4" /> {org.email}
+                <Mail className="h-4 w-4" /> {settings.contactEmail}
               </a>
               <span className="inline-flex items-center gap-2">
-                <MapPin className="h-4 w-4" /> {org.location}
+                <MapPin className="h-4 w-4" /> {settings.contactLocation}
               </span>
             </div>
             <p>

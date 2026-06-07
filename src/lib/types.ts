@@ -71,19 +71,21 @@ export interface AppUser {
 export interface SiteVisit {
   id: string;
   label?: string; // friendly "PC name" — derived by default, superadmin can rename
+  location?: string; // approximate (IP-based) city/country
   userAgent?: string;
   firstSeen?: { seconds: number } | null;
   lastSeen?: { seconds: number } | null;
   visits?: number;
 }
 
-export type SubmissionType = "contact" | "volunteer" | "partner" | "pledge";
+export type SubmissionType = "contact" | "volunteer" | "partner" | "pledge" | "subscribe";
 
 export const submissionLabels: Record<SubmissionType, string> = {
   contact: "Contact",
   volunteer: "Volunteer",
-  partner: "Partner / Sponsor",
+  partner: "Partner",
   pledge: "Donation Pledge",
+  subscribe: "Newsletter",
 };
 
 export interface Submission {

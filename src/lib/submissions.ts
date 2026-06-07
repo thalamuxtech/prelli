@@ -119,11 +119,16 @@ export async function submitPledge(data: {
 }
 
 export async function subscribeNewsletter(email: string, source = "footer") {
-  await addDoc(collection(db, "subscribers"), {
-    email,
+  // A newsletter sign-up is a kind of submission, so it lives in the unified
+  // submissions inbox (type "subscribe") rather than a separate collection.
+  await addDoc(collection(db, "submissions"), {
+    type: "subscribe",
     name: "",
-    source,
-    status: "active",
+    email,
+    message: "",
+    extra: { source },
+    handled: false,
+    archived: false,
     createdAt: serverTimestamp(),
   });
   await notifyByEmail("New newsletter subscriber", { type: "Newsletter", name: "", email, message: "" });

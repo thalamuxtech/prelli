@@ -6,7 +6,8 @@ import { subscribeNewsletter } from "@/lib/submissions";
 
 type Status = "idle" | "sending" | "done" | "error";
 
-/** Newsletter capture — writes to the Firestore `subscribers` collection (§8). */
+/** Newsletter capture — writes a "subscribe" submission to the unified
+ *  `submissions` inbox (§8), shown in Admin > Submissions. */
 export function Newsletter() {
   const [status, setStatus] = useState<Status>("idle");
 
